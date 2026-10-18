@@ -38,7 +38,7 @@ In **Solo offline** l'app non effettua alcuna richiesta di rete, nemmeno verso G
 - `INTERNET`: streaming/download dal tuo server e controllo aggiornamenti su richiesta.
 - `WAKE_LOCK`: mantenere la riproduzione attiva a schermo spento (servizio audio in background).
 - `MODIFY_AUDIO_SETTINGS`: equalizzatore, ReplayGain e rinforzo bassi tramite gli effetti
-  audio di sistema; non modifica il volume globale del dispositivo.
+  audio e controllo del volume multimediale Android dall'app.
 - `REQUEST_INSTALL_PACKAGES`: installazione dell'APK di aggiornamento **dopo la tua conferma**
   nell'installer di sistema (mai automatica).
 - Notifica multimediale: gestita dalla sessione audio Android; l'app attuale non

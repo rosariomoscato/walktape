@@ -4,8 +4,8 @@ Player Android nativo per [Navidrome](https://www.navidrome.org), con un'identit
 
 Open source (licenza MIT), nessuna pubblicità, nessuna telemetria, nessun account aggiuntivo: la tua musica resta sul tuo server.
 
-**Versione corrente: [v0.1.0](https://github.com/rosariomoscato/walktape/releases/tag/v0.1.0)**
-— [Scarica APK universal](https://github.com/rosariomoscato/walktape/releases/download/v0.1.0/walktape-universal-0.1.0.apk)
+**Versione corrente: [v0.1.1](https://github.com/rosariomoscato/walktape/releases/tag/v0.1.1)**
+— [Scarica APK universal](https://github.com/rosariomoscato/walktape/releases/download/v0.1.1/walktape-universal-0.1.1.apk)
 · [Novità e verifiche](docs/RELEASE_NOTES.md)
 
 ## Cos'è
@@ -40,7 +40,7 @@ WalkTape riproduce la libreria del tuo server Navidrome sul telefono (e in Andro
 WalkTape non è su Google Play. L'APK firmato è distribuito tramite
 [GitHub Releases](https://github.com/rosariomoscato/walktape/releases).
 
-1. Scarica `walktape-universal-0.1.0.apk` dalla release v0.1.0; il relativo hash è nel file `SHA256SUMS.txt` della stessa release.
+1. Scarica `walktape-universal-0.1.1.apk` dalla release v0.1.1; il relativo hash è nel file `SHA256SUMS.txt` della stessa release.
 2. Aprilo sul telefono e conferma l'installazione (Android può chiedere il permesso di installare app sconosciute al browser o al gestore file usato).
 3. Al primo avvio: aggiungi il profilo con URL, utente e password Navidrome (o scansiona il QR generato da un altro dispositivo).
 
@@ -48,10 +48,10 @@ WalkTape non è su Google Play. L'APK firmato è distribuito tramite
 
 Guida dettagliata: [docs/INSTALL.md](docs/INSTALL.md).
 
-**Per chi usa già una build di test 0.1.0:** il controllo in-app la considera la stessa
-versione. Il primo passaggio al pacchetto release si fa installando manualmente l'APK
-sopra quello attuale, con la stessa firma e senza disinstallare. Versione pubblica:
-`0.1.0`, `versionCode 2`.
+**Per chi usa già la v0.1.0 (o una build di test 0.1.0):** l'app offre l'aggiornamento
+in-app da Impostazioni → Aggiornamenti app (versione `0.1.1`, `versionCode 3`, stessa
+firma, installazione sopra quella esistente senza disinstallare). In alternativa,
+scarica l'APK e installalo manualmente.
 
 ## Limiti
 

@@ -1,6 +1,22 @@
 # WalkTape — firma e pubblicazione APK
 
-## Artefatto v0.1.0
+## Artefatto v0.1.1
+
+| Campo | Valore |
+| --- | --- |
+| Tag / sorgente | `v0.1.1` (commit identificato dal tag) |
+| Package | `com.walktape.app` |
+| Versione / code | `0.1.1` / `3` |
+| Asset | `walktape-universal-0.1.1.apk` |
+| SHA256 APK | `4a6149aa38ca36b06aa673f442fb900666afd0cc73d1b645404df12cd4f250ed` |
+| Certificato SHA256 | `60e9a71f990819c44b2a07a6fc9254925a0d87414c36495f85feb9ffde7b178c` |
+
+Build `assembleRelease lintRelease` riuscita in 12m41s; package/versione/code,
+quattro ABI e firma V2 verificati sull'APK finale. Certificato identico alla v0.1.0:
+aggiornamento in-place, senza disinstallare. Schema Room 13 incluso nei sorgenti.
+Gli esiti di pubblicazione e download sono registrati in WORKLOG.md.
+
+## Artefatto v0.1.0 (storico)
 
 | Campo | Valore |
 | --- | --- |

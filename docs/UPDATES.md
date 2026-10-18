@@ -4,18 +4,20 @@ Funzione W11-T04. Controlli e download dalle **GitHub Releases** di
 `rosariomoscato/walktape`. Nessun aggiornamento forzato, nessuna installazione automatica:
 Android chiede sempre conferma.
 
-## Prima release pubblica
+## Release correnti
 
-**[v0.1.0](https://github.com/rosariomoscato/walktape/releases/tag/v0.1.0)**,
-`versionCode2`, asset `walktape-universal-0.1.0.apk` e `SHA256SUMS.txt`.
-La firma è la stessa delle build di sviluppo del progetto.
+**[v0.1.1](https://github.com/rosariomoscato/walktape/releases/tag/v0.1.1)**,
+`versionCode3`, asset `walktape-universal-0.1.1.apk` e `SHA256SUMS.txt`.
+Dalla v0.1.1 il percorso in-app è quello normale: nome versione e versionCode crescenti,
+offerta di aggiornamento, download verificato (checksum pubblicato + firma) e conferma
+dell'installer di sistema.
 
-Chi ha già una build chiamata0.1.0 vedrà **versione aggiornata**, non un'offerta di
-aggiornamento: il confronto usa versionName, non il tipo debug/release. Per passare al
-primo APK pubblico, scaricarlo e installarlo manualmente senza disinstallare.
-Le prossime release dovranno avere versionName e versionCode maggiori (code>2).
-La prima pubblicazione non dimostra da sola il percorso completo di aggiornamento
-verso una futura versione: download/installer interattivi restano da collaudare.
+La prima release **[v0.1.0](https://github.com/rosariomoscato/walktape/releases/tag/v0.1.0)**
+(`versionCode2`) resta disponibile. Chi ha già una build chiamata0.1.0 la vede come
+**versione aggiornata**: per passare alla v0.1.1 basta il controllo in-app (che ora
+offre la nuova versione) oppure l'installazione manuale dell'APK. La prima pubblicazione
+non dimostra da sola il percorso completo di aggiornamento verso una futura versione:
+download/installer interattivi restano da collaudare.
 
 ## Percorso
 

@@ -1,8 +1,19 @@
 # WalkTape — memoria di progetto
 
-Ultimo aggiornamento: 2026-10-17 (release pubblica v0.1.0/code2 con APK aggiornato e checksum; documentazione riallineata; Auto e collaudi hardware residui aperti).
+Ultimo aggiornamento: 2026-10-18 (pubblicazione v0.1.1/code3 autorizzata; build release e firma verificate; upload e download pubblico da completare).
 
-## Punto corrente — v0.1.0 pubblicata; collaudi residui
+## Punto corrente — pubblicazione v0.1.1 autorizzata
+
+- Commit 6227173 (skill) e b6e85e1 (correzioni review) creati; preparazione release
+  con versionName 0.1.1/code3, schema Room 13 e documenti aggiornati.
+- Build release/lint riuscita in 12m41s. APK firmato V2, stesso certificato della
+  v0.1.0; SHA256 `4a6149aa38ca36b06aa673f442fb900666afd0cc73d1b645404df12cd4f250ed`.
+  File ignorati in `local/releases/v0.1.1/`: APK universal e SHA256SUMS.txt.
+- Prossima azione: commit preparazione, push, tag v0.1.1, draft con asset, verifica
+  download, pubblicazione latest e controllo pubblico. Non confondere preparazione
+  con pubblicazione già eseguita. Collaudi hardware/Auto residui restano aperti.
+
+## Baseline precedente — v0.1.0 pubblicata; collaudi residui
 
 - **W12-T06/T07 — release pubblicata su richiesta esplicita dell'utente**:
   https://github.com/rosariomoscato/walktape/releases/tag/v0.1.0
@@ -34,6 +45,37 @@ Ultimo aggiornamento: 2026-10-17 (release pubblica v0.1.0/code2 con APK aggiorna
   Pulizia finale: dopo boot completo, su0 ha verificato e rimosso il marker nell'app;
   /data/local/tmp solo dalvik-cache, sync e shutdown eseguiti, adb vuoto verificato.
   Copie temporanee di download rimosse, originali pubblicati conservati in local/.
+- Manutenzione strumenti 2026-10-18: rimossa su richiesta la skill locale
+  `.agents/skills/create-brand-kit` con reference/script e la voce in `skills-lock.json`
+  (restano review-an-app e start-an-app). Nessun cambio applicativo o alla release;
+  rimozione non committata. Ripresa funzionale invariata.
+- Review `review-an-app` 2026-10-18 (statica, read-only, codice == v0.1.0 pubblicato):
+  9 rilievi confermati — broken: INSTALL.md:50 nomina "Verifica e indicizza" (controllo
+  inesistente; bottone reale "Verifica e salva", indicizzazione manuale separata);
+  at risk: token+salt MD5 in URL con opt-in HTTP (cracking offline password da
+  osservatore LAN; considerare apiKey OpenSubsonic) e "Permessi" PRIVACY.md incompleta
+  vs manifest (WAKE_LOCK, MODIFY_AUDIO_SETTINGS); worth knowing: cleartext globale +
+  updater redirect cross-scheme (installazione gated da ApkVerifier), solo TLS GitHub
+  (SHA256SUMS non consultato), import backup precompila URL+HTTP del file,
+  MEDIA_PLAY_FROM_SEARCH esportato supera il gate biometrico, etichetta "rete locale /
+  VPN" senza rilevamento, vocabolario README vs stringhe app. Superficie pubblica e
+  checksum release verificati coerenti. Fix non richiesti: nessuna modifica eseguita;
+  dettaglio e verifiche non eseguite in WORKLOG. Ripresa funzionale invariata.
+- **Correzioni review 2026-10-18 (D42)**: tutti i 9 rilievi corretti su richiesta
+  esplicita. D42: autenticazione **chiave API OpenSubsonic** (`apiKeyAuthentication`,
+  spec ufficiale verificata; `apiKey` da sola, chiave fuori banda, niente endpoint
+  getApiKey) con **Room v13** (`profile.usesApiKey`), toggle IT/EN nei form, backup del
+  solo flag; il server reale 0.62.0 non offre l'estensione → percorso dormiente sul
+  server attuale, verificato via fixture. Updater: **HTTPS-only su ogni hop** +
+  **verifica SHA256SUMS.txt** fail-closed prima della firma. `ExternalSearchGate`
+  rifiuta la ricerca esterna con Blocco app attivo finché non sbloccato (fail-closed).
+  Docs riallineati (INSTALL passo 3, PRIVACY permessi completi, etichette HTTP oneste,
+  vocabolario README). Verifiche: **JVM 192/192** (0 skip, login reale incluso),
+  **Android ProfilesInstrumentedTest 6/6** (migrazione 12→13, apiKey e2e, regressioni),
+  lint **0/46**, schema 13.json. Non eseguiti: updater runtime (serve release maggiore),
+  UI apiKey e gate su dispositivo. **Versione ancora 0.1.0/code2: per distribuire le
+  correzioni serve release con versionName>0.1.0 e code>2. Nessun commit/push/release.**
+  Ripresa funzionale invariata (collaudi residui W10 Auto, W11 telefono, W05–W09/W12).
 
 ### Baseline W12 e riscontri precedenti (storico)
 

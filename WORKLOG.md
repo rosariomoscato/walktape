@@ -1612,3 +1612,147 @@ storico, checklist W11 con esiti404 precedenti preservati e due nuove prove post
 non spuntate. W12D mantiene i riscontri precedenti e distingue hash debug da pubblico.
 Nessuna nuova prova telefono attestata, nessun collaudo Auto/batteria chiuso. Ulteriori
 versioni richiederanno versionName e code crescenti concordati, senza sostituire asset/tag.
+
+## 2026-10-18 — Rimozione skill locale create-brand-kit
+
+Richiesta esplicita dell'utente: rimuovere la skill dal progetto. Eliminati SKILL.md,
+tre reference, uno script eval e cinque script sotto `.agents/skills/create-brand-kit`;
+rimossa soltanto la voce corrispondente in `skills-lock.json` (JSON rimasto valido con
+le due skill rimanenti review-an-app e start-an-app). Altre skill e configurazioni
+preservate; il registro storico d'installazione del 2026-10-12 in WORKLOG resta nella
+sua forma originale, come per la precedente rimozione deploy-an-app.
+
+Controlli: directory della skill rimossa (verifica Test-Path), lockfile valido,
+`git status --short` con le sole 10 eliminazioni dei file della skill e la modifica al
+lockfile. Nessun cambio applicativo, nessuna build Android necessaria. PLAN e memoria
+aggiornati; nessun commit/push richiesto o eseguito. Punto di ripresa funzionale
+invariato (collaudi residui W10 Auto, W11 e hardware W05–W09/W12).
+
+## 2026-10-18 — Review-an-app: revisione statica di WalkTape v0.1.0
+
+Task: nessun task di PLAN; revisione su richiesta dell'utente tramite skill
+`review-an-app` (lenti security/discoverability/drift adattate ad app Android nativa).
+Modalità: **statica e read-only** — nessun build, emulatore, dispositivo, server
+Navidrome contattato o APK riscaricato. HEAD `2557681` verificato identico a `origin/main`
+e, per `app/`, al tag `v0.1.0`: il codice recensito è quello dell'APK pubblicato.
+Evidence pack unico in temp per le tre lenti, senza segreti; brief separati per lente.
+
+Risultato: **9 rilievi confermati** (1 broken, 2 at risk, 6 worth knowing), tutti
+riverificati con comandi/grep dal coordinatore prima del report:
+broken = INSTALL.md:50 nomina il controllo inesistente "Verifica e indicizza" (bottone
+reale "Verifica e salva"; l'indicizzazione è azione manuale separata); at risk =
+token+salt MD5 in URL su ogni richiesta con opt-in HTTP documentato (cracking offline
+della password da parte di un osservatore LAN; remediation possibile: estensione
+apiKey OpenSubsonic) e sezione "Permessi" di PRIVACY.md incompleta vs manifest
+(mancano WAKE_LOCK e MODIFY_AUDIO_SETTINGS); worth knowing = usesCleartextTraffic
+globale + updater che segue redirect cross-scheme/asset.url senza check di scheme
+(installazione comunque gated da ApkVerifier, verificato UpdateScreen installa solo in
+stato Verified), canale aggiornamenti affidato al solo TLS GitHub (SHA256SUMS pubblicato
+ma non consultato dall'app), import backup che precompila login con URL+opt-in HTTP del
+file, PlaybackService esportato con MEDIA_PLAY_FROM_SEARCH avviabile da altre app senza
+passare dal blocco biometrico, etichetta "HTTP — rete locale / VPN" incondizionata
+(nessun rilevamento di contesto nel codice), vocabolario README ("timer di spegnimento",
+"crossfade") diverso dalle stringhe app ("Timer di ascolto", "Dissolvenza incrociata").
+Lens discoverability: superficie pubblica coerente (tutti i link relativi/assoluti
+risolvono; checksum c1ccacb4 verificato contro digest asset GitHub; nessun
+sitemap/robots, corretto per app Android). Verificati positivamente da security:
+parametrizzazione RawQuery, isolamento profilo/cascate, path traversal respinto,
+credenziali assenti da log/backup/QR, redactor, allowBackup/dataExtractionRules coerenti.
+
+Non eseguiti: advisory dipendenze (nessuna scansione disponibile), prove su
+dispositivo/emulatore (gate biometrico, installer, Auto, Solo offline a runtime), link
+developer.android.com (errori di transport del tool, non 404), certificato dell'APK
+pubblicato non riattestato. Nessuna modifica applicativa; fix solo su futura richiesta.
+Report consegnato in chat; dettaglio per l'utente. Punto di ripresa funzionale invariato.
+
+## 2026-10-18 — Correzioni review-an-app: D42 apiKey, updater HTTPS+checksum, gate ricerca, docs
+
+Task: nessun task di PLAN; correzione dei 9 rilievi della revisione su richiesta esplicita
+dell'utente («risolvi in autonomia... tutte le autorizzazioni necessarie»). Ordine skill
+Step 6: broken → at risk → worth knowing. Spec apiKey verificata su fonte ufficiale
+opensubsonic.netlify.app (estensione `apiKeyAuthentication`; `apiKey` da sola, mai con
+u/t/s [errore 43]; chiavi create/revocate fuori banda dalla UI del server; NON esiste
+endpoint getApiKey — correzione dell'assunzione del lens).
+
+Attività:
+
+- **Broken INSTALL.md**: passo 3 nomina ora i controlli reali («Verifica e salva» +
+  «Aggiorna libreria» per l'indice, con nota che il salvataggio profilo NON indicizza).
+- **PRIVACY.md**: permessi WAKE_LOCK e MODIFY_AUDIO_SETTINGS aggiunti; GitHub row cita il
+  file di checksum; credenziali = password o chiave API cifrate AES-GCM.
+- **D42 apiKey (Room v13)**: `Credentials.usesApiKey` + builder `auth()` unico nel client
+  (execute/coverArt/streamUrl/downloadUrl); `profile.usesApiKey` con migrazione 12→13 e
+  schema 13.json esportato; repository addVerified/login/clientFor, limite secret 1500
+  caratteri; UI toggle+field nei form aggiungi/login (prefill dal profilo, IT/EN); backup
+  esporta solo il flag (mai la chiave) e import lo applica; Redactor già copre `apiKey=`.
+  Server reale 0.62.0 non offre l'estensione (registro W01): percorso dormiente sul server
+  attuale, verificato via fixture — non dichiarata protezione attiva sul server corrente.
+- **Updater**: network interceptor HTTPS-only su ogni hop nel client GitHub dedicato +
+  guardia `https://` su asset.url; `Checksums` (parsing sha256sum due-spazi/binario +
+  SHA-256) e `verifyChecksum` (Ok/NotPublished/Mismatch/Unavailable) tra download e
+  ApkVerifier; ViewModel rifiuta fail-closed Mismatch/Unavailable con motivo dedicato
+  IT/EN; firma resta il gate di installazione.
+- **Gate ricerca esterna**: `ExternalSearchGate` puro + `Graph.markAppUnlocked()` dal gate
+  UI di MainActivity; PlaybackService rifiuta playFromSearch/prepareFromSearch con Blocco
+  app attivo e processo non sbloccato (fail-closed dopo morte processo). Transport controls
+  su coda già caricata invariati. Nota in ANDROID_AUTO.md.
+- **Onestà HTTP**: etichetta «HTTP — connessione non cifrata» (IT/EN), help che espone la
+  conseguenza di intercettazione, error_configuration senza "consenso locale/VPN";
+  README/INSTALL riallineati (consenso esplicito, consiglio HTTPS/VPN/chiave API).
+- **README vocabolario**: «timer di ascolto», «dissolvenza incrociata opzionale»,
+  apiKey nei Profili, «solo HTTPS con checksum pubblicato e firma».
+
+File principali: `core/net/{Connection,OpenSubsonicClient}.kt`, `core/db/{ProfileEntity,
+WalkTapeDatabase}.kt`, `core/profiles/ProfileRepository.kt`, `ui/screens/profiles/*`,
+`core/backup/{BackupModels,BackupManager}.kt`, `core/updates/{GitHubReleases,UpdateManager,
+Checksums,ApkVerifier}.kt`, `ui/screens/updates/*`, `playback/{ExternalSearchGate,
+PlaybackService}.kt`, `Graph.kt`, `MainActivity.kt`, stringhe it/en, schema 13.json,
+test JVM/Android, README/INSTALL/PRIVACY/UPDATES/ANDROID_AUTO/ARCHITECTURE.
+
+Verifiche (ambiente host come da prassi: JBR, in-process, max-workers2, log
+`wt-review-fixes.log` in temp):
+
+- Prima esecuzione fallita su 1 test (192 completati): `downloadText` rifiuta correttamente
+  URL http:// e il test usava MockWebServer http per il fetch — test riformulato onestamente
+  (https su porta rifiutata → null controllato), non indebolito il guard.
+- Seconda esecuzione: `assembleDebug testDebugUnitTest assembleDebugAndroidTest lintDebug
+  -PrealServerTest=true` **BUILD SUCCESSFUL 4m07s**; **JVM 192/192, 0 fail/0 skip**,
+  compresi i 2 test col server reale (login reale riuscito con il nuovo codice) e i nuovi:
+  3 apiKey client (ping/stream/download senza u/t/s, guardia RESERVED), 2 Checksums
+  (parsing+vettore SHA-256), 3 trasporto updater (https-only su defaultClient, http
+  rifiutato senza richieste, trasporto https fallito→null), 4 ExternalSearchGate, 1
+  redactor apiKey, 2 backup (round-trip flag, assenza campo nei file vecchi).
+- **Android walktape_aosp**: `ProfilesInstrumentedTest` **6/6 in 7,3s** — nuova migrazione
+  12→13 (downgrade chirurgico della tabella profile a v12 con legacy_alter_table,
+  user_version=12, riapertura Room: riga conservata, usesApiKey default off), nuovo profilo
+  apiKey end-to-end (addVerified→richiesta con solo apiKey, vault, clientFor riapplica la
+  modalità, remove) e 4 regressioni esistenti (migrazione shell, keystore tamper/cross,
+  isolamento concorrente, real-server opt-in saltata per Assume senza env).
+- Lint **0 errori / 46 warning** (baseline 45; nessun nuovo tipo). Schema `13.json`
+  presente. Emulatore spento, adb vuoto verificato.
+
+Non eseguiti: percorso updater runtime (checksum/https contro release reale: v0.1.0 è pari
+versione e non offre download; serve una release maggiore), prova UI del toggle apiKey su
+dispositivo, gate ExternalSearchGate su dispositivo (verificato JVM + statico del service),
+collaudi hardware/Auto già aperti. Versione non incrementata: servono versionName>0.1.0 e
+code>2 concordati per distribuire queste correzioni (RELEASING).
+
+Stato: tutti e 9 i rilievi corretti e verificati come sopra; nessun commit/push/release
+(eseguiti solo su richiesta). Prossima azione funzionale invariata: collaudi residui
+W10 Auto, W11 telefono e hardware W05–W09/W12; su richiesta, commit e preparazione
+  release 0.1.1+ con APK riallineato.
+
+## 2026-10-18 — Pubblicazione v0.1.1 autorizzata
+
+Richiesta esplicita: commit, push e pubblicazione v0.1.1. Commit locali 6227173
+(rimozione skill) e b6e85e1 (correzioni review); incremento versionName 0.1.1/code3.
+Schema Room 13 incluso nel commit di preparazione release. Verifiche precedenti:
+192 test JVM senza failure/skip; la classe Android ha riportato OK (6 tests), ma il
+test reale opt-in con Assume senza env non attesta una nuova prova server su emulatore.
+Build finale assembleRelease/lintRelease: BUILD SUCCESSFUL in 12m41s. APK universal
+com.walktape.app, 0.1.1/code3, quattro ABI, firma V2 verificata con certificato identico
+alla v0.1.0 (60e9a71f…b178c); SHA256
+4a6149aa38ca36b06aa673f442fb900666afd0cc73d1b645404df12cd4f250ed.
+APK e checksum preparati sotto local/releases/v0.1.1 (ignorati). Note e link aggiornati;
+precisato che un checksum non pubblicato non sostituisce il gate firma obbligatorio.
+Pubblicazione e verifica download da registrare al termine. Nessun nuovo collaudo hardware.
