@@ -25,14 +25,20 @@ class ProfileRepository(
     private val mutex = Mutex()
     val profiles = dao.observeAll()
 
+    companion object {
+        /** Spec: an apiKey must stay under 2048 URL-encoded characters; keep headroom. */
+        const val MAX_SECRET_CHARS = 1500
+    }
+
     suspend fun addVerified(name: String, url: String, username: String, password: String,
-                            allowLocalHttp: Boolean): ApiResult<Long> = withContext(Dispatchers.IO) {
-        if (name.isBlank() || name.length > 80 || username.isBlank() || password.isEmpty()) {
+                            allowLocalHttp: Boolean, usesApiKey: Boolean = false): ApiResult<Long> = withContext(Dispatchers.IO) {
+        if (name.isBlank() || name.length > 80 || username.isBlank() || password.isEmpty() ||
+            password.length > MAX_SECRET_CHARS) {
             return@withContext ApiResult.Failure(ApiError.InvalidRequest)
         }
         val address = ServerAddress.parse(url, allowLocalHttp)
             ?: return@withContext ApiResult.Failure(ApiError.InvalidRequest)
-        when (val result = OpenSubsonicClient(address, Credentials(username, password)).ping()) {
+        when (val result = OpenSubsonicClient(address, Credentials(username, password, usesApiKey)).ping()) {
             is ApiResult.Failure -> result
             is ApiResult.Success -> mutex.withLock {
                 val keyId = UUID.randomUUID().toString()
@@ -41,7 +47,8 @@ class ProfileRepository(
                     val id = database.withTransaction {
                         val id = dao.insert(ProfileEntity(name = name.trim(), serverUrl = address.url.toString(),
                             username = username, createdAt = System.currentTimeMillis(), credentialId = keyId,
-                            encryptedPassword = encrypted, allowLocalHttp = allowLocalHttp))
+                            encryptedPassword = encrypted, allowLocalHttp = allowLocalHttp,
+                            usesApiKey = usesApiKey))
                         if (dao.active() == null) dao.activate(id)
                         id
                     }
@@ -62,7 +69,7 @@ class ProfileRepository(
         val address = ServerAddress.parse(profile.serverUrl, profile.allowLocalHttp) ?: return@withContext null
         try {
             OpenSubsonicClient(address, Credentials(profile.username,
-                vault.decrypt(profile.credentialId, profile.encryptedPassword)),
+                vault.decrypt(profile.credentialId, profile.encryptedPassword), profile.usesApiKey),
                 networkAllowed = { dao.get(id) != null &&
                     database.downloadDao().settings(id)?.offlineOnly != true &&
                     dao.active()?.id?.let { database.downloadDao().settings(it)?.offlineOnly } != true })
@@ -79,13 +86,13 @@ class ProfileRepository(
      * previous key, if any, is removed. Never touches queue, downloads or the server.
      */
     suspend fun login(id: Long, url: String, username: String, password: String,
-                      allowLocalHttp: Boolean): ApiResult<Unit> = withContext(Dispatchers.IO) {
-        if (username.isBlank() || password.isEmpty()) {
+                      allowLocalHttp: Boolean, usesApiKey: Boolean = false): ApiResult<Unit> = withContext(Dispatchers.IO) {
+        if (username.isBlank() || password.isEmpty() || password.length > MAX_SECRET_CHARS) {
             return@withContext ApiResult.Failure(ApiError.InvalidRequest)
         }
         val address = ServerAddress.parse(url, allowLocalHttp)
             ?: return@withContext ApiResult.Failure(ApiError.InvalidRequest)
-        when (val result = OpenSubsonicClient(address, Credentials(username, password)).ping()) {
+        when (val result = OpenSubsonicClient(address, Credentials(username, password, usesApiKey)).ping()) {
             is ApiResult.Failure -> result
             is ApiResult.Success -> mutex.withLock {
                 val profile = dao.get(id) ?: return@withLock ApiResult.Failure(ApiError.InvalidRequest)
@@ -100,6 +107,7 @@ class ProfileRepository(
                             credentialId = keyId,
                             encryptedPassword = encrypted,
                             allowLocalHttp = allowLocalHttp,
+                            usesApiKey = usesApiKey,
                         ))
                     }
                     if (oldKeyId.isNotEmpty()) vault.delete(oldKeyId)

@@ -37,7 +37,11 @@ WalkTape si collega al server che già possiedi (compatibilità dichiarata: solo
   del computer, es. `http://100.x.y.z:4533` o `http://nas:4533`. WalkTape non installa né
   configura la VPN: la rete deve essere già raggiungibile dal telefono.
 - **HTTPS**: consigliato quando il server è esposto oltre la propria VPN/LAN. HTTP è
-  consentito nei contesti locale/VPN e l'app mostra sempre il tipo di connessione.
+  possibile solo con consenso esplicito nel profilo e l'app mostra sempre il tipo di
+  connessione; su HTTP chi intercetta il traffico può catturare un dato equivalente alla
+  password, quindi preferisci HTTPS o una VPN. Se il tuo server supporta le chiavi API
+  (estensione OpenSubsonic `apiKeyAuthentication`), puoi usarne una revocabile al posto
+  della password quando aggiungi il profilo.
 
 Consigli rapidi per Tailscale: installa Tailscale su computer e telefono, accedi con lo stesso
 account, verifica dal telefono che `http://<ip-tailscale-del-pc>:4533` apra Navidrome nel
@@ -46,9 +50,10 @@ browser, poi usa lo stesso indirizzo in WalkTape.
 ## 3. Aggiungere il profilo in WalkTape
 
 1. Al primo avvio scegli **Aggiungi profilo**.
-2. Inserisci nome (libero), URL del server, username e password Navidrome.
-3. **Verifica e indicizza**: l'operazione scarica l'indice della libreria nel tempo; il
-   progresso è visibile in La mia musica.
+2. Inserisci nome (libero), URL del server, username e password Navidrome, poi premi
+   **Verifica e salva**: l'app verifica le credenziali sul server prima di salvare il profilo.
+3. La libreria non si scarica in questo passaggio: in **La mia musica** usa
+   **Aggiorna libreria** per indicizzare (il progresso resta visibile lì ed è annullabile).
 4. In alternativa, su un altro telefono con il profilo già configurato: **Condividi QR**
    genera un codice con URL/nome/username (mai la password, che si digita a mano).
 

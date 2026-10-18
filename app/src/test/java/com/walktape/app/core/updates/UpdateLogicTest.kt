@@ -148,4 +148,62 @@ class UpdateLogicTest {
         assertEquals("2022-11-28", recorded.headers["X-GitHub-Api-Version"])
         assertTrue(recorded.url.encodedPath.endsWith("/repos/o/r/releases/latest"))
     }
+
+    // --- published-checksum cross-check (SHA256SUMS.txt) ---
+
+    @Test
+    fun `expected digest parses two-space and binary marker forms`() {
+        val digest = "c1ccacb4632d39da11c4bd0344cbe092a90f1eca7d6badc253ca04be72668957"
+        assertEquals(digest, Checksums.expectedDigest(
+            "$digest  walktape-universal-0.1.0.apk\n", "walktape-universal-0.1.0.apk"))
+        assertEquals(digest, Checksums.expectedDigest(
+            "$digest *walktape-universal-0.1.0.apk\r\n", "walktape-universal-0.1.0.apk"))
+        assertEquals(digest, Checksums.expectedDigest(
+            "aaaa0000000000000000000000000000000000000000000000000000000000bbbb  other.apk\n" +
+                "$digest  walktape-universal-0.1.0.apk\n", "walktape-universal-0.1.0.apk"))
+        assertNull(Checksums.expectedDigest(
+            "aaaa0000000000000000000000000000000000000000000000000000000000bbbb  other.apk\n",
+            "walktape-universal-0.1.0.apk"))
+        assertNull(Checksums.expectedDigest("not a checksum line", "walktape-universal-0.1.0.apk"))
+        assertNull(Checksums.expectedDigest("${"f".repeat(64)}  app.apk", " "))
+    }
+
+    @Test
+    fun `sha256 of a file matches the standard vector`() {
+        val file = java.io.File.createTempFile("wt-checksums", ".bin")
+        try {
+            file.writeBytes(byteArrayOf(97, 98, 99)) // "abc"
+            assertEquals("ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+                Checksums.sha256(file))
+        } finally {
+            file.delete()
+        }
+    }
+
+    // --- updater transport: HTTPS only, on the first hop and every redirect ---
+
+    @Test
+    fun `default updater client refuses cleartext http requests`() {
+        server.enqueue(MockResponse.Builder().body("x").build())
+        val client = GitHubReleases.defaultClient()
+        try {
+            client.newCall(okhttp3.Request.Builder().url(server.url("/").toString()).build()).execute()
+            throw AssertionError("a cleartext request through defaultClient must fail")
+        } catch (_: java.io.IOException) {
+            // refused by the HTTPS-only network interceptor, as designed
+        }
+    }
+
+    @Test
+    fun `downloadText rejects http urls without any request`() = runBlocking {
+        assertNull(GitHubReleases(OkHttpClient()).downloadText("http://example.org/SHA256SUMS.txt"))
+        assertEquals(0, server.requestCount)
+    }
+
+    @Test
+    fun `downloadText maps an https transport failure to null`() = runBlocking {
+        // Local port 1: connection refused. An https URL is accepted by the guard and
+        // the transport failure must surface as a controlled null, never an exception.
+        assertNull(GitHubReleases(OkHttpClient()).downloadText("https://127.0.0.1:1/SHA256SUMS.txt"))
+    }
 }

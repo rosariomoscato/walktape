@@ -34,7 +34,10 @@ eseguiti passaggi telefonici né ricertifica come attuale la ricerca storica W01
   anche con un browser legacy che richiede tutti i figli in una sola chiamata.
 - Ricerca locale unificata, al massimo 500 risultati per query; restringere la query se serve.
   Le richieste vocali Media3 con `RequestMetadata.searchQuery` sono risolte localmente;
-  il percorso end-to-end dell'assistente rimane da provare su Auto.
+  il percorso end-to-end dell'assistente rimane da provare su Auto. Con **Blocco app**
+  attivo, la ricerca/riproduzione avviata dall'esterno (assistente o altre app) è rifiutata
+  finché WalkTape non viene sbloccata una volta sul telefono: dopo il riavvio del processo
+  nulla parte finché non si sblocca (fail-closed).
 
 Browse, ricerca e riconnessione non preparano l'audio e non generano ascolti.
 La coda salvata viene caricata in pausa; un play esplicito riprende l'occorrenza e la posizione.

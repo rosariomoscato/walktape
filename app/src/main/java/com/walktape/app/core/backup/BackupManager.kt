@@ -63,6 +63,7 @@ class BackupManager(
                 serverUrl = profile.serverUrl,
                 username = profile.username,
                 allowLocalHttp = profile.allowLocalHttp,
+                usesApiKey = profile.usesApiKey,
                 settings = settings?.let {
                     BackupProfileSettings(it.wifiOnly, it.offlineOnly, it.skipUnavailable,
                         it.mobileReduced, it.reducedBitRate, it.downloadReduced)
@@ -167,6 +168,7 @@ class BackupManager(
                             credentialId = "",
                             encryptedPassword = "",
                             allowLocalHttp = source.allowLocalHttp,
+                            usesApiKey = source.usesApiKey,
                         ))
                         created = true
                     }

@@ -29,6 +29,13 @@ class RedactorTest {
     }
 
     @Test
+    fun `redacts apiKey authentication parameter`() {
+        val input = "url /rest/ping?apiKey=nd-secret-key-1&v=1"
+        val expected = "url /rest/ping?apiKey=***&v=1"
+        assertEquals(expected, Redactor.redact(input))
+    }
+
+    @Test
     fun `keeps ordinary values untouched`() {
         val input = "device.model: Moto G 55\nprofiles.configured: 0"
         assertEquals(input, Redactor.redact(input))

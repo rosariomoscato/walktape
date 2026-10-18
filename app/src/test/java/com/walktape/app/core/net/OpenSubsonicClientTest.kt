@@ -126,4 +126,51 @@ class OpenSubsonicClientTest {
             assertEquals(listOf(ServerExtension("formPost", listOf(1)), ServerExtension("future", listOf(2))), result.value)
         }
     }
+
+    // --- OpenSubsonic apiKeyAuthentication (extension spec: apiKey alone, never with u/t/s) ---
+
+    @Test fun `apiKey mode sends only the key without username or token`() = runBlocking {
+        startedServer().use { server ->
+            server.enqueue(MockResponse.Builder().body(ok).build())
+            val client = OpenSubsonicClient(ServerAddress.parse(server.url("/").toString(), true)!!,
+                Credentials("user", "nd-key-123", usesApiKey = true))
+            assertTrue(client.ping() is ApiResult.Success)
+            val url = server.takeRequest().url!!
+            assertEquals("nd-key-123", url.queryParameter("apiKey"))
+            assertNull(url.queryParameter("u"))
+            assertNull(url.queryParameter("t"))
+            assertNull(url.queryParameter("s"))
+            assertEquals("WalkTape", url.queryParameter("c"))
+        }
+    }
+
+    @Test fun `apiKey mode applies to stream and download urls without salt auth`() {
+        val client = OpenSubsonicClient(ServerAddress.parse("https://example.org", false)!!,
+            Credentials("user", "nd-key-123", usesApiKey = true))
+        val stream = client.streamUrl("song-1", "c19b2d")
+        assertEquals("nd-key-123", stream.queryParameter("apiKey"))
+        assertNull(stream.queryParameter("u"))
+        assertNull(stream.queryParameter("t"))
+        assertNull(stream.queryParameter("s"))
+        assertEquals("song-1", stream.queryParameter("id"))
+        val download = client.downloadUrl("song-1", "c19b2d")
+        assertEquals("nd-key-123", download.queryParameter("apiKey"))
+        assertNull(download.queryParameter("u"))
+        assertNull(download.queryParameter("t"))
+        assertNull(download.queryParameter("s"))
+    }
+
+    @Test fun `password mode keeps token auth and callers cannot inject apiKey`() = runBlocking {
+        startedServer().use { server ->
+            server.enqueue(MockResponse.Builder().body(ok).build())
+            val client = OpenSubsonicClient(ServerAddress.parse(server.url("/").toString(), true)!!,
+                Credentials("user", "sesame"))
+            assertTrue(client.ping() is ApiResult.Success)
+            val url = server.takeRequest().url!!
+            assertNull(url.queryParameter("apiKey"))
+            assertNotNull(url.queryParameter("t"))
+            assertNotNull(url.queryParameter("s"))
+            assertEquals(ApiResult.Failure(ApiError.InvalidRequest), client.request("ping", listOf("apiKey" to "x")))
+        }
+    }
 }

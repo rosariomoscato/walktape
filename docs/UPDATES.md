@@ -26,12 +26,16 @@ Impostazioni → **Aggiornamenti app**:
    v0.1.0 pubblicata, l'API latest deve invece restituire la release.
 2. Se c'è una versione più recente: **novità** del rilascio e **Scarica APK** (asset scelto
    solo se univoco: build universal preferite alle ABI-specifiche; ambiguità rifiutata).
-3. L'APK viene verificato **prima** di qualsiasi installazione: stesso package
+3. Il trasporto è **solo HTTPS**: l'URL dell'asset e ogni redirect di download vengono
+   rifiutati se non `https://`. Se la release pubblica `SHA256SUMS.txt`, l'APK scaricato
+   viene confrontato con il digest pubblicato **prima** della verifica firma: checksum
+   mancante o non corrispondente blocca l'installazione con motivo esplicito.
+4. L'APK viene verificato **prima** di qualsiasi installazione: stesso package
    `com.walktape.app`, versionCode crescente e **firma identica** a quella installata. Un APK
    di altra app, un downgrade, un file corrotto o una firma incompatibile vengono rifiutati con
    motivo esplicito; per firme incompatibili non si propone mai la disinstallazione (perderebbe
    i dati).
-4. **Installa aggiornamento**: se Android non consente ancora installazioni da WalkTape, viene
+5. **Installa aggiornamento**: se Android non consente ancora installazioni da WalkTape, viene
    aperta l'impostazione "origine sconosciuta" **solo per questa app**; poi il installer di
    sistema mostra la conferma.
 

@@ -306,8 +306,15 @@ class PlaybackService : MediaLibraryService() {
                 for (item in mediaItems) {
                     // Media3's legacy playFromSearch/prepareFromSearch bridge carries
                     // voice queries here, rather than as ACTION_MEDIA_BUTTON intents.
+                    // The exported service accepts them from any app: while the biometric
+                    // app lock is enabled, refuse until the app was unlocked once here.
                     val query = item.requestMetadata.searchQuery
                     if (query != null) {
+                        if (!ExternalSearchGate.allowed(
+                                Graph.currentSettings.appLockEnabled, Graph.appUnlockedThisProcess)) {
+                            result.setException(IOException("App locked"))
+                            return@launch
+                        }
                         val matches = searchItems(profile.id, query)
                         val target = matches.firstOrNull { AutoBrowseIds.parse(it.mediaId) is AutoBrowseIds.Node.Song }
                             ?: matches.firstOrNull { it.mediaMetadata.isPlayable == true }

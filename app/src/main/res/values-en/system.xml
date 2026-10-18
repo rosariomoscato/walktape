@@ -102,6 +102,7 @@
     <string name="update_verify_failed_version">The APK is not newer than the installed version.</string>
     <string name="update_verify_failed_signature">Incompatible APK signature: uninstalling would lose data, so the update is refused.</string>
     <string name="update_verify_failed_corrupt">Corrupted or unreadable APK: download again.</string>
+    <string name="update_verify_failed_checksum">The published APK checksum does not match or cannot be verified: the download is refused for safety.</string>
     <string name="update_install">Install update</string>
     <string name="update_install_permission">Allow WalkTape to install apps in Android settings, then come back here to install.</string>
     <string name="update_install_hint">Android will ask for confirmation before installing.</string>

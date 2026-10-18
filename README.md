@@ -12,14 +12,15 @@ Open source (licenza MIT), nessuna pubblicità, nessuna telemetria, nessun accou
 
 WalkTape riproduce la libreria del tuo server Navidrome sul telefono (e in Android Auto) con:
 
-- **Profili multipli** con credenziali protette (Android Keystore), dati e download isolati per profilo.
+- **Profili multipli** con credenziali protette (Android Keystore): password, oppure chiave API
+  OpenSubsonic (estensione `apiKeyAuthentication`) sui server che la supportano; dati e download isolati per profilo.
 - **Libreria completa**: album, artisti, brani, generi, playlist, preferiti, testi; ricerca unificata e ordinamenti persistenti.
-- **Player TPS-L2**: coda con occorrenze distinte, shuffle/ripetizione, timer di spegnimento, crossfade opzionale, ReplayGain, equalizzatore, effetto cassetta (tutti inizialmente spenti: suono pulito predefinito).
+- **Player TPS-L2**: coda con occorrenze distinte, shuffle/ripetizione, timer di ascolto, dissolvenza incrociata opzionale, ReplayGain, equalizzatore, effetto cassetta (tutti inizialmente spenti: suono pulito predefinito).
 - **Rinforzo bassi** opzionale per cuffie: sospeso su altoparlante o uscita non rilevata, con avviso e preferenza conservata; resa dipendente dal dispositivo, nessuna compensazione automatica del volume.
 - **Offline reale**: download di brani/album/playlist, cache limitata, modifiche offline a playlist/preferiti con recupero e gestione dei conflitti.
 - **Ascolti** inviati a Navidrome con deduplica locale e recupero offline; nessuna garanzia exactly-once se il server accetta l'evento ma la risposta si perde.
 - **Android Auto** nell'interfaccia prevista dalla piattaforma.
-- **Backup/trasferimento** senza credenziali né audio, diagnostica esportabile con oscuramento dei dati sensibili, aggiornamenti da GitHub Releases con verifica della firma.
+- **Backup/trasferimento** senza credenziali né audio, diagnostica esportabile con oscuramento dei dati sensibili, aggiornamenti da GitHub Releases solo in HTTPS con verifica del checksum pubblicato e della firma.
 - Italiano/inglese, chiaro/scuro/sistema, accessibilità (TalkBack, font ingranditi, movimento ridotto), telefono e tablet.
 
 ## Requisiti
@@ -28,7 +29,10 @@ WalkTape riproduce la libreria del tuo server Navidrome sul telefono (e in Andro
 - Un server [Navidrome](https://www.navidrome.org) raggiungibile dal telefono:
   - in **LAN** (stessa rete Wi-Fi), oppure
   - via **[Tailscale](https://tailscale.com)** o altra VPN: WalkTape non configura la VPN, la usa se già attiva.
-- HTTPS supportato; HTTP consentito nei contesti locale/VPN (l'app indica il tipo di connessione).
+- HTTPS supportato; HTTP è possibile solo con consenso esplicito per profilo (l'app indica
+  il tipo di connessione). Su HTTP chi intercetta il traffico può catturare un dato
+  equivalente alla password: preferisci HTTPS, una VPN come Tailscale o, dove il server la
+  supporta, una chiave API revocabile.
 - Compatibilità dichiarata: **solo Navidrome** (API Subsonic/OpenSubsonic).
 
 ## Installazione

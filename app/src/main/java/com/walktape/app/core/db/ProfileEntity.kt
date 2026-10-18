@@ -19,6 +19,8 @@ data class ProfileEntity(
     @ColumnInfo(defaultValue = "''") val credentialId: String = "",
     @ColumnInfo(defaultValue = "''") val encryptedPassword: String = "",
     @ColumnInfo(defaultValue = "0") val allowLocalHttp: Boolean = false,
+    /** OpenSubsonic apiKeyAuthentication: the encrypted slot holds a server-issued API key. */
+    @ColumnInfo(defaultValue = "0") val usesApiKey: Boolean = false,
 ) {
     override fun toString() = "ProfileEntity(id=$id, [redacted])"
 }

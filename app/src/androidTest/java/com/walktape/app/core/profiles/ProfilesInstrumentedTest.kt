@@ -146,4 +146,84 @@ class ProfilesInstrumentedTest {
             assertFalse(db.profileDao().get(id)!!.encryptedPassword.contains(config.getValue("ND_PASS")))
         } finally { id?.let { repo.remove(it) }; db.close(); root.deleteRecursively() }
     }
+
+    @Test fun migration12to13AddsApiKeyFlagPreservingProfiles() {
+        val name = "wave13-migration-test.db"
+        context.deleteDatabase(name)
+        // 1. Create a current (v13) database with one profile row, then close it.
+        val db = Room.databaseBuilder(context, WalkTapeDatabase::class.java, name)
+            .addMigrations(*WalkTapeDatabase.MIGRATIONS)
+            .allowMainThreadQueries()
+            .build()
+        runBlocking {
+            db.profileDao().insert(com.walktape.app.core.db.ProfileEntity(
+                id = 1, name = "Keep", serverUrl = "https://example.org", username = "user",
+                isActive = true, createdAt = 123, credentialId = "k", encryptedPassword = "enc"))
+        }
+        db.close()
+        // 2. Surgically revert the profile table to its v12 shape (no usesApiKey) and
+        //    roll user_version back to 12: legacy_alter_table keeps the other tables'
+        //    FOREIGN KEY references pointing at `profile`.
+        val raw = SQLiteDatabase.openDatabase(
+            context.getDatabasePath(name).absolutePath, null, SQLiteDatabase.OPEN_READWRITE)
+        try {
+            raw.execSQL("PRAGMA legacy_alter_table = 1")
+            raw.execSQL("ALTER TABLE profile RENAME TO profile_v13")
+            raw.execSQL("DROP INDEX IF EXISTS index_profile_name")
+            raw.execSQL("CREATE TABLE `profile` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `serverUrl` TEXT NOT NULL, `username` TEXT NOT NULL, `isActive` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, `credentialId` TEXT NOT NULL DEFAULT '', `encryptedPassword` TEXT NOT NULL DEFAULT '', `allowLocalHttp` INTEGER NOT NULL DEFAULT 0)")
+            raw.execSQL("CREATE UNIQUE INDEX `index_profile_name` ON `profile` (`name`)")
+            raw.execSQL("INSERT INTO profile (id,name,serverUrl,username,isActive,createdAt,credentialId,encryptedPassword,allowLocalHttp) SELECT id,name,serverUrl,username,isActive,createdAt,credentialId,encryptedPassword,allowLocalHttp FROM profile_v13")
+            raw.execSQL("DROP TABLE profile_v13")
+            raw.execSQL("PRAGMA user_version = 12")
+        } finally {
+            raw.close()
+        }
+        // 3. Reopen: Room must run 12->13 and keep the row with the apiKey flag defaulted off.
+        val reopened = Room.databaseBuilder(context, WalkTapeDatabase::class.java, name)
+            .addMigrations(*WalkTapeDatabase.MIGRATIONS)
+            .allowMainThreadQueries()
+            .build()
+        try {
+            val migrated = runBlocking { reopened.profileDao().get(1) }!!
+            assertEquals("Keep", migrated.name)
+            assertEquals("k", migrated.credentialId)
+            assertTrue(migrated.isActive)
+            assertFalse("Existing profiles must default to password auth", migrated.usesApiKey)
+        } finally {
+            reopened.close()
+            context.deleteDatabase(name)
+        }
+    }
+
+    @Test fun apiKeyProfileVerifiesStoresFlagAndSendsKeyOnly() = runBlocking {
+        MockWebServer().apply { start() }.use { server ->
+            val db = Room.inMemoryDatabaseBuilder(context, WalkTapeDatabase::class.java).build()
+            val root = File(context.cacheDir, "profile-apikey-${UUID.randomUUID()}").apply { mkdirs() }
+            val repo = ProfileRepository(db, CredentialVault(), root)
+            fun enqueueOk() = server.enqueue(MockResponse.Builder()
+                .body("""{"subsonic-response":{"status":"ok","version":"1.16.1"}}""").build())
+            var id: Long? = null
+            try {
+                enqueueOk()
+                id = (repo.addVerified("Key", server.url("/").toString(), "user", "nd-key-42",
+                    true, usesApiKey = true) as ApiResult.Success).value
+                val saved = server.takeRequest().url
+                assertEquals("nd-key-42", saved.queryParameter("apiKey"))
+                assertNull("apiKey must never travel with u", saved.queryParameter("u"))
+                assertNull("apiKey must never travel with t", saved.queryParameter("t"))
+                assertNull("apiKey must never travel with s", saved.queryParameter("s"))
+                assertTrue(db.profileDao().get(id)!!.usesApiKey)
+                // clientFor re-applies the mode from storage on every later request.
+                enqueueOk()
+                assertTrue(repo.verify(id) is ApiResult.Success)
+                val second = server.takeRequest().url
+                assertEquals("nd-key-42", second.queryParameter("apiKey"))
+                assertNull(second.queryParameter("u"))
+                assertNull(second.queryParameter("t"))
+            } finally {
+                id?.let { repo.remove(it) }
+                db.close(); root.deleteRecursively()
+            }
+        }
+    }
 }

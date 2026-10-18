@@ -102,6 +102,7 @@
     <string name="update_verify_failed_version">L\'APK non è più recente della versione installata.</string>
     <string name="update_verify_failed_signature">Firma dell\'APK incompatibile: disinstallare l\'app perderebbe i dati, quindi l\'aggiornamento è rifiutato.</string>
     <string name="update_verify_failed_corrupt">APK danneggiato o non leggibile: download da ripetere.</string>
+    <string name="update_verify_failed_checksum">Il checksum pubblicato per l\'APK non corrisponde o non è verificabile: download rifiutato per sicurezza.</string>
     <string name="update_install">Installa aggiornamento</string>
     <string name="update_install_permission">Consenti l\'installazione di app da WalkTape nelle impostazioni di Android, poi torna qui per installare.</string>
     <string name="update_install_hint">Android chiederà conferma prima di installare.</string>

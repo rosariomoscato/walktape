@@ -450,3 +450,43 @@ hardware. Esiti aggiornati e hash dell'APK nel WORKLOG/memoria.
 - Testi reali via `getLyricsBySongId` (nessun brano con testi nel campione).
 - Funzioni mutative (playlist, preferiti, scrobble) su account di test: previste nelle wave 07+.
 - Comportamento gapless/crossfade/DSP combinati su hardware reale: wave 09.
+
+## Revisione review-an-app e correzioni (2026-10-18, su richiesta utente)
+
+Revisione statica dell'app pubblicata (codice == tag v0.1.0) con tre lenti; nove rilievi
+confermati, tutti corretti in questa sessione su autorizzazione esplicita:
+
+- **D42 — Autenticazione con chiave API OpenSubsonic** (estensione `apiKeyAuthentication`,
+  spec verificata su opensubsonic.netlify.app: `apiKey` da sola, mai con `u`/`t`/`s`
+  [errore 43]; chiavi create/revocate fuori banda dalla UI del server, nessun endpoint
+  getApiKey). `Credentials` aggiunge `usesApiKey`; il client costruisce l'autenticazione
+  in un unico builder `auth()` (execute, coverArt, streamUrl, downloadUrl). **Room v13**:
+  `profile.usesApiKey` (migrazione 12→13, ALTER TABLE). Repository/ViewModel/UI: toggle nel
+  form e nel dialog di login (prefill dal profilo), secret fino a 1500 caratteri, vault
+  invariato (la chiave occupa lo slot cifrato del profilo). Backup: esporta solo il flag
+  `usesApiKey`, mai la chiave; import lo applica ai profili creati. Redactor già copre
+  `apiKey=`. Il server reale 0.62.0 **non** annuncia l'estensione (registro W01): il percorso
+  resta dormiente sul server attuale ed è verificato via fixture.
+- **Updater**: client GitHub dedicato con network interceptor **HTTPS-only su ogni hop**
+  (redirect compresi); guardia `https://` anche su `asset.url` prima del download. Se la
+  release pubblica `SHA256SUMS.txt`, l'APK scaricato viene confrontato con il digest
+  (`Checksums`: parsing sha256sum due-spazi/binario + SHA-256 file) **prima** della verifica
+  firma: pubblicato ma non verificabile → rifiuto fail-closed con motivo dedicato IT/EN.
+  La firma resta il gate di installazione.
+- **Gate ricerca esterna**: `ExternalSearchGate` rifiuta playFromSearch/prepareFromSearch
+  quando il Blocco app è attivo e l'app non è stata sbloccata una volta nel processo
+  (fail-closed dopo la morte del processo); `Graph.markAppUnlocked()` dal gate UI. I comandi
+  di trasporto su coda già caricata non sono toccati.
+- **Onestà HTTP**: etichetta "HTTP — connessione non cifrata" (già non più "rete locale /
+  VPN", mai rilevata nel codice), help che espone la conseguenza dell'intercettazione,
+  README/INSTALL riallineati (HTTP = consenso esplicito per profilo, consiglio
+  HTTPS/VPN/chiave API).
+- **Documenti**: INSTALL passo 3 nomina i controlli reali ("Verifica e salva" +
+  "Aggiorna libreria"); PRIVACY elenca anche WAKE_LOCK e MODIFY_AUDIO_SETTINGS e cita il
+  checksum; README vocabolario allineato alle stringhe ("timer di ascolto",
+  "dissolvenza incrociata").
+
+Verifiche: JVM suite estesa (apiKey su ping/stream/download + guardia RESERVED, Checksums
+parsing+vettore SHA-256, HTTPS-only sul default updater client, downloadText, gate esterno,
+redazione apiKey, backup round-trip del flag). Migrazione 12→13 e percorsi apiKey su
+dispositivo: da eseguire (emulatore/telefono) e registrare nel WORKLOG.

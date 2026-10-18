@@ -77,6 +77,23 @@ class BackupCodecTest {
     }
 
     @Test
+    fun `round trips the apiKey auth mode without any secret`() {
+        val backup = withProfile { it.copy(usesApiKey = true) }
+        val parsed = roundTrip(backup) as BackupCodec.Parsed.Valid
+        assertTrue(parsed.backup.profiles.first().usesApiKey)
+        // The flag travels, the key itself never does.
+        assertTrue(!BackupCodec.write(backup).contains("nd-"))
+    }
+
+    @Test
+    fun `older backups without the apiKey field parse as password profiles`() {
+        val json = BackupCodec.write(validBackup()).replace(""","usesApiKey":false""", "")
+            .replace(""""usesApiKey":false,""", "")
+        val parsed = BackupCodec.parse(json) as BackupCodec.Parsed.Valid
+        assertEquals(false, parsed.backup.profiles.first().usesApiKey)
+    }
+
+    @Test
     fun `rejects non json content`() {
         assertEquals(BackupCodec.Reason.NOT_JSON,
             (BackupCodec.parse("not a backup {{{") as BackupCodec.Parsed.Invalid).reason)

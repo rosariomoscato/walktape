@@ -30,7 +30,8 @@ class ProfilesViewModel : ViewModel() {
 
     fun reset() { mutableAction.value = ProfileActionState() }
 
-    fun add(name: String, url: String, username: String, password: String, http: Boolean, onSaved: () -> Unit) {
+    fun add(name: String, url: String, username: String, password: String, http: Boolean,
+            apiKeyAuth: Boolean = false, onSaved: () -> Unit) {
         if (mutableAction.value.busy) return
         if (Graph.networkGate.offlineOnly(-1)) {
             mutableAction.value = ProfileActionState(error = ApiError.Unreachable)
@@ -38,7 +39,7 @@ class ProfilesViewModel : ViewModel() {
         }
         viewModelScope.launch {
             mutableAction.value = ProfileActionState(busy = true)
-            when (val result = repository.addVerified(name, url, username, password, http)) {
+            when (val result = repository.addVerified(name, url, username, password, http, apiKeyAuth)) {
                 is ApiResult.Failure -> mutableAction.value = ProfileActionState(error = result.error)
                 is ApiResult.Success -> { mutableAction.value = ProfileActionState(success = true); onSaved() }
             }
@@ -61,7 +62,8 @@ class ProfilesViewModel : ViewModel() {
     }
 
     /** W11-T03: fresh sign-in for imported profiles (no credentials in the backup). */
-    fun login(id: Long, url: String, username: String, password: String, http: Boolean, onDone: () -> Unit) {
+    fun login(id: Long, url: String, username: String, password: String, http: Boolean,
+              apiKeyAuth: Boolean = false, onDone: () -> Unit) {
         if (mutableAction.value.busy) return
         if (Graph.networkGate.offlineOnly(id)) {
             mutableAction.value = ProfileActionState(error = ApiError.Unreachable)
@@ -69,7 +71,7 @@ class ProfilesViewModel : ViewModel() {
         }
         viewModelScope.launch {
             mutableAction.value = ProfileActionState(busy = true)
-            mutableAction.value = when (val result = repository.login(id, url, username, password, http)) {
+            mutableAction.value = when (val result = repository.login(id, url, username, password, http, apiKeyAuth)) {
                 is ApiResult.Failure -> ProfileActionState(error = result.error)
                 is ApiResult.Success -> ProfileActionState(success = true).also { onDone() }
             }

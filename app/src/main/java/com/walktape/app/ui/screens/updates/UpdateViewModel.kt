@@ -45,7 +45,7 @@ class UpdateViewModel : ViewModel() {
         data class Rejected(val reason: Rejection) : DownloadState
         data object Failed : DownloadState
         data object Cancelled : DownloadState
-        enum class Rejection { NOT_WALKTAPE, NOT_NEWER, SIGNATURE, CORRUPT }
+        enum class Rejection { NOT_WALKTAPE, NOT_NEWER, SIGNATURE, CORRUPT, CHECKSUM }
     }
 
     private val mutableDownload = MutableStateFlow<DownloadState>(DownloadState.Idle)
@@ -78,7 +78,16 @@ class UpdateViewModel : ViewModel() {
                 mutableDownload.value = DownloadState.Running(bytes, total)
             }) {
                 is UpdateManager.DownloadOutcome.Done -> {
-                    when (manager.verify(outcome.file)) {
+                    // Published-checksum gate first (fail-closed when published but
+                    // unverifiable), then the signature gate; both delete on refusal.
+                    when (manager.verifyChecksum(release, asset, outcome.file)) {
+                        UpdateManager.ChecksumOutcome.Mismatch,
+                        UpdateManager.ChecksumOutcome.Unavailable -> {
+                            outcome.file.delete()
+                            mutableDownload.value = DownloadState.Rejected(DownloadState.Rejection.CHECKSUM)
+                        }
+                        UpdateManager.ChecksumOutcome.Ok,
+                        UpdateManager.ChecksumOutcome.NotPublished -> when (manager.verify(outcome.file)) {
                         com.walktape.app.core.updates.ApkVerifier.Outcome.Ok ->
                             mutableDownload.value = DownloadState.Verified(outcome.file, release)
                         com.walktape.app.core.updates.ApkVerifier.Outcome.NotWalkTape -> {
@@ -96,6 +105,7 @@ class UpdateViewModel : ViewModel() {
                         com.walktape.app.core.updates.ApkVerifier.Outcome.Corrupt -> {
                             outcome.file.delete()
                             mutableDownload.value = DownloadState.Rejected(DownloadState.Rejection.CORRUPT)
+                        }
                         }
                     }
                 }

@@ -23,10 +23,19 @@ class ServerAddress private constructor(val url: HttpUrl) {
     }
 }
 
-/** Never a data class: generated toString/copy must not expose credentials. */
-class Credentials(val username: String, private val password: String) {
+/**
+ * Never a data class: generated toString/copy must not expose credentials.
+ * [usesApiKey] selects the OpenSubsonic apiKeyAuthentication mode: [password] then holds
+ * the server-issued API key, which is sent as the sole `apiKey` query parameter (never
+ * together with `u`/`t`/`s`, per extension spec — the server answers error 43 otherwise).
+ * A captured key is revocable on the server and is not derived from the user password.
+ */
+class Credentials(val username: String, private val password: String, val usesApiKey: Boolean = false) {
     internal fun token(salt: String): String = MessageDigest.getInstance("MD5")
         .digest((password + salt).toByteArray(Charsets.UTF_8)).toHex()
+
+    /** The raw secret for apiKey mode; never logged, only placed in the request URL. */
+    internal fun apiKey(): String = password
     override fun toString() = "Credentials([redacted])"
 }
 

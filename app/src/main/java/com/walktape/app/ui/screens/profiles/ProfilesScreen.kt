@@ -46,12 +46,14 @@ fun ProfilesScreen(
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var http by remember { mutableStateOf(false) }
+    var apiKeyAuth by remember { mutableStateOf(false) }
     // W11-T03: fresh sign-in dialog for imported (credential-less) profiles.
     var loginProfile by remember { mutableStateOf<ProfileEntity?>(null) }
     var loginUrl by remember { mutableStateOf("") }
     var loginUser by remember { mutableStateOf("") }
     var loginPassword by remember { mutableStateOf("") }
     var loginHttp by remember { mutableStateOf(false) }
+    var loginApiKeyAuth by remember { mutableStateOf(false) }
     val scanLauncher = rememberLauncherForActivityResult(ScanContract()) { result ->
         result.contents?.let { contents ->
             QrCodec.decode(contents)?.let { payload ->
@@ -89,15 +91,16 @@ fun ProfilesScreen(
                         Text(stringResource(R.string.profile_needs_login), color = MaterialTheme.colorScheme.error)
                     }
                     FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        if (profile.credentialId.isEmpty()) {
-                            TextButton(enabled = !action.busy, onClick = {
-                                loginProfile = profile
-                                loginUrl = profile.serverUrl
-                                loginUser = profile.username
-                                loginPassword = ""
-                                loginHttp = profile.allowLocalHttp
-                            }) { Text(stringResource(R.string.profile_login)) }
-                        }
+                    if (profile.credentialId.isEmpty()) {
+                        TextButton(enabled = !action.busy, onClick = {
+                            loginProfile = profile
+                            loginUrl = profile.serverUrl
+                            loginUser = profile.username
+                            loginPassword = ""
+                            loginHttp = profile.allowLocalHttp
+                            loginApiKeyAuth = profile.usesApiKey
+                        }) { Text(stringResource(R.string.profile_login)) }
+                    }
                         if (!profile.isActive) TextButton(enabled = !action.busy, onClick = { viewModel.activate(profile.id) }) {
                             Text(stringResource(R.string.profile_activate))
                         }
@@ -132,10 +135,18 @@ fun ProfilesScreen(
             }
             if (http) Text(stringResource(R.string.profile_http_help))
             OutlinedTextField(username, { username = it }, label = { Text(stringResource(R.string.profile_username)) }, singleLine = true, enabled = !action.busy, modifier = Modifier.fillMaxWidth())
-            OutlinedTextField(password, { password = it }, label = { Text(stringResource(R.string.profile_password)) }, singleLine = true, enabled = !action.busy, visualTransformation = PasswordVisualTransformation(), modifier = Modifier.fillMaxWidth())
+            Row {
+                Checkbox(apiKeyAuth, { apiKeyAuth = it }, enabled = !action.busy)
+                Text(stringResource(R.string.profile_apikey_toggle), modifier = Modifier.padding(top = 12.dp))
+            }
+            if (apiKeyAuth) Text(stringResource(R.string.profile_apikey_help),
+                style = MaterialTheme.typography.bodySmall)
+            OutlinedTextField(password, { password = it },
+                label = { Text(stringResource(if (apiKeyAuth) R.string.profile_apikey_field else R.string.profile_password)) },
+                singleLine = true, enabled = !action.busy, visualTransformation = PasswordVisualTransformation(), modifier = Modifier.fillMaxWidth())
             Button(enabled = !action.busy && name.isNotBlank() && url.isNotBlank() && username.isNotBlank() && password.isNotEmpty(), onClick = {
-                viewModel.add(name, url, username, password, http) {
-                    password = ""; username = ""; url = ""; name = ""; http = false; adding = false
+                viewModel.add(name, url, username, password, http, apiKeyAuth) {
+                    password = ""; username = ""; url = ""; name = ""; http = false; apiKeyAuth = false; adding = false
                 }
             }) { Text(stringResource(R.string.profile_verify_save)) }
             TextButton(enabled = !action.busy, onClick = { password = ""; adding = false; viewModel.reset() }) { Text(stringResource(R.string.action_cancel)) }
@@ -162,13 +173,18 @@ fun ProfilesScreen(
                     Checkbox(loginHttp, { loginHttp = it }, enabled = !action.busy)
                     Text(stringResource(R.string.profile_http_opt_in), modifier = Modifier.padding(top = 12.dp))
                 }
-                OutlinedTextField(loginPassword, { loginPassword = it }, label = { Text(stringResource(R.string.profile_password)) },
+                Row {
+                    Checkbox(loginApiKeyAuth, { loginApiKeyAuth = it }, enabled = !action.busy)
+                    Text(stringResource(R.string.profile_apikey_toggle), modifier = Modifier.padding(top = 12.dp))
+                }
+                OutlinedTextField(loginPassword, { loginPassword = it },
+                    label = { Text(stringResource(if (loginApiKeyAuth) R.string.profile_apikey_field else R.string.profile_password)) },
                     singleLine = true, enabled = !action.busy, visualTransformation = PasswordVisualTransformation(),
                     modifier = Modifier.fillMaxWidth())
             } },
             confirmButton = { TextButton(enabled = !action.busy && loginUrl.isNotBlank() &&
                     loginUser.isNotBlank() && loginPassword.isNotEmpty(), onClick = {
-                viewModel.login(profile.id, loginUrl, loginUser, loginPassword, loginHttp) {
+                viewModel.login(profile.id, loginUrl, loginUser, loginPassword, loginHttp, loginApiKeyAuth) {
                     loginPassword = ""; loginProfile = null
                 }
             }) { Text(stringResource(R.string.profile_login)) } },

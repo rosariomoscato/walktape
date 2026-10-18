@@ -103,6 +103,8 @@ class MainActivity : AppCompatActivity() {
                     LaunchedEffect(settings.appLockEnabled, lockAvailable) {
                         if (!settings.appLockEnabled || !lockAvailable) unlocked = true
                     }
+                    // External search playback is refused while the app lock holds (fail-closed).
+                    LaunchedEffect(unlocked) { if (unlocked) Graph.markAppUnlocked() }
                     if (unlocked) {
                         WalkTapeShell(windowSizeClass.widthSizeClass)
                     } else {

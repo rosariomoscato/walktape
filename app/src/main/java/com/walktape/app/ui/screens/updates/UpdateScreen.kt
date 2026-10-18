@@ -233,5 +233,6 @@ private fun rejectionLabel(reason: UpdateViewModel.DownloadState.Rejection): Str
         UpdateViewModel.DownloadState.Rejection.NOT_NEWER -> R.string.update_verify_failed_version
         UpdateViewModel.DownloadState.Rejection.SIGNATURE -> R.string.update_verify_failed_signature
         UpdateViewModel.DownloadState.Rejection.CORRUPT -> R.string.update_verify_failed_corrupt
+        UpdateViewModel.DownloadState.Rejection.CHECKSUM -> R.string.update_verify_failed_checksum
     }
 )

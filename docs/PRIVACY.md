@@ -12,15 +12,15 @@ Le comunicazioni funzionali, anche in background, sono descritte qui sotto.
 | Destinatario | Quando | Dati |
 | --- | --- | --- |
 | **Il tuo server Navidrome** (configurato da te) | login, indicizzazione, streaming/download, playlist/preferiti, ascolti | credenziali del profilo, richieste API, scrobble degli ascolti |
-| **api.github.com / GitHub Releases** | solo quando premi "Controlla aggiornamenti" (o con controllo automatico opt-in, max 1/die) | richiesta anonima senza token; scarica l'APK solo su tua conferma |
+| **api.github.com / GitHub Releases** | solo quando premi "Controlla aggiornamenti" (o con controllo automatico opt-in, max 1/die) | richiesta anonima senza token; scarica l'APK e il relativo file di checksum solo su tua conferma |
 | **Nessun altro** | — | — |
 
 In **Solo offline** l'app non effettua alcuna richiesta di rete, nemmeno verso GitHub.
 
 ## Cosa resta sul dispositivo
 
-- Profili (nome, URL, username) e **credenziali cifrate** (AES-GCM, chiavi non esportabili in
-  Android Keystore, associate al profilo).
+- Profili (nome, URL, username) e **credenziali cifrate** (password o chiave API, AES-GCM,
+  chiavi non esportabili in Android Keystore, associate al profilo).
 - Indice della libreria, copertine, cache audio e download nella memoria privata dell'app.
 - Preferenze, code, cronologia ascolti locale e eventi in attesa di invio al server.
 
@@ -36,6 +36,9 @@ In **Solo offline** l'app non effettua alcuna richiesta di rete, nemmeno verso G
 ## Permessi
 
 - `INTERNET`: streaming/download dal tuo server e controllo aggiornamenti su richiesta.
+- `WAKE_LOCK`: mantenere la riproduzione attiva a schermo spento (servizio audio in background).
+- `MODIFY_AUDIO_SETTINGS`: equalizzatore, ReplayGain e rinforzo bassi tramite gli effetti
+  audio di sistema; non modifica il volume globale del dispositivo.
 - `REQUEST_INSTALL_PACKAGES`: installazione dell'APK di aggiornamento **dopo la tua conferma**
   nell'installer di sistema (mai automatica).
 - Notifica multimediale: gestita dalla sessione audio Android; l'app attuale non

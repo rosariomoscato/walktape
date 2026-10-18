@@ -240,9 +240,7 @@ class OpenSubsonicClient(
         if (coverArtId.isEmpty()) return ApiResult.Failure(ApiError.InvalidRequest)
         val saltValue = salt()
         val url = address.url.newBuilder().addPathSegment("rest").addPathSegment("getCoverArt.view")
-            .addQueryParameter("u", credentials.username)
-            .addQueryParameter("t", credentials.token(saltValue))
-            .addQueryParameter("s", saltValue)
+            .auth(saltValue)
             .addQueryParameter("v", "1.16.1").addQueryParameter("c", "WalkTape")
             .addQueryParameter("f", "json")
             .addQueryParameter("id", coverArtId)
@@ -293,9 +291,7 @@ class OpenSubsonicClient(
      */
     fun streamUrl(songId: String, salt: String, format: String? = "raw", maxBitRate: Int? = null): HttpUrl {
         val url = address.url.newBuilder().addPathSegment("rest").addPathSegment("stream.view")
-            .addQueryParameter("u", credentials.username)
-            .addQueryParameter("t", credentials.token(salt))
-            .addQueryParameter("s", salt)
+            .auth(salt)
             .addQueryParameter("v", "1.16.1")
             .addQueryParameter("c", "WalkTape")
             .addQueryParameter("id", songId)
@@ -310,13 +306,27 @@ class OpenSubsonicClient(
      */
     fun downloadUrl(songId: String, salt: String): HttpUrl {
         return address.url.newBuilder().addPathSegment("rest").addPathSegment("download.view")
-            .addQueryParameter("u", credentials.username)
-            .addQueryParameter("t", credentials.token(salt))
-            .addQueryParameter("s", salt)
+            .auth(salt)
             .addQueryParameter("v", "1.16.1")
             .addQueryParameter("c", "WalkTape")
             .addQueryParameter("id", songId)
             .build()
+    }
+
+    /**
+     * Authentication parameters, exactly one mechanism per request (extension spec:
+     * apiKey must never travel together with u/t/s — the server answers error 43).
+     * In apiKey mode the salt is unused: the key is a server-issued bearer credential,
+     * not derived from the password, and is revocable on the server.
+     */
+    private fun HttpUrl.Builder.auth(salt: String): HttpUrl.Builder = apply {
+        if (credentials.usesApiKey) {
+            addQueryParameter("apiKey", credentials.apiKey())
+        } else {
+            addQueryParameter("u", credentials.username)
+            addQueryParameter("t", credentials.token(salt))
+            addQueryParameter("s", salt)
+        }
     }
 
     /** Repeated parameters are preserved for playlist endpoints in later waves. */
@@ -345,9 +355,7 @@ class OpenSubsonicClient(
         val requestSalt = salt()
         if (requestSalt.length < 6) return ApiResult.Failure(ApiError.InvalidRequest)
         val url = address.url.newBuilder().addPathSegment("rest").addPathSegment("$endpoint.view")
-            .addQueryParameter("u", credentials.username)
-            .addQueryParameter("t", credentials.token(requestSalt))
-            .addQueryParameter("s", requestSalt)
+            .auth(requestSalt)
             .addQueryParameter("v", "1.16.1")
             .addQueryParameter("c", "WalkTape")
             .addQueryParameter("f", "json")

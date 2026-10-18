@@ -97,6 +97,9 @@ class UpdateManager(
                          onProgress: (bytes: Long, total: Long) -> Unit): DownloadOutcome =
         withContext(Dispatchers.IO) {
             if (!networkAllowed()) return@withContext DownloadOutcome.BlockedOffline
+            // Belt to the client's HTTPS-only interceptor: an http asset URL is refused
+            // before any connection, whatever the API returned.
+            if (!asset.url.startsWith("https://")) return@withContext DownloadOutcome.Failed
             val target = File(updatesDirectory(), "walktape-${tag.replace(Regex("""[^\w.-]"""), "_")}.apk")
             val request = Request.Builder()
                 .url(asset.url)
@@ -157,6 +160,32 @@ class UpdateManager(
         }
 
     fun cancelDownload() { activeCall?.cancel() }
+
+    sealed interface ChecksumOutcome {
+        /** Digest matches the published SHA256SUMS line for this APK. */
+        data object Ok : ChecksumOutcome
+        /** The release publishes no checksum file: signature verification remains the gate. */
+        data object NotPublished : ChecksumOutcome
+        /** Published digest does not match the downloaded bytes: fail-closed. */
+        data object Mismatch : ChecksumOutcome
+        /** The release publishes a checksum but it could not be fetched/parsed: fail-closed. */
+        data object Unavailable : ChecksumOutcome
+    }
+
+    /**
+     * Cross-checks the downloaded APK against the release's SHA256SUMS.txt asset, when
+     * published. Complements (never replaces) the APK signature verification: this
+     * detects channel/CDN corruption, the signature gate stops a different signer.
+     */
+    suspend fun verifyChecksum(release: ReleaseInfo, apk: ReleaseAsset, file: File): ChecksumOutcome {
+        val sumsAsset = release.assets.firstOrNull {
+            it.name.equals("SHA256SUMS.txt", ignoreCase = true)
+        } ?: return ChecksumOutcome.NotPublished
+        val text = releases.downloadText(sumsAsset.url) ?: return ChecksumOutcome.Unavailable
+        val expected = Checksums.expectedDigest(text, apk.name) ?: return ChecksumOutcome.Unavailable
+        val actual = Checksums.sha256(file) ?: return ChecksumOutcome.Unavailable
+        return if (actual == expected) ChecksumOutcome.Ok else ChecksumOutcome.Mismatch
+    }
 
     fun verify(file: File): ApkVerifier.Outcome = verifier.verify(file)
 

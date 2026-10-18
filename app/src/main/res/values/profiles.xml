@@ -7,8 +7,11 @@
     <string name="profile_username">Nome utente Navidrome</string>
     <string name="profile_password">Password</string>
     <string name="profile_setup_help">Inserisci il server e le credenziali Navidrome. La connessione viene verificata prima di salvare. Sul telefono usa l’indirizzo LAN/Tailscale del computer, non localhost.</string>
-    <string name="profile_http_opt_in">Consenti HTTP su rete locale o VPN</string>
-    <string name="profile_http_help">HTTP non cifra la connessione: usalo solo su rete locale fidata o VPN attiva. WalkTape non attiva Tailscale.</string>
+    <string name="profile_http_opt_in">Consenti HTTP (connessione non cifrata)</string>
+    <string name="profile_http_help">HTTP non cifra la connessione: chiunque intercetti il traffico può catturare un dato equivalente alla password e usarlo per accedere al tuo account. Usalo solo su rete fidata o VPN; quando possibile preferisci HTTPS o una chiave API. WalkTape non attiva Tailscale.</string>
+    <string name="profile_apikey_toggle">Usa chiave API (server che la supporta)</string>
+    <string name="profile_apikey_field">Chiave API</string>
+    <string name="profile_apikey_help">Chiave creata e revocabile dall\'interfaccia del server (estensione OpenSubsonic apiKeyAuthentication). Al posto della password viene inviata solo la chiave: l\'username resta nel profilo ma non viene trasmesso. Su HTTP una chiave intercettata resta revocabile, a differenza della password.</string>
     <string name="profile_verify_save">Verifica e salva</string>
     <string name="profile_active">Profilo attivo</string>
     <string name="profile_activate">Attiva</string>
@@ -17,9 +20,9 @@
     <string name="connection_verify">Verifica connessione</string>
     <string name="connection_ok">Connessione verificata</string>
     <string name="connection_https">HTTPS — connessione cifrata</string>
-    <string name="connection_http">HTTP — rete locale / VPN</string>
+    <string name="connection_http">HTTP — connessione non cifrata</string>
     <string name="action_cancel">Annulla</string>
-    <string name="error_configuration">Controlla URL, campi obbligatori e nome profilo (univoco, massimo 80 caratteri). HTTP richiede il consenso locale/VPN.</string>
+    <string name="error_configuration">Controlla URL, campi obbligatori e nome profilo (univoco, massimo 80 caratteri). HTTP richiede il consenso esplicito.</string>
     <string name="error_credentials_storage">Credenziali protette non disponibili. Rimuovi e configura nuovamente il profilo.</string>
     <string name="error_local_storage">Impossibile eliminare i dati locali. Riprova.</string>
     <string name="error_network">Server non raggiungibile. Controlla indirizzo, rete e VPN, poi riprova.</string>

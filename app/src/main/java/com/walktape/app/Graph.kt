@@ -152,6 +152,17 @@ object Graph {
 
     /** User label for the active profile's current mixed queue; persisted with the queue itself. */
     val queueNaming = MutableStateFlow<String?>(null)
+
+    /**
+     * Set by the UI lock gate (MainActivity) once the app has been unlocked in this
+     * process; read by the playback service to refuse external search-driven playback
+     * while the biometric app lock is enabled (fail-closed across process restarts).
+     */
+    @Volatile
+    var appUnlockedThisProcess: Boolean = false
+        private set
+
+    fun markAppUnlocked() { appUnlockedThisProcess = true }
     val scrobbleSender: ScrobbleSender by lazy {
         ScrobbleSender(database.scrobbleDao(), { id -> profiles.clientFor(id) },
             CoroutineScope(SupervisorJob() + Dispatchers.IO),

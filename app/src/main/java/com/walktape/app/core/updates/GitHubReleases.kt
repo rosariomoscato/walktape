@@ -57,6 +57,31 @@ class GitHubReleases(
         }
     }
 
+    /**
+     * Downloads a small text asset (e.g. SHA256SUMS.txt) over the same HTTPS-only
+     * client. Body is capped; returns null on any transport or size failure.
+     */
+    suspend fun downloadText(url: String, maxBytes: Int = MAX_TEXT_ASSET_BYTES): String? =
+        withContext(Dispatchers.IO) {
+            if (!url.startsWith("https://")) return@withContext null
+            val request = Request.Builder().url(url)
+                .header("User-Agent", USER_AGENT)
+                .build()
+            val response = try {
+                http.newCall(request).execute()
+            } catch (_: IOException) {
+                return@withContext null
+            }
+            response.use {
+                if (!it.isSuccessful) return@withContext null
+                val body = it.body ?: return@withContext null
+                try {
+                    val bytes = body.bytes()
+                    if (bytes.size > maxBytes) null else String(bytes, Charsets.UTF_8)
+                } catch (_: IOException) { null }
+            }
+        }
+
     private fun parse(body: String?): Result {
         if (body == null) return Result.Invalid
         return try {
@@ -86,14 +111,28 @@ class GitHubReleases(
 
     companion object {
         const val USER_AGENT = "WalkTape-Update"
+        const val MAX_TEXT_ASSET_BYTES = 64 * 1024
 
-        /** Dedicated client: redirects on, sane timeouts, global offline listener attached. */
+        /**
+         * Dedicated client: redirects on (asset downloads redirect within GitHub),
+         * sane timeouts, global offline listener attached. A network interceptor
+         * enforces HTTPS on every hop, including redirect follow-ups: the updater
+         * must never fetch over cleartext even if an API response or redirect
+         * points at an http:// URL.
+         */
         fun defaultClient(): OkHttpClient = OkHttpClient.Builder()
             .connectTimeout(15, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
             .followRedirects(true)
             .followSslRedirects(true)
             .eventListener(NetworkTraffic.listener)
+            .addNetworkInterceptor { chain ->
+                val request = chain.request()
+                if (!request.url.isHttps) {
+                    throw IOException("Update transport must be HTTPS: ${request.url.scheme}:// refused")
+                }
+                chain.proceed(request)
+            }
             .build()
     }
 }

@@ -40,6 +40,8 @@ data class BackupProfile(
     val serverUrl: String,
     val username: String,
     val allowLocalHttp: Boolean,
+    /** Auth mode only, never the secret: an apiKey profile asks for its key again on import. */
+    val usesApiKey: Boolean = false,
     val settings: BackupProfileSettings?,
     /** Completed downloads of the source device: the "list to re-download". */
     val downloads: List<BackupDownload>,
