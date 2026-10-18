@@ -1,13 +1,6 @@
 {
   "version": 1,
   "skills": {
-    "create-brand-kit": {
-      "source": "leonvanzyl/skills",
-      "ref": "main",
-      "sourceType": "github",
-      "skillPath": "skills/apps/create-brand-kit/SKILL.md",
-      "computedHash": "d05484eeebd84e6388bdf8854db69a3841373cd33bc69948c33e7e16efe02cbf"
-    },
     "review-an-app": {
       "source": "leonvanzyl/skills",
       "ref": "main",
