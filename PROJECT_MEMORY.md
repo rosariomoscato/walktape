@@ -2,10 +2,12 @@
 
 Ultimo aggiornamento: 2026-10-18 (v0.1.1/code3 pubblicata latest, APK e checksum pubblici verificati; collaudi hardware/Auto residui aperti).
 
-**Task corrente REPO-T01**: utente richiede commit e push. Preflight su main/origin,
-diff e ultimi10commit esaminati. Preparare pubblicazione delle modifiche skill/
-regia/video/README e note; cache Studio e segreti esclusi. Media essenziali del
-montaggio inclusi per riaprire il progetto dopo clone, renders/ resta locale.
+**REPO-T01 completato**: commit69ecace «Video di presentazione, illustrazione README
+e skill HyperFrames» pubblicato su origin/main su richiesta. SHA locale/remoto
+`69ecace1618554ec759c3f8930ca0682d6ac5035` verificati identici, working tree pulita
+subito dopo. README e immagine cassetta presenti via API GitHub. Inclusi sorgenti,
+skill e media essenziali; esclusi segreti/cache/deps/renders. Note finali nel
+successivo commit documentale. Nessuna release o upload del MP4 finale.
 
 Manutenzione corrente **TOOLS-T01 completata**: installata su richiesta la skill
 `DarioFontanel/regia-hyperframes` in `.agents/skills/regia-hyperframes/` (SKILL.md e
@@ -13,7 +15,7 @@ CONSEGNA.md), voce aggiunta in `skills-lock.json`. `skills list --agent opencode
 la elenca tra le Project Skills. Successivamente installate e verificate anche
 11 skill HyperFrames core/general-video nello scope progetto. Ripresa funzionale:
 aggiornamento in-place v0.1.1 e collaudi
-residui descritti sotto. Skill incluse nella pubblicazione REPO-T01 autorizzata.
+residui descritti sotto. Skill pubblicate in69ecace, scope progetto conservato.
 
 ## Punto corrente — v0.1.1 pubblicata
 
@@ -21,7 +23,7 @@ residui descritti sotto. Skill incluse nella pubblicazione REPO-T01 autorizzata.
   l'illustrazione della cassetta della scena «La mia mixtape» del video,
   `videos/walktape-la-tua-musica/assets/illustrations/02-mixtape.png`, centrata
   a360px con testo alternativo. Riutilizzato l'asset esistente verificato.
-  Modifica locale pronta; prossima azione su eventuale feedback utente.
+  Modifica pubblicata in69ecace; prossima azione su eventuale feedback utente.
 
 - **VIDEO-T05 completato — MP4 locale consegnabile**: utente approva con «ok»
   alla domanda render e chiede se deve scaricarlo. Export già sul suo computer:
@@ -30,7 +32,7 @@ residui descritti sotto. Skill incluse nella pubblicazione REPO-T01 autorizzata.
   CLI0.8.171delivery2workers,4m55,2s,screenshot/hardwareGPU. FFprobe e verifica
   automatica PASS;9frame decodificati ispezionati, audioAACmean−16,1/max−2,3dBFS
   senza clipping rilevato. QA.md/proofs/rendered nel progetto video hanno dettagli.
-  Nessun upload/pubblicazione/commit. Prossimo passo: aprire/copiare il MP4 locale,
+  Sorgenti pubblicati in69ecace; MP4 finale resta locale. Prossimo passo: aprire/copiare il MP4,
   eventuale feedback utente. Non sovrascrivere l'artefatto verificato nelle revisioni.
 
 ### Storico lavorazione video — superato dalla consegna VIDEO-T05

@@ -18,8 +18,10 @@ Pubblicazione 2026-10-18: v0.1.1/code3 latest su GitHub, sorgente e614ea8; APK e
 
 ## Wave 00 — Specifica e continuità
 
-- [ ] REPO-T01 — Commit e push autorizzati di skill di progetto, regia/video,
-  illustrazione README e documentazione; verificare file inclusi e allineamento remoto.
+- [x] REPO-T01 — Commit e push autorizzati di skill di progetto, regia/video,
+  illustrazione README e documentazione: commit69ecace pubblicato su main,
+  SHA locale/remoto e README/immagine via API GitHub verificati. Note finali nel
+  successivo commit documentale; MP4 finale e configurazioni private restano locali.
 
 - [x] DOCS-T01 — Inserire nel README l'illustrazione originale della cassetta
   usata nel video (02-mixtape.png), centrata e con larghezza360px. Asset e percorso
