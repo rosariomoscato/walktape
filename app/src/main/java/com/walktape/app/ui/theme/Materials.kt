@@ -7,12 +7,12 @@ import androidx.compose.ui.graphics.Color
  * Fixed materials of the TPS-L2 chassis. The device keeps its own palette in both themes;
  * text/icon pairs on these surfaces are covered by the contrast checks of wave 06.
  */
-val ChassisBodyBrush = Brush.verticalGradient(listOf(WtBlue, WtBlueDeep))
-val ChassisSteelBrush = Brush.verticalGradient(
-    listOf(Color(0xFFE9EBEF), WtSteel, Color(0xFFA9AFBA))
-)
-val KeySteelBrush = Brush.linearGradient(listOf(Color(0xFFE9EBEF), WtSteel, Color(0xFFA9AFBA)))
-val KeyOrangeBrush = Brush.linearGradient(listOf(Color(0xFFF8874E), WtOrange, WtOrange))
+// Compatibility for app-wide text keys: these always use the default identity,
+// while the native player's keys read LocalPlayerSkin. One source of material values.
+val ChassisBodyBrush: Brush get() = PlayerSkins.tpsL2.bodyBrush()
+val ChassisSteelBrush: Brush get() = PlayerSkins.tpsL2.band.vertical()
+val KeySteelBrush: Brush get() = PlayerSkins.tpsL2.key.diagonal()
+val KeyOrangeBrush: Brush get() = PlayerSkins.tpsL2.play.diagonal()
 
 /** Cassette window surfaces: dark window, cream shell, tape and hub materials. */
 val CassetteWindowColor = WtBlueNight

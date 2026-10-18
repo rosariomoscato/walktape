@@ -2,8 +2,8 @@
 
 Stato: approvata dall'utente nella conversazione iniziale. Trascrizione del perimetro, non attestazione di implementazione.
 
-Distribuzione di riferimento: [v0.1.0](https://github.com/rosariomoscato/walktape/releases/tag/v0.1.0)
-(code2); [note e collaudi residui](docs/RELEASE_NOTES.md). Pubblicare il pacchetto non
+Distribuzione di riferimento: [v0.2.0](https://github.com/rosariomoscato/walktape/releases/tag/v0.2.0)
+(code4, Room13); [note e collaudi residui](docs/RELEASE_NOTES.md). Pubblicare il pacchetto non
 equivale a dichiarare superata l'intera matrice hardware di questa specifica.
 
 ## Obiettivo e piattaforma
@@ -115,3 +115,15 @@ Utente disponibile per prove APK su Motorola G55 e Android Auto. Verificare buil
 ## Fuori dalla prima versione
 
 Audiolibri, Cast/DLNA, file locali, altre skin, sincronizzazione automatica fra telefoni, supporto verificato ad altri server e Google Play. Eventuale microSD da valutare successivamente, non prevista nella prima versione.
+
+## Estensione B04 post-v0.1.1 — approvata 2026-10-18
+
+Tre modelli del solo player: TPS-L2 predefinito con aspetto conservato, **WM-2 argento
+tecnico** e **WM-F5 Sports giallo**. Utente approva entrambe le direzioni A/C della
+tavola B04-T01. Marchio WalkTape e risorse originali; tema chiaro/scuro/sistema e
+identità globale indipendenti dal modello. Scelta di dispositivo in Impostazioni →
+Aspetto, persistente e trasferibile col backup; assenza/ID ignoto → TPS-L2. Cambio
+puramente visivo senza modifiche ad audio/coda/posizione/timer/volume/DSP né rete.
+Tutti i comandi e vincoli di accessibilità restano operativi. Nessuna estensione
+ad Android Auto/notifica. Dopo riscontro generale positivo l'utente autorizza
+commit/push, incremento versione e APK pubblico: rilascio v0.2.0/code4.

@@ -43,6 +43,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.key
@@ -54,11 +55,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.CustomAccessibilityAction
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTagsAsResourceId
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -80,22 +85,33 @@ import com.walktape.app.ui.components.TimerSection
 import com.walktape.app.ui.components.VolumeSection
 import com.walktape.app.ui.components.rememberKeyFeedback
 import com.walktape.app.ui.screens.library.CoverArtById
-import com.walktape.app.ui.theme.ChassisBodyBrush
-import com.walktape.app.ui.theme.ChassisSteelBrush
 import com.walktape.app.ui.theme.WtBlueNight
-import com.walktape.app.ui.theme.WtInk
-import com.walktape.app.ui.theme.WtOrange
 import com.walktape.app.ui.theme.WtSteel
-import com.walktape.app.ui.theme.WtSteelDark
+import com.walktape.app.ui.theme.LocalPlayerSkin
+import com.walktape.app.ui.theme.PlayerSkins
+import com.walktape.app.ui.theme.bodyBrush
 
 /**
- * TPS-L2 player: chassis with cassette and mechanical keys on the real W05 engine, plus the
+ * Skinnable player: chassis with cassette and mechanical keys on the real W05 engine, plus the
  * functional sections (seek, volume, timer, suggestions) and the queue. Compact/medium widths
  * scroll in one column and open the queue as a sheet; expanded widths show the queue pane.
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun PlayerScreen(onBack: () -> Unit) {
+    val settings by Graph.settingsRepository.settings.collectAsStateWithLifecycle(initialValue = Graph.currentSettings)
+    if (!settings.loaded) {
+        Surface(Modifier.fillMaxSize()) {}
+        return
+    }
+    CompositionLocalProvider(LocalPlayerSkin provides PlayerSkins.forModel(settings.playerModel)) {
+        PlayerContent(onBack)
+    }
+}
+
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun PlayerContent(onBack: () -> Unit) {
     val state by Graph.playback.state.collectAsStateWithLifecycle()
     val feedback = rememberKeyFeedback()
     val profiles by Graph.profiles.profiles.collectAsStateWithLifecycle(emptyList())
@@ -121,7 +137,7 @@ fun PlayerScreen(onBack: () -> Unit) {
         }
     }
 
-    BoxWithConstraints(Modifier.fillMaxSize()) {
+    BoxWithConstraints(Modifier.fillMaxSize().semantics { testTagsAsResourceId = true }) {
         val expanded = maxWidth >= 840.dp
         if (expanded) {
             Row(Modifier.fillMaxSize()) {
@@ -244,12 +260,19 @@ private fun Chassis(
     rewindTick: (Int) -> Unit,
     forwardTick: (Int) -> Unit,
 ) {
+    val skin = LocalPlayerSkin.current
     Column(
         Modifier
             .fillMaxWidth()
-            .shadow(6.dp, RoundedCornerShape(20.dp))
-            .background(ChassisBodyBrush, RoundedCornerShape(20.dp))
-            .border(1.5.dp, WtSteelDark.copy(alpha = 0.7f), RoundedCornerShape(20.dp))
+            .shadow(6.dp, RoundedCornerShape(skin.bodyRadius))
+            .background(skin.bodyBrush(), RoundedCornerShape(skin.bodyRadius))
+            .border(1.5.dp, skin.bodyBorder, RoundedCornerShape(skin.bodyRadius))
+            .drawBehind {
+                drawLine(skin.protectiveRail, Offset(7.dp.toPx(), 51.dp.toPx()),
+                    Offset(7.dp.toPx(), size.height - 16.dp.toPx()), 3.dp.toPx())
+                drawLine(skin.protectiveRail, Offset(size.width - 7.dp.toPx(), 51.dp.toPx()),
+                    Offset(size.width - 7.dp.toPx(), size.height - 16.dp.toPx()), 3.dp.toPx())
+            }
     ) {
         SteelHeader()
         CassetteWindow(state, profileId, onOpenCover, Modifier.padding(16.dp))
@@ -262,8 +285,15 @@ private fun Chassis(
 
 @Composable
 private fun SteelHeader() {
+    val skin = LocalPlayerSkin.current
     Row(
-        Modifier.fillMaxWidth().height(46.dp).background(ChassisSteelBrush).padding(horizontal = 16.dp),
+        Modifier.fillMaxWidth().height(46.dp).background(skin.band.vertical())
+            .drawBehind {
+                drawLine(skin.diagonalDetail, Offset(size.width - 70.dp.toPx(), 0f),
+                    Offset(size.width - 24.dp.toPx(), size.height), 1.dp.toPx())
+                drawLine(skin.diagonalDetail, Offset(size.width - 60.dp.toPx(), 0f),
+                    Offset(size.width - 14.dp.toPx(), size.height), 1.dp.toPx())
+            }.padding(horizontal = 16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
@@ -272,10 +302,10 @@ private fun SteelHeader() {
                 fontWeight = FontWeight.Black,
                 fontStyle = FontStyle.Italic
             ),
-            color = WtInk
+            color = skin.bandInk
         )
         Spacer(Modifier.weight(1f))
-        Box(Modifier.size(10.dp).background(WtOrange, RoundedCornerShape(2.dp)))
+        Box(Modifier.size(10.dp).background(skin.accent, RoundedCornerShape(2.dp)))
     }
 }
 
@@ -313,7 +343,7 @@ private fun KeysPanel(
                 label = stringResource(if (state.playWhenReady && !state.ended) R.string.playback_pause else R.string.playback_play),
                 icon = if (state.playWhenReady && !state.ended) Icons.Filled.Pause else Icons.Filled.PlayArrow,
                 onClick = Graph.playback::togglePlayPause,
-                modifier = Modifier.weight(1.25f),
+                modifier = Modifier.weight(1.25f).testTag("player-play-pause"),
                 emphasized = true,
                 enabled = state.canPlayPause,
                 height = 60.dp,

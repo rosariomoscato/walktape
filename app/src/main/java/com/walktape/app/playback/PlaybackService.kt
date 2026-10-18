@@ -26,6 +26,7 @@ import com.walktape.app.core.db.DownloadEntity
 import com.walktape.app.core.library.BrowseQueries
 import com.walktape.app.core.library.LibraryFilter
 import com.walktape.app.core.net.OpenSubsonicClient
+import com.walktape.app.core.settings.audioEffectSettings
 import com.walktape.app.playback.browse.AutoBrowseIds
 import com.walktape.app.playback.browse.AutoBrowseItems
 import com.walktape.app.playback.browse.CoverArtProvider
@@ -195,7 +196,7 @@ class PlaybackService : MediaLibraryService() {
         crossfade.start()
         Graph.systemEffects.attach(audioSessionId)
         scope.launch {
-            Graph.settingsRepository.settings.collect { settings ->
+            Graph.settingsRepository.settings.audioEffectSettings().collect { settings ->
                 deckAudio.values.toList().forEach { audio ->
                     audio.tape.enabled = settings.tapeEffectEnabled
                     audio.gain.enabled = settings.replayGainMode != com.walktape.app.core.settings.ReplayGainMode.OFF

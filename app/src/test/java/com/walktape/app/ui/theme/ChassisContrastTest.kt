@@ -11,6 +11,23 @@ import kotlin.math.pow
  */
 class ChassisContrastTest {
 
+    @Test fun everySkinKeepsTextIconsAndActiveIndicatorsReadableAcrossGradientStops() {
+        com.walktape.app.core.settings.PlayerModel.entries.forEach { model ->
+            val skin = PlayerSkins.forModel(model)
+            fun check(ink: Color, background: Color, minimum: Double) {
+                assertTrue("${model.id}: contrast ${ratio(ink, background)} < $minimum",
+                    ratio(ink, background) >= minimum)
+            }
+            listOf(skin.titleInk, skin.artistInk, skin.labelInk).forEach { check(it, skin.shell, 4.5) }
+            listOf(skin.counterInk, skin.statusInk, skin.errorInk).forEach { check(it, skin.window, 4.5) }
+            listOf(skin.band.start, skin.band.middle, skin.band.end).forEach { check(skin.bandInk, it, 4.5) }
+            listOf(skin.key.start, skin.key.middle, skin.key.end).forEach { check(skin.keyInk, it, 3.0) }
+            listOf(skin.play.start, skin.play.middle, skin.play.end).forEach { check(skin.playInk, it, 3.0) }
+            check(skin.accent, skin.activeWell, 3.0)
+            check(skin.accent, skin.window, 3.0)
+        }
+    }
+
     private fun luminance(color: Color): Double {
         fun channel(value: Float): Double {
             val c = value.toDouble()

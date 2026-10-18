@@ -1,20 +1,19 @@
 # WalkTape — architettura e verifiche
 
-## Distribuzione v0.1.0 — riferimento corrente
+## Distribuzione v0.1.1 — riferimento corrente
 
-APK release `walktape-universal-0.1.0.apk`, versionCode2, package `com.walktape.app`;
-sorgente applicativo `afdb6a57e381c574b2df94e4d17446b90dc2dd39`, senza modifiche
-al codice dopo gli ultimi177/177 JVM e le regressioni Android D41. Build e lint release
-riusciti (0errori/45avvisi), firma V2 verificata, variante non debuggable.
-SHA256 `c1ccacb4632d39da11c4bd0344cbe092a90f1eca7d6badc253ca04be72668957`.
+APK release `walktape-universal-0.1.1.apk`, versionCode3, package `com.walktape.app`;
+sorgente applicativo e614ea8/tag v0.1.1, con correzioni D42 e Room13. Baseline
+192/192 JVM, lint0errori/46avvisi, firma V2 verificata, variante non debuggable.
+SHA256 `4a6149aa38ca36b06aa673f442fb900666afd0cc73d1b645404df12cd4f250ed`.
 
 Metadati, certificato pubblico, comando build e pubblicazione: [RELEASING.md](RELEASING.md).
-Download: [GitHub v0.1.0](https://github.com/rosariomoscato/walktape/releases/tag/v0.1.0).
+Download: [GitHub v0.1.1](https://github.com/rosariomoscato/walktape/releases/tag/v0.1.1).
 Le note404/assenza release e i digest precedenti nelle sezioni storiche sotto si riferiscono
 alle rispettive verifiche, non all'artefatto corrente. La pubblicazione non chiude i
 collaudi Auto/hardware residui ([note](RELEASE_NOTES.md)).
 
-Stack attuale: Kotlin built-in/Compose, Media3 1.11.1, WorkManager2.12.0, Room schema12
+Stack attuale: Kotlin built-in/Compose, Media3 1.11.1, WorkManager2.12.0, Room schema13
 con migrazioni esplicite; compileSdk37/targetSdk36/minSdk26. Versioni effettive nei file
 di build. Nessun backend/account aggiuntivo, nessuna nuova dipendenza per la release.
 
@@ -490,3 +489,34 @@ Verifiche: JVM suite estesa (apiKey su ping/stream/download + guardia RESERVED, 
 parsing+vettore SHA-256, HTTPS-only sul default updater client, downloadText, gate esterno,
 redazione apiKey, backup round-trip del flag). Migrazione 12→13 e percorsi apiKey su
 dispositivo: da eseguire (emulatore/telefono) e registrare nel WORKLOG.
+
+## B04 — skin player dopo v0.1.1 (2026-10-18)
+
+Approvate due skin aggiuntive WM-2 e WM-F5 Sports (A/C della tavola B04-T01), con
+TPS-L2 predefinito. `PlayerModel` conserva ID espliciti `tps-l2`, `wm-2`, `wm-f5`:
+DataStore `player_model`, assente/ignoto→TPS-L2. Nessuna migrazione Room (resta13),
+nessuna nuova dipendenza o modifica alla versione0.1.1/code3.
+
+`PlayerSkin`/`SkinGradient` sono value object immutabili; `PlayerSkins` centralizza
+materiali per scocca, fascia, finestra/cassetta, tasti, bordi, testi, bobine e dettagli.
+`LocalPlayerSkin` è fornito solo nella rotta player. `PlayerScreen`, `CassetteWindow`
+e `MechanicalKey` restano condivisi; nessun motore o schermata duplicati.
+Gli alias originali di Materials rinviano alla skin predefinita; il test raster usa
+valori pre-B04 fissati indipendentemente dagli alias. Materiali fissi nei temi;
+form/libreria/mini-bar/Auto/notifiche invariati.
+Il selettore radio in Aspetto usa miniature Canvas originali statiche dai token veri,
+nomi IT/EN e gate loaded. Il suo setter scrive soltanto DataStore.
+
+Il collector del servizio proietta su `AudioEffectSettings` (6 campi realmente
+consumati), filtra loaded e distinctUntilChanged prima di applicare PCM/audiofx;
+skin, tema, feedback e updater non riapplicano effetti. Il contatore interno volatile
+`preferenceApplications` consente la verifica di assenza di riapplicazioni senza log
+o telemetria. Crossfade legge ancora le proprie impostazioni nel motore precedente,
+D41/route e D42 non cambiano. Anche l'auto-check GitHub proietta sui soli campi
+updateCheckEnabled/updateLastCheckAt: una scelta estetica non innesca un check scaduto.
+
+Backup v1 esteso con `BackupPreferences.playerModelId` nullable sul wire: parsing
+normalizza esplicitamente assenza/null/ID ignoto tramite PlayerModel.fromId; import
+diretto DTO applica lo stesso fallback. Esportazione ID stabile, senza runtime/loaded;
+si applica solo quando richiesta l'importazione delle preferenze. Code/profili/D42
+e gate media attivi restano quelli del backup precedente. Verifiche/esiti nel WORKLOG.

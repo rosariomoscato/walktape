@@ -31,6 +31,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import java.io.File
 
@@ -78,10 +79,11 @@ object Graph {
             // W11-T04: opt-in daily update check; check only, nothing is downloaded or
             // installed automatically, and offline-only blocks it without consuming the day.
             var lastAutoCheck = 0L
-            settingsRepository.settings.collect { settings ->
-                if (!settings.updateCheckEnabled) return@collect
+            settingsRepository.settings.map { it.updateCheckEnabled to it.updateLastCheckAt }
+                .distinctUntilChanged().collect { (enabled, checkedAt) ->
+                if (!enabled) return@collect
                 val now = System.currentTimeMillis()
-                if (now - settings.updateLastCheckAt < UPDATE_CHECK_INTERVAL_MS) return@collect
+                if (now - checkedAt < UPDATE_CHECK_INTERVAL_MS) return@collect
                 if (now - lastAutoCheck < 60_000L) return@collect
                 lastAutoCheck = now
                 val outcome = updateManager.check()

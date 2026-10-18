@@ -84,6 +84,8 @@ fun SettingsScreen(
             onSelect = viewModel::setThemeMode
         )
 
+        PlayerModelChooser(settings.playerModel, settings.loaded, viewModel::setPlayerModel)
+
         SettingLabel(text = stringResource(R.string.settings_language), paddingStart = 16)
         LanguageChooser(context = context)
 

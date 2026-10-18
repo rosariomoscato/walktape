@@ -4,12 +4,12 @@ Come installare WalkTape e collegarlo al proprio server Navidrome.
 
 ## 1. Installare l'APK
 
-Versione pubblica: **[v0.1.1](https://github.com/rosariomoscato/walktape/releases/tag/v0.1.1)**,
-`versionCode 3`, Android 8.0+; APK universal firmato.
+Versione pubblica: **[v0.2.0](https://github.com/rosariomoscato/walktape/releases/tag/v0.2.0)**,
+`versionCode 4`, Android 8.0+; APK universal firmato.
 
-1. Scarica [walktape-universal-0.1.1.apk](https://github.com/rosariomoscato/walktape/releases/download/v0.1.1/walktape-universal-0.1.1.apk).
+1. Scarica [walktape-universal-0.2.0.apk](https://github.com/rosariomoscato/walktape/releases/download/v0.2.0/walktape-universal-0.2.0.apk).
    L'hash per verificarne l'integrità è in
-   [SHA256SUMS.txt](https://github.com/rosariomoscato/walktape/releases/download/v0.1.1/SHA256SUMS.txt).
+   [SHA256SUMS.txt](https://github.com/rosariomoscato/walktape/releases/download/v0.2.0/SHA256SUMS.txt).
 2. Aprilo sul telefono ("Scarica" completata → tocca il file, o da File manager).
 3. Android può chiedere il permesso di installare app sconosciute per il browser o
    gestore file che apre l'APK. Per gli aggiornamenti avviati dentro WalkTape, invece,
@@ -20,9 +20,10 @@ Versione pubblica: **[v0.1.1](https://github.com/rosariomoscato/walktape/release
 dall'app: vedi [UPDATES.md](UPDATES.md)). Una build con firma diversa richiede la
 disinstallazione: i dati dell'app andrebbero persi, la musica sul server no.
 
-### Da v0.1.0 o da build di sviluppo denominate 0.1.0
+### Da v0.1.0, v0.1.1 o dalla build di sviluppo B04
 
-Dalla v0.1.1 il controllo in-app offre l'aggiornamento normale (versionName e versionCode
+La v0.2.0 incrementa versione e codice rispetto alle precedenti, inclusa la build B04
+denominata0.1.1/code3. Il controllo in-app offre l'aggiornamento normale (versionName e versionCode
 crescenti, stessa firma): Impostazioni → **Aggiornamenti app** → Controlla aggiornamenti.
 In alternativa installa manualmente l'APK pubblico sopra quello attuale, senza
 disinstallare: la firma di progetto è stata mantenuta. Le versioni future incrementeranno
@@ -64,6 +65,9 @@ isolati; il cambio profilo arresta la riproduzione e ripristina la coda del prof
 
 - **La mia musica** → album, artisti, brani, generi, playlist; il player TPS-L2 si apre dalla
   barra in basso.
+- **Impostazioni → Aspetto → Modello del lettore**: TPS-L2, WM-2 Argento tecnico o
+  WM-F5 Sports giallo. La scelta resta dopo il riavvio, è inclusa nei backup e cambia
+  soltanto l'aspetto del player; tema chiaro/scuro e stato musicale sono indipendenti.
 - Per l'offline: seleziona brani/album/playlist → **Scarica**. Impostazioni → Download e
   storage per i limiti di cache, la rete mobile e la modalità **Solo offline**.
 - Android Auto: collega il telefono come di consueto, WalkTape appare tra le app multimediali

@@ -369,10 +369,46 @@ Criterio di uscita: prima versione conforme al perimetro approvato; i controlli 
 - [ ] B01 — Audiolibri e ripresa per singolo contenuto.
 - [ ] B02 — Google Cast e DLNA.
 - [ ] B03 — Libreria di file locali indipendenti da Navidrome.
-- [ ] B04 — Skin ispirate ad altri Walkman.
+- [ ] B04 — Skin ispirate ad altri Walkman. *(TPS-L2 + WM-2 + WM-F5 Sports implementati/verificati software; collaudo Motorola B04-T05 aperto)*
 - [ ] B05 — Sincronizzazione automatica di coda e posizione tra telefoni.
 - [ ] B06 — Supporto dichiarato e verificato ad altri server OpenSubsonic.
 - [ ] B07 — Pubblicazione su Google Play.
 - [ ] B08 — Valutare storage dei download su microSD.
 
 Il backlog non implica approvazione di sviluppo: ogni elemento va definito prima di iniziarlo.
+
+## B04 — Incremento post-v0.1.1 (2026-10-18)
+
+Utente approva entrambe A WM-2 e C WM-F5 Sports della tavola originale: incremento
+ampliato a TPS-L2 più due skin. Baseline main95f0400, versione ancora0.1.1/code3 e
+Room13; nessuna pubblicazione/version bump concordati. SPEC/DESIGN/ARCHITECTURE e
+guida backup aggiornati. Video/skill/illustrazioni e file privati preservati.
+
+- [x] B04-T01 — Concordare modello/ampiezza e approvare anteprime visive della skin aggiuntiva. *(A WM-2 + C WM-F5 Sports approvate; TPS-L2 più due skin)*
+- [x] B04-T02 — Estrarre definizioni skin/materiali e mantenere TPS-L2 equivalente alla baseline. *(raster dei quattro gradienti identico su AOSP; geometria/ruoli TPS invariati)*
+- [x] B04-T03 — Implementare skin approvate e selettore IT/EN persistente per dispositivo, senza effetti sulla riproduzione. *(DataStore riaperto, radio verificato, servizio in play senza cambi musicali/HTTP/audiofx)*
+- [x] B04-T04 — Integrare la preferenza nel backup con import retrocompatibile e fallback sicuro. *(JVM vecchio/nuovo/null/ignoto e BackupStorage Android5/5)*
+- [ ] B04-T05 — Verificare persistenza/backup/contrasti, player durante cambio skin e UI adattiva/accessibile. *(software verificato:197JVM/lint0/46, suite AOSP,108capture e motion; restano TalkBack/feedback/giudizio visivo Motorola nella checklist B04)*
+- [x] B04-T06 — Aggiornare documenti/handoff e consegnare APK debug/checklist; pubblicazione solo su richiesta. *(APK debug e SHA256 in memoria/WORKLOG/local/PHONE_TESTS_B04.md; v0.1.1/code3 invariata)*
+
+Criterio di uscita: TPS-L2 predefinito più due skin approvate, cambio persistente e accessibile
+senza perdita/modifica dello stato musicale; verifiche software documentate e collaudi
+visivi reali distinti. Nessun commit, push o release autorizzato dal solo handoff.
+
+Checkpoint storico B04-T01 (2026-10-18): proposte A WM-2 argento tecnico, B WM-20 argento/blu,
+C WM-F5 Sports giallo (raccomandata), fonti ufficiali Sony verificate. Tavola statica
+originale `local/B04_SKIN_PROPOSALS.html` e PNG, TPS-L2 affiancato e temi chiaro/scuro.
+Successivamente approvate A/C e implementate. Anteprima Android finale locale:
+`local/B04_ANDROID_PREVIEW.html`; prove/failure intermedie in WORKLOG. Collaudo fisico
+T05 aperto; i residui hardware/Auto delle wave precedenti non sono chiusi da B04.
+
+## Release B04 — v0.2.0 (autorizzata 2026-10-18)
+
+Riscontro utente «Funziona bene», seguito da richiesta esplicita di commit/push,
+incremento versione e APK pubblico. Riscontro generale, non esiti puntuali della
+checklist B04 o chiusura dei residui precedenti. Release scelta0.2.0/code4, Room13.
+
+- [x] REL-B04-T01 — Verificare stato locale/remoto, guide e autorizzazione; registrare riscontro utente.
+- [ ] REL-B04-T02 — Aggiornare versione/note/documentazione e verificare build release, firma e checksum.
+- [ ] REL-B04-T03 — Commit/push sorgenti, tag annotato e release con APK universal+SHA256SUMS.
+- [ ] REL-B04-T04 — Verificare download pubblico/latest, aggiornare handoff e consegnare URL.

@@ -7,6 +7,7 @@ enum class ReplayGainMode { OFF, TRACK, ALBUM }
 
 data class AppSettings(
     val themeMode: ThemeMode = ThemeMode.SYSTEM,
+    val playerModel: PlayerModel = PlayerModel.TPS_L2,
     val appLockEnabled: Boolean = false,
     /** Optional server-backed continuation at the end of a queue; off until the user opts in. */
     val suggestionsEnabled: Boolean = false,

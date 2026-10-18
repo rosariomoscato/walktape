@@ -6,18 +6,18 @@ Android chiede sempre conferma.
 
 ## Release correnti
 
-**[v0.1.1](https://github.com/rosariomoscato/walktape/releases/tag/v0.1.1)**,
-`versionCode3`, asset `walktape-universal-0.1.1.apk` e `SHA256SUMS.txt`.
+**[v0.2.0](https://github.com/rosariomoscato/walktape/releases/tag/v0.2.0)**,
+`versionCode4`, asset `walktape-universal-0.2.0.apk` e `SHA256SUMS.txt`.
 Dalla v0.1.1 il percorso in-app è quello normale: nome versione e versionCode crescenti,
 offerta di aggiornamento, download verificato (checksum pubblicato + firma) e conferma
 dell'installer di sistema.
 
-La prima release **[v0.1.0](https://github.com/rosariomoscato/walktape/releases/tag/v0.1.0)**
-(`versionCode2`) resta disponibile. Chi ha già una build chiamata0.1.0 la vede come
-**versione aggiornata**: per passare alla v0.1.1 basta il controllo in-app (che ora
-offre la nuova versione) oppure l'installazione manuale dell'APK. La prima pubblicazione
-non dimostra da sola il percorso completo di aggiornamento verso una futura versione:
-download/installer interattivi restano da collaudare.
+Le precedenti **[v0.1.1](https://github.com/rosariomoscato/walktape/releases/tag/v0.1.1)**
+(code3) e **[v0.1.0](https://github.com/rosariomoscato/walktape/releases/tag/v0.1.0)**
+(code2) restano disponibili. Anche la build di sviluppo B04 denominata0.1.1/code3
+riceve l'offerta0.2.0; basta il controllo in-app oppure l'installazione manuale
+dell'APK sopra quello esistente, senza disinstallare. Download/installer interattivi
+sul telefono restano prove distinte dalla disponibilità della release pubblica.
 
 ## Percorso
 
@@ -25,7 +25,7 @@ Impostazioni → **Aggiornamenti app**:
 
 1. **Controlla aggiornamenti**: interroga `api.github.com` con un client dedicato (senza
    credenziali né token). HTTP404 è gestito come "Nessuna release pubblicata"; con
-   v0.1.0 pubblicata, l'API latest deve invece restituire la release.
+   una release pubblicata, l'API latest deve invece restituire la release corrente.
 2. Se c'è una versione più recente: **novità** del rilascio e **Scarica APK** (asset scelto
    solo se univoco: build universal preferite alle ABI-specifiche; ambiguità rifiutata).
 3. Il trasporto è **solo HTTPS**: l'URL dell'asset e ogni redirect di download vengono

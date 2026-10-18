@@ -1,5 +1,53 @@
 # WalkTape — note di rilascio
 
+## v0.2.0
+
+Tre modelli del lettore — Android 8.0+ (API26), Navidrome.
+`versionName=0.2.0`, `versionCode=4`, package `com.walktape.app`, Room13 invariato.
+
+### Installazione
+
+- [Release v0.2.0](https://github.com/rosariomoscato/walktape/releases/tag/v0.2.0).
+- APK universal **walktape-universal-0.2.0.apk**, checksum in **SHA256SUMS.txt**.
+- Da v0.1.0, v0.1.1 o build di sviluppo B04: Impostazioni → Aggiornamenti app →
+  Controlla aggiornamenti, oppure installazione manuale sopra l'app esistente.
+  Firma stabile, nessuna disinstallazione; dati e download conservati.
+
+### Cosa cambia
+
+- **WM-2 · Argento tecnico**: scocca argento, fascia grafite con dettaglio diagonale
+  e Play verde tenue.
+- **WM-F5 Sports · Sports giallo**: scocca gialla, tasti grafite e Play verde.
+  Risorse originali e marchio WalkTape; tutte le funzioni del player restano disponibili.
+- **Modello del lettore** in Impostazioni → Aspetto, con miniature e selezione radio
+  accessibile in italiano e inglese. **TPS-L2 resta il modello predefinito**, con
+  aspetto conservato. Tema chiaro/scuro/sistema e identità dell'app sono indipendenti.
+- Scelta persistente per dispositivo, inclusa nei backup manuali delle preferenze.
+  I backup precedenti e gli ID sconosciuti ricadono esplicitamente sul TPS-L2.
+- Cambio puramente visivo: conserva brano, coda/UUID/shuffle, posizione, volume,
+  timer e DSP. Il collector audio ora reagisce ai soli campi pertinenti; anche il
+  controllo automatico degli aggiornamenti è isolato dalle preferenze estetiche.
+- Preservate gestione bassi per uscita D41 e correzioni D42: autenticazione chiave
+  API OpenSubsonic, updater HTTPS/checksum/firma e blocco della ricerca esterna.
+  Android Auto e notifiche mantengono la propria interfaccia di piattaforma.
+
+### Verifiche del codice B04 e collaudi residui
+
+- **197/197 JVM**, nessuno saltato; lint debug **0 errori / 46 avvisi**.
+- Su AOSP in esecuzioni separate: materiali+backup6/6, cambio modello durante audio
+  locale Solo offline1/1, regressioni coda/Keystore/Room13/effetti8/8, matrice UI1/1
+  per ciascuno dei tre viewport e movimento ridotto1/1; confronto raster finaleTPS1/1.
+- 108capture: tre modelli, IT/EN, tre temi, font100/200%, portrait/landscape/tablet.
+  Smoke aggiuntivo nella shell Android normale e persistenza dopo force-stop.
+- Nella prova del servizio: nessun seek/transizione musicale, zero HTTP e nessuna
+  riapplicazione degli effetti audio al cambio skin. Le prove con WAV e libreria di
+  fixture restano distinte da hardware e server Navidrome reali.
+- Riscontro utente **«Funziona bene»** dopo la consegna: conferma generale positiva.
+  Restano prove puntuali TalkBack/clic/aptica e collaudi hardware/Android Auto già
+  aperti; non sono dichiarati superati dalla pubblicazione di questa release.
+
+---
+
 ## v0.1.1
 
 Correzioni dalla revisione dell'app pubblicata — Android 8.0+ (API 26), Navidrome.

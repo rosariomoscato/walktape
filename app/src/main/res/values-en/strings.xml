@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="settings_player_model">Player model</string>
+    <string name="settings_player_model_help">Only changes the player’s appearance. Theme and playback remain independent.</string>
+    <string name="player_model_tps_l2">TPS-L2 · Classic</string>
+    <string name="player_model_wm_2">WM-2 · Technical silver</string>
+    <string name="player_model_wm_f5">WM-F5 Sports · Sports yellow</string>
     <string name="app_name">WalkTape</string>
 
     <string name="nav_home">My music</string>

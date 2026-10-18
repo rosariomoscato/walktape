@@ -15,6 +15,7 @@ import com.walktape.app.core.settings.SettingsRepository
 import com.walktape.app.playback.SavedQueue
 import com.walktape.app.playback.SavedQueueItem
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.flow.first
 import mockwebserver3.MockWebServer
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -32,6 +33,27 @@ import java.util.UUID
  */
 @RunWith(AndroidJUnit4::class)
 class BackupStorageTest {
+    @Test fun skinPreferenceIsExportedAndOnlyImportedWhenRequested(): Unit = runBlocking {
+        val repo = SettingsRepository(context)
+        val before = repo.settings.first()
+        val db = newDb()
+        try {
+            repo.setPlayerModel(com.walktape.app.core.settings.PlayerModel.WM_F5)
+            val backup = manager(db).build(includePreferences = true)
+            assertEquals("wm-f5", backup.preferences!!.playerModelId)
+            assertNull(manager(db).build(includePreferences = false).preferences)
+            repo.setPlayerModel(com.walktape.app.core.settings.PlayerModel.WM_2)
+            manager(db).import(backup, applyPreferences = false)
+            assertEquals(com.walktape.app.core.settings.PlayerModel.WM_2, repo.settings.first().playerModel)
+            manager(db).import(backup, applyPreferences = true)
+            assertEquals(com.walktape.app.core.settings.PlayerModel.WM_F5, repo.settings.first().playerModel)
+            // Direct DTO input is normalized by the manager too, not only by the JSON codec.
+            manager(db).import(backup.copy(preferences = backup.preferences.copy(playerModelId = "future")), true)
+            assertEquals(com.walktape.app.core.settings.PlayerModel.TPS_L2, repo.settings.first().playerModel)
+            manager(db).import(backup.copy(preferences = backup.preferences.copy(playerModelId = null)), true)
+            assertEquals(com.walktape.app.core.settings.PlayerModel.TPS_L2, repo.settings.first().playerModel)
+        } finally { repo.setPlayerModel(before.playerModel); db.close() }
+    }
     private val instrumentation = InstrumentationRegistry.getInstrumentation()
     private val context = instrumentation.targetContext
     private val gson = Gson()

@@ -32,6 +32,10 @@ class SystemEffectsController(context: Context) {
     private val stateFlow = MutableStateFlow<State>(State.Idle)
     val state: StateFlow<State> = stateFlow.asStateFlow()
 
+    /** Local volatile diagnostic counter; no logging/storage, permits no-reapply regression tests. */
+    @Volatile internal var preferenceApplications: Long = 0
+        private set
+
     private var equalizer: Equalizer? = null
     private var bass: BassBoost? = null
     private var sessionId = AudioEffect.ERROR_BAD_VALUE
@@ -107,6 +111,7 @@ class SystemEffectsController(context: Context) {
 
     /** Applies user preferences; a failed control marks the state unavailable honestly. */
     fun apply(equalizerEnabled: Boolean, bandLevelsCsv: String, bassEnabled: Boolean, bassStrength: Int): Boolean {
+        preferenceApplications++
         requestedBass = bassEnabled
         requestedStrength = bassStrength.coerceIn(0, 1000)
         val eq = equalizer ?: return false

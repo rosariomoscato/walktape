@@ -100,7 +100,7 @@ class BackupManager(
                 s.keyClicksEnabled, s.audioCacheLimitBytes, s.coverCacheLimitBytes,
                 s.crossfadeEnabled, s.crossfadeDurationMs, s.replayGainMode.name,
                 s.equalizerEnabled, s.equalizerBands, s.bassBoostEnabled, s.bassBoostStrength,
-                s.tapeEffectEnabled, s.appLockEnabled)
+                s.tapeEffectEnabled, s.appLockEnabled, s.playerModel.id)
         } else null
         return BackupFile(BackupCodec.FORMAT, BackupCodec.VERSION, clock(), appVersion,
             preferences, profiles)
@@ -254,6 +254,7 @@ class BackupManager(
     private suspend fun applyPreferences(p: BackupPreferences) {
         settingsRepository.apply {
             setThemeMode(ThemeMode.entries.first { it.name == p.themeMode })
+            setPlayerModel(com.walktape.app.core.settings.PlayerModel.fromId(p.playerModelId))
             setSuggestionsEnabled(p.suggestionsEnabled)
             setHapticsEnabled(p.hapticsEnabled)
             setKeyClicksEnabled(p.keyClicksEnabled)

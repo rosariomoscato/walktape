@@ -8,8 +8,8 @@ Player Android nativo per [Navidrome](https://www.navidrome.org), con un'identit
 
 Open source (licenza MIT), nessuna pubblicità, nessuna telemetria, nessun account aggiuntivo: la tua musica resta sul tuo server.
 
-**Versione corrente: [v0.1.1](https://github.com/rosariomoscato/walktape/releases/tag/v0.1.1)**
-— [Scarica APK universal](https://github.com/rosariomoscato/walktape/releases/download/v0.1.1/walktape-universal-0.1.1.apk)
+**Versione corrente: [v0.2.0](https://github.com/rosariomoscato/walktape/releases/tag/v0.2.0)**
+— [Scarica APK universal](https://github.com/rosariomoscato/walktape/releases/download/v0.2.0/walktape-universal-0.2.0.apk)
 · [Novità e verifiche](docs/RELEASE_NOTES.md)
 
 ## Cos'è
@@ -19,7 +19,7 @@ WalkTape riproduce la libreria del tuo server Navidrome sul telefono (e in Andro
 - **Profili multipli** con credenziali protette (Android Keystore): password, oppure chiave API
   OpenSubsonic (estensione `apiKeyAuthentication`) sui server che la supportano; dati e download isolati per profilo.
 - **Libreria completa**: album, artisti, brani, generi, playlist, preferiti, testi; ricerca unificata e ordinamenti persistenti.
-- **Player TPS-L2**: coda con occorrenze distinte, shuffle/ripetizione, timer di ascolto, dissolvenza incrociata opzionale, ReplayGain, equalizzatore, effetto cassetta (tutti inizialmente spenti: suono pulito predefinito).
+- **Tre modelli del player**: TPS-L2 predefinito, WM-2 Argento tecnico e WM-F5 Sports giallo; scelta persistente in Impostazioni → Aspetto, indipendente dal tema e dalla riproduzione. Coda con occorrenze distinte, shuffle/ripetizione, timer di ascolto, dissolvenza incrociata opzionale, ReplayGain, equalizzatore, effetto cassetta (tutti inizialmente spenti: suono pulito predefinito).
 - **Rinforzo bassi** opzionale per cuffie: sospeso su altoparlante o uscita non rilevata, con avviso e preferenza conservata; resa dipendente dal dispositivo, nessuna compensazione automatica del volume.
 - **Offline reale**: download di brani/album/playlist, cache limitata, modifiche offline a playlist/preferiti con recupero e gestione dei conflitti.
 - **Ascolti** inviati a Navidrome con deduplica locale e recupero offline; nessuna garanzia exactly-once se il server accetta l'evento ma la risposta si perde.
@@ -44,7 +44,7 @@ WalkTape riproduce la libreria del tuo server Navidrome sul telefono (e in Andro
 WalkTape non è su Google Play. L'APK firmato è distribuito tramite
 [GitHub Releases](https://github.com/rosariomoscato/walktape/releases).
 
-1. Scarica `walktape-universal-0.1.1.apk` dalla release v0.1.1; il relativo hash è nel file `SHA256SUMS.txt` della stessa release.
+1. Scarica `walktape-universal-0.2.0.apk` dalla release v0.2.0; il relativo hash è nel file `SHA256SUMS.txt` della stessa release.
 2. Aprilo sul telefono e conferma l'installazione (Android può chiedere il permesso di installare app sconosciute al browser o al gestore file usato).
 3. Al primo avvio: aggiungi il profilo con URL, utente e password Navidrome (o scansiona il QR generato da un altro dispositivo).
 
@@ -52,8 +52,8 @@ WalkTape non è su Google Play. L'APK firmato è distribuito tramite
 
 Guida dettagliata: [docs/INSTALL.md](docs/INSTALL.md).
 
-**Per chi usa già la v0.1.0 (o una build di test 0.1.0):** l'app offre l'aggiornamento
-in-app da Impostazioni → Aggiornamenti app (versione `0.1.1`, `versionCode 3`, stessa
+**Per chi usa già la v0.1.0, v0.1.1 o la build di test B04:** l'app offre l'aggiornamento
+in-app da Impostazioni → Aggiornamenti app (versione `0.2.0`, `versionCode 4`, stessa
 firma, installazione sopra quella esistente senza disinstallare). In alternativa,
 scarica l'APK e installalo manualmente.
 
@@ -62,7 +62,7 @@ scarica l'APK e installalo manualmente.
 - Solo Navidrome (nessun altro server OpenSubsonic dichiarato/verificato).
 - Nessun Play Store, nessun servizio cloud WalkTape, nessuna sincronizzazione automatica tra telefoni.
 - I download vivono nella memoria privata dell'app: disinstallare significa rimuoverli (per questo il backup contiene la lista, non i file).
-- File locali indipendenti, Cast/DLNA e skin alternative sono fuori dalla prima versione ([backlog](PLAN.md)).
+- File locali indipendenti e Cast/DLNA restano nel [backlog](PLAN.md). Le due skin aggiuntive sono disponibili dalla v0.2.0.
 - Restano collaudi aperti su Android Auto in auto/DHU e parti della matrice hardware,
   batteria, accessibilità e trasferimento backup: dettaglio nelle [note di rilascio](docs/RELEASE_NOTES.md).
 
@@ -94,6 +94,10 @@ Kotlin, Jetpack Compose, Media3/ExoPlayer, Room, WorkManager. Build con Android 
 ```
 
 Stato del progetto, wave e verifiche: [PLAN.md](PLAN.md), [WORKLOG.md](WORKLOG.md).
+
+Il modello del lettore è una preferenza di dispositivo inclusa nei backup manuali.
+I backup precedenti e gli ID di modello sconosciuti usano TPS-L2; il cambio modello
+conserva coda, posizione e impostazioni audio.
 
 ## Licenza
 

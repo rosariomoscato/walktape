@@ -12,6 +12,7 @@ import com.walktape.app.core.downloads.DownloadStore
 import com.walktape.app.core.settings.AppSettings
 import com.walktape.app.core.settings.SettingsRepository
 import com.walktape.app.core.settings.ThemeMode
+import com.walktape.app.core.settings.PlayerModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -290,6 +291,10 @@ class SettingsViewModel(
         viewModelScope.launch {
             settingsRepository.setThemeMode(mode)
         }
+    }
+
+    fun setPlayerModel(model: PlayerModel) {
+        viewModelScope.launch { settingsRepository.setPlayerModel(model) }
     }
 
     fun setAppLockEnabled(enabled: Boolean) {

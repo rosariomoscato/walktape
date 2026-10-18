@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="settings_player_model">Modello del lettore</string>
+    <string name="settings_player_model_help">Cambia solo l’aspetto del lettore. Tema e riproduzione restano indipendenti.</string>
+    <string name="player_model_tps_l2">TPS-L2 · Classico</string>
+    <string name="player_model_wm_2">WM-2 · Argento tecnico</string>
+    <string name="player_model_wm_f5">WM-F5 Sports · Sports giallo</string>
     <string name="app_name">WalkTape</string>
 
     <string name="nav_home">La mia musica</string>

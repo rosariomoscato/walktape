@@ -49,18 +49,9 @@ import com.walktape.app.playback.cassetteLabel
 import com.walktape.app.ui.components.playbackStatus
 import com.walktape.app.ui.components.timeLabel
 import com.walktape.app.ui.screens.library.CoverArtById
-import com.walktape.app.ui.theme.CassetteShellColor
-import com.walktape.app.ui.theme.CassetteWindowColor
-import com.walktape.app.ui.theme.ReelHubColor
-import com.walktape.app.ui.theme.TapeColor
-import com.walktape.app.ui.theme.WtCream
-import com.walktape.app.ui.theme.WtInk
-import com.walktape.app.ui.theme.WtInkSoft
-import com.walktape.app.ui.theme.WtOrange
-import com.walktape.app.ui.theme.WtOrangeDim
-import com.walktape.app.ui.theme.WtSteel
-import com.walktape.app.ui.theme.WtSteelDark
 import com.walktape.app.ui.theme.rememberReducedMotion
+import com.walktape.app.ui.theme.LocalPlayerSkin
+import com.walktape.app.ui.theme.PlayerSkin
 import kotlinx.coroutines.isActive
 import kotlin.coroutines.coroutineContext
 import kotlin.math.cos
@@ -78,11 +69,12 @@ internal fun CassetteWindow(
     modifier: Modifier = Modifier,
 ) {
     val label = cassetteLabel(state.queue, state.queueOriginName, state.mixtapeName)
+    val skin = LocalPlayerSkin.current
     Column(
         modifier
             .fillMaxWidth()
-            .background(CassetteWindowColor, RoundedCornerShape(12.dp))
-            .border(1.dp, WtSteelDark.copy(alpha = 0.6f), RoundedCornerShape(12.dp))
+            .background(skin.window, RoundedCornerShape(skin.windowRadius))
+            .border(1.dp, skin.windowBorder, RoundedCornerShape(skin.windowRadius))
             .padding(10.dp)
     ) {
         CassetteBody(state, profileId, label, onOpenCover, Modifier.fillMaxWidth())
@@ -99,6 +91,7 @@ private fun CassetteBody(
     onOpenCover: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val skin = LocalPlayerSkin.current
     val title = state.title.ifBlank { "" }
     val cassetteText = if (state.hasMedia) {
         stringResource(R.string.cassette_description, title.ifBlank {
@@ -113,7 +106,7 @@ private fun CassetteBody(
     }
     Box(
         modifier
-            .background(CassetteShellColor, RoundedCornerShape(6.dp)),
+            .background(skin.shell, RoundedCornerShape(6.dp)),
     ) {
         Column(
             Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 10.dp)
@@ -129,16 +122,16 @@ private fun CassetteBody(
                         Text(
                             labelText.uppercase(),
                             style = MaterialTheme.typography.labelSmall,
-                            color = WtOrangeDim,
+                             color = skin.labelInk,
                             maxLines = 1, overflow = TextOverflow.Ellipsis
                         )
                     }
                     if (state.hasMedia) {
                         Text(title.ifBlank { stringResource(R.string.playback_unknown_title) },
-                            style = MaterialTheme.typography.titleMedium, color = WtInk,
+                             style = MaterialTheme.typography.titleMedium, color = skin.titleInk,
                             maxLines = 1, overflow = TextOverflow.Ellipsis)
                         if (state.artist.isNotBlank()) Text(state.artist,
-                            style = MaterialTheme.typography.bodySmall, color = WtInkSoft,
+                             style = MaterialTheme.typography.bodySmall, color = skin.artistInk,
                             maxLines = 1, overflow = TextOverflow.Ellipsis)
                     }
                 }
@@ -155,12 +148,13 @@ private fun CoverThumb(
     onOpenCover: () -> Unit,
 ) {
     val coverLabel = stringResource(R.string.cover_enlarge)
+    val skin = LocalPlayerSkin.current
     val hasCover = state.coverArtId != null
     Box(
         Modifier
             .size(56.dp)
-            .background(WtCream, RoundedCornerShape(4.dp))
-            .border(1.dp, WtSteelDark, RoundedCornerShape(4.dp))
+            .background(skin.cover, RoundedCornerShape(4.dp))
+            .border(1.dp, skin.coverBorder, RoundedCornerShape(4.dp))
             .semantics {
                 contentDescription = coverLabel
                 role = androidx.compose.ui.semantics.Role.Button
@@ -180,6 +174,7 @@ private fun CoverThumb(
 /** Reels turn only while the session really plays; they freeze on pause and reduced motion. */
 @Composable
 private fun Reels(state: PlaybackSnapshot, modifier: Modifier = Modifier) {
+    val skin = LocalPlayerSkin.current
     val reducedMotion = rememberReducedMotion()
     var angle by remember { mutableFloatStateOf(0f) }
     LaunchedEffect(state.isPlaying, reducedMotion) {
@@ -210,27 +205,27 @@ private fun Reels(state: PlaybackSnapshot, modifier: Modifier = Modifier) {
         val leftR = minR + (maxR - minR) * (1f - fraction)
         val rightR = minR + (maxR - minR) * fraction
         drawLine(
-            TapeColor,
+            skin.tape,
             Offset(leftX + leftR, centerY),
             Offset(rightX - rightR, centerY),
             strokeWidth = 4.dp.toPx(),
             cap = StrokeCap.Round
         )
-        drawReel(leftX, centerY, leftR, hubR, angle)
-        drawReel(rightX, centerY, rightR, hubR, angle)
+        drawReel(leftX, centerY, leftR, hubR, angle, skin)
+        drawReel(rightX, centerY, rightR, hubR, angle, skin)
     }
 }
 
-private fun DrawScope.drawReel(centerX: Float, centerY: Float, tapeRadius: Float, hubRadius: Float, angleDeg: Float) {
-    drawCircle(TapeColor, radius = tapeRadius, center = Offset(centerX, centerY))
-    drawCircle(ReelHubColor, radius = hubRadius, center = Offset(centerX, centerY))
+private fun DrawScope.drawReel(centerX: Float, centerY: Float, tapeRadius: Float, hubRadius: Float, angleDeg: Float, skin: PlayerSkin) {
+    drawCircle(skin.tape, radius = tapeRadius, center = Offset(centerX, centerY))
+    drawCircle(skin.hub, radius = hubRadius, center = Offset(centerX, centerY))
     rotate(angleDeg, Offset(centerX, centerY)) {
         repeat(6) { tooth ->
             val rad = Math.toRadians(tooth * 60.0)
             val inner = hubRadius * 0.30f
             val outer = hubRadius * 0.85f
             drawLine(
-                WtSteelDark,
+                skin.spokes,
                 Offset(centerX + (inner * cos(rad)).toFloat(), centerY + (inner * sin(rad)).toFloat()),
                 Offset(centerX + (outer * cos(rad)).toFloat(), centerY + (outer * sin(rad)).toFloat()),
                 strokeWidth = 2.5.dp.toPx(),
@@ -242,17 +237,18 @@ private fun DrawScope.drawReel(centerX: Float, centerY: Float, tapeRadius: Float
 
 @Composable
 private fun CounterRow(state: PlaybackSnapshot) {
+    val skin = LocalPlayerSkin.current
     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
         Text(
             if (state.hasMedia) timeLabel(state.positionMs) else "--:--",
             style = MaterialTheme.typography.labelMedium,
             fontFamily = FontFamily.Monospace,
-            color = WtSteel
+            color = skin.counterInk
         )
         Text(
             playbackStatus(state),
             style = MaterialTheme.typography.labelSmall,
-            color = if (state.failure != null) WtOrange else WtSteelDark,
+            color = if (state.failure != null) skin.errorInk else skin.statusInk,
             maxLines = 1, overflow = TextOverflow.Ellipsis,
             modifier = Modifier.padding(horizontal = 8.dp)
         )
@@ -260,14 +256,14 @@ private fun CounterRow(state: PlaybackSnapshot) {
             state.durationMs?.let(::timeLabel) ?: "--:--",
             style = MaterialTheme.typography.labelMedium,
             fontFamily = FontFamily.Monospace,
-            color = WtSteel
+            color = skin.counterInk
         )
     }
     if (state.buffering) {
         LinearProgressIndicator(
             Modifier.fillMaxWidth().height(2.dp),
-            color = WtOrange,
-            trackColor = WtSteelDark.copy(alpha = 0.4f)
+            color = skin.accent,
+            trackColor = skin.bufferTrack
         )
     }
 }

@@ -8,6 +8,26 @@ import org.junit.Test
 
 class BackupCodecTest {
 
+    @Test fun `skin IDs round trip with the queue and unknown or missing fields explicitly default`() {
+        val base = validBackup()
+        com.walktape.app.core.settings.PlayerModel.entries.forEach { model ->
+            val input = base.copy(preferences = base.preferences!!.copy(playerModelId = model.id))
+            val output = (roundTrip(input) as BackupCodec.Parsed.Valid).backup
+            assertEquals(model.id, output.preferences!!.playerModelId)
+            assertEquals(base.profiles, output.profiles)
+        }
+        // Gson omits nullable fields: this is an actual older wire JSON, not a Kotlin default.
+        val old = BackupCodec.write(base.copy(preferences = base.preferences!!.copy(playerModelId = null)))
+        assertTrue(!old.contains("playerModelId"))
+        val unknown = BackupCodec.write(base.copy(preferences = base.preferences.copy(playerModelId = "future")))
+        val explicitNull = old.replace("\"themeMode\":", "\"playerModelId\":null,\"themeMode\":")
+        listOf(old, unknown, explicitNull).forEach { json ->
+            val parsed = BackupCodec.parse(json) as BackupCodec.Parsed.Valid
+            assertEquals("tps-l2", parsed.backup.preferences!!.playerModelId)
+            assertEquals(base.profiles, parsed.backup.profiles)
+        }
+    }
+
     private fun validQueue(): BackupQueue {
         val items = listOf(
             BackupQueueItem("queue/a1", "s1", "Title one", "Artist", "Album", 120_000L, "Playlist"),

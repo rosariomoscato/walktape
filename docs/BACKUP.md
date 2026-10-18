@@ -3,7 +3,7 @@
 Funzione W11-T03. Backup **manuale** su file JSON versionato (`walktape.backup`, versione 1):
 nessun cloud WalkTape, nessun invio automatico, nessun account aggiuntivo.
 
-Guida per [WalkTape v0.1.0](RELEASE_NOTES.md): il formato backup rimane v1,
+Guida per [WalkTape v0.2.0](RELEASE_NOTES.md): il formato backup rimane v1,
 indipendente dalla versione dell'APK. Per installare su un altro telefono: [INSTALL.md](INSTALL.md).
 
 ## Cosa include (e cosa no)
@@ -37,3 +37,10 @@ selettore di Android (nessun permesso storage all'app).
 
 Le preferenze del dispositivo si applicano solo se richiesto nell'anteprima e solo se tutti i
 profili sono stati importati senza errori.
+
+### Modello del lettore (dalla v0.2.0)
+
+Con le preferenze viaggia anche il modello TPS-L2/WM-2/WM-F5 Sports, tramite un ID
+stabile. I vecchi backup senza il campo e quelli con ID sconosciuto usano esplicitamente
+TPS-L2. Non importare le preferenze conserva il modello del dispositivo. La scelta
+non contiene audio o credenziali e resta indipendente da profilo e tema.

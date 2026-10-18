@@ -46,6 +46,7 @@ import com.walktape.app.ui.theme.WtInk
 import com.walktape.app.ui.theme.WtOrange
 import com.walktape.app.ui.theme.WtSteelDark
 import com.walktape.app.ui.theme.rememberReducedMotion
+import com.walktape.app.ui.theme.LocalPlayerSkin
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 
@@ -106,13 +107,14 @@ fun MechanicalKey(
         }
     }
 
-    val shape = RoundedCornerShape(8.dp)
+    val skin = LocalPlayerSkin.current
+    val shape = RoundedCornerShape(skin.keyRadius)
     Box(
         modifier = modifier
             .size(width = width, height = height)
             .scale(scale)
-            .background(if (emphasized) KeyOrangeBrush else KeySteelBrush, shape)
-            .border(BorderStroke(1.5.dp, if (engaged) WtOrange else WtSteelDark), shape)
+            .background(if (emphasized) skin.play.diagonal() else skin.key.diagonal(), shape)
+            .border(BorderStroke(1.5.dp, if (engaged) skin.accent else skin.keyBorder), shape)
             .semantics {
                 role = Role.Button
                 stateDescriptionText?.let { stateDescription = it }
@@ -139,7 +141,7 @@ fun MechanicalKey(
         Icon(
             imageVector = icon,
             contentDescription = label,
-            tint = if (emphasized) WtBlueNight else WtInk
+            tint = if (emphasized) skin.playInk else skin.keyInk
         )
         if (engaged) {
             // Engaged indicator: orange dot on a dark well, readable on the steel keycap.
@@ -148,10 +150,10 @@ fun MechanicalKey(
                     .align(Alignment.TopEnd)
                     .padding(4.dp)
                     .size(10.dp)
-                    .background(WtInk, RoundedCornerShape(3.dp)),
+                    .background(skin.activeWell, RoundedCornerShape(3.dp)),
                 contentAlignment = Alignment.Center
             ) {
-                Box(Modifier.size(5.dp).background(WtOrange, RoundedCornerShape(50)))
+                Box(Modifier.size(5.dp).background(skin.accent, RoundedCornerShape(50)))
             }
         }
     }

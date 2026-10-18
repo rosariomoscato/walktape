@@ -7,6 +7,7 @@ import com.walktape.app.core.settings.AppSettings
 import com.walktape.app.core.settings.ReplayGainMode
 import com.walktape.app.core.settings.SettingsRepository
 import com.walktape.app.core.settings.ThemeMode
+import com.walktape.app.core.settings.PlayerModel
 import com.walktape.app.playback.QueueIdentity
 
 /**
@@ -53,8 +54,11 @@ object BackupCodec {
         } catch (_: IllegalStateException) {
             return Parsed.Invalid(Reason.NOT_JSON)
         } ?: return Parsed.Invalid(Reason.NOT_JSON)
-        return when (val reason = validate(raw)) {
-            null -> Parsed.Valid(raw)
+        val normalized = raw.copy(preferences = raw.preferences?.let { prefs ->
+            prefs.copy(playerModelId = PlayerModel.fromId(prefs.playerModelId).id)
+        })
+        return when (val reason = validate(normalized)) {
+            null -> Parsed.Valid(normalized)
             else -> Parsed.Invalid(reason)
         }
     }

@@ -2214,3 +2214,218 @@ immagine02-mixtape.png sha0543c889fc7289c0a33d10d7ec39ee52ef3ab78a/124331byte.
 Nessun segreto, cache, dipendenza installata, APK o MP4 finale incluso.
 Aggiornati PLAN e memoria con operazione completata; queste note sono nel
 successivo commit documentale. Nessuna nuova build Android o release necessaria.
+
+## 2026-10-18 — Handoff B04, altre skin Walkman in nuova sessione
+
+Task: preparazione B04-T01→T06, non implementazione. Utente chiede prompt per B04
+dopo ranking del backlog, rinviando per ora audiolibri/Cast/DLNA. Primo incremento
+consigliato una skin oltre al TPS-L2, ma modello/numero e look ancora da approvare.
+
+Letti AGENTS, memoria aggiornata, SPEC completo, DESIGN, backlog e ultimi log;
+git status inizialmente pulito su95f0400/main allineato al tracking. Scoperta baseline
+più recente della conversazione: release0.1.1/code3 e Room13 con D42 (API key,
+HTTPS/checksum updater, gate ricerca esterna),192JVM/lint0/46. NEXT_PROMPT precedente
+ancora0.1.0/Room12: archiviato esatto in local/NEXT_PROMPT_PRE_B04_ARCHIVE_20261018.md
+e riscritto per B04 con baseline corretta. Nessuna regressione suggerita su sorgenti o
+release; video/README/skill e render delle altre sessioni preservati.
+
+Ispezionati Materials/Color usage, PlayerScreen/Cassette/MechanicalKey e AppSettings,
+DTO backup e collector impostazioni del servizio. Prompt specifica: approvazione modello
+e anteprime, definizione skin centralizzata, TPS invariato/default, palette player separata
+da tema globale, preferenza DataStore e backup compatibile senza Room migration per la
+sola estetica. Identificata attenzione concreta: collector AppSettings del servizio
+riapplica effetti audio anche per emissioni estetiche, da isolare/verificare nel cambio
+skin futuro. Includere verifiche persistenza/fallback/contrasti e stato musicale durante
+cambio, APK debug/checklist e aggiornamenti documentali. Nessun codice, nuova immagine,
+video, build, test runtime, commit, push o release in questa attività.
+
+PLAN aggiornato con sei ID stabili tutti aperti; PROJECT_MEMORY con ripresaB04-T01.
+SPEC/DESIGN non modificati prima dell'approvazione delle scelte visive. Verifiche
+documentali proporzionate superate: ID/riferimenti/versioni coerenti, ignore di prompt
+e archivio confermati; git diff --check e no-index --check su NEXT_PROMPT senza errori.
+Diff su app/videos/.agents/skills-lock.json vuoto; solo tre documenti tracciati modificati.
+Prossimo passo: nuova sessione, proposte modello
+con raccomandazione e conferma visiva, poi sviluppo autonomo nel perimetro concordato.
+
+## 2026-10-18 — B04-T01, proposte skin e checkpoint di approvazione
+
+Ripresa richiesta dall'utente; baseline HEAD95f0400/main tracking allineato,
+v0.1.1/code3/Room13. Modifiche documentali preesistenti PLAN/PROJECT_MEMORY/WORKLOG
+preservate. Letti integralmente AGENTS/PROJECT_MEMORY/NEXT_PROMPT/SPEC/DESIGN e
+ARCHITECTURE, sezione B04 e log recenti; consultata guida BACKUP. D41/D42 conservate.
+
+Verificate schede e fotografie primarie Sony Design Gallery per WM-2 (1981), WM-20
+(1983), WM-F5 (1983). Sondaggio WM-DD Gallery404, candidato non usato. Proposte A
+argento tecnico/WM-2, B argento-blu/WM-20, C giallo Sports/WM-F5 raccomandata per
+distinzione visiva. Difficoltà/adattamenti esplicitati: niente tasti diagonali reali,
+frontali chiusi o telescopia; finestra e disposizione accessibile WalkTape mantenute.
+
+Creati solo artefatti locali originali `local/B04_SKIN_PROPOSALS.html`, PNG e
+`local/B04_PREVIEW_QA.cjs`. Confronto quattro modelli su due temi, scala uniforme,
+stato vuoto, marchio WalkTape, nessun dato musicale dimostrativo o foto terze incorporata.
+MCP browser fallisce per Chrome mancante; usato Puppeteer già presente nel progetto
+video con Edge installato, senza installazioni/modifiche video. QA: 8SVG, ID unici,
+zero errori JS, zero overflow desktop1600/mobile390. PNG ispezionato, corretta direzione
+icone precedente/successivo. Questa è verifica della tavola web, non Android/hardware.
+
+PLAN/memoria/NEXT_PROMPT aggiornati al checkpoint. T01 resta [ ] in attesa di scelta,
+ampiezza e approvazione look. SPEC/DESIGN/ARCHITECTURE applicativi attendono approvazione.
+Nessun codice Android, build/test JVM/lint/strumentazione, APK, versione, commit/push o
+release in questo incremento. Residui hardware/Auto precedenti intatti.
+
+## 2026-10-18 — B04-T01 approvato, T02–T04 implementati, T05 in verifica
+
+Utente sceglie esplicitamente **A WM-2 e C WM-F5 Sports** e chiede entrambe. Perimetro
+ampliato a TPS-L2 predefinito più due skin, look della tavola rev1; WM-20 escluso.
+SPEC/DESIGN aggiornati dopo approvazione. Nessuna versione/pubblicazione concordata.
+
+Implementazione: PlayerModel con ID espliciti e fallback, PlayerSkin/SkinGradient
+immutabili con registry unico e CompositionLocal limitato al player; Materials mantiene
+alias alla skin default per i text-key dell'app. PlayerScreen/Cassette/MechanicalKey
+condivisi; colori/bordi/raggi/dettagli centralizzati, motore e geometria TPS conservati.
+Selettore radio accessibile IT/EN in Aspetto, miniature Canvas originali statiche;
+DataStore per dispositivo e gate loaded. SettingsRepository accetta anche un DataStore
+iniettabile per verificare riapertura reale del file senza toccare preferenze utente.
+
+Audio: collector PlaybackService su proiezione AudioEffectSettings loaded/distinct
+(6 campi effettivamente consumati), senza riapplicazioni per skin/tema/feedback/updater.
+Individuato anche auto-check GitHub osservatore di tutte le preferenze: proiettato sui
+soli due campi pertinenti per evitare check scaduti innescati da cambi estetici. Nessuna
+modifica a sicurezza D42, route bassi D41, motore/deck/coda o Room13. Backup v1 con
+playerModelId nullable sul wire, normalizzazione esplicita assente/null/ignoto in codec
+e import diretto, esportazione ID e gate import-preferenze preesistente preservato.
+
+Prime verifiche: build app+androidTest/JVM/lint riuscita (`wt-b04-build.log`,20m05s),
+**197/197 JVM, zero skip**, lint0/46. JVM nuovo DataStore riaperto realmente, vecchi/
+nuovi/null/ignoti backup e proiezione audio; contrasti su tutti i modelli/gradient stop.
+Android AOSP prima esecuzione materiali+BackupStorage **6/6,8.295s**: raster dei quattro
+gradienti TPS identico e backup import/export/opt-out/fallback verificati. Successiva
+centralizzazione alias conserva nel test i valori pre-B04 indipendenti dal registry.
+
+Test servizio locale corretto e passato **1/1,19.227s**: WAV fixture scaricato realmente,
+Solo offline, 3 UUID/copie e shuffle/repeat, timer/volume, clock in avanzamento senza
+seek/transizioni/play-state changes, contatore HTTP fermo e contatore audiofx invariato
+per TPS↔WM-2↔Sports; cambio in pausa senza autoplay. Test ≠ Navidrome/hardware reali.
+Regressioni separate **8/8,126.177s**: QueueStorage5, Keystore1, migrazione12→13D42 1,
+SystemEffectsControllerD41 1. Nessuno skip in queste esecuzioni.
+
+Failure intermedie conservate (non dichiarare unica suite sempre verde):
+- Primo service test fallisce setup con cast ApiResult.Failure→Success: precedente
+  profilo AVD video intenzionalmente Solo offline. Corretto il fixture: nuovo profilo
+  locale con chiave Keystore propria, attivazione esplicita senza bypass dei gate;
+  precedente profilo/preferenze ripristinati, fixture rimossa nel finally. Poi verde.
+- Nuovo test UI inizialmente cerca selected sul radio, poi checked sullo stesso nodo
+  testo: raw tree separa testo e antenato radio. Corretto lookup dell'antenato checked.
+  Successiva misura sul nodo icona24dp non misura il target; aggiunto testTag alla vera
+  chiave Play (stesso metodo library-tabs) per misurare il layout56–60dp corretto.
+- Build `wt-b04-final-build` fallisce solo su test: ACTION_SHOW_ON_SCREEN appartiene a
+  AccessibilityNodeInfo.AccessibilityAction, corretto riferimento .id. Build seguente
+  `wt-b04-verified-build` verde7m34; `wt-b04-delivery-build` verde7m16 con gate loaded.
+- Primo test raster movimento cattura vecchio frame libreria dopo layout nuovo: PNG
+  before/after in `local/b04-motion` dimostrano frame SurfaceFlinger non ancora aggiornato,
+  non bobine che girano in pausa. Aggiunta barriera di frame commit alle capture native,
+  poi ripetere motion e matrice UI prima di chiuderle. Nessuna modifica alle regole bobine.
+- Shell segnala ChildProcess.kill per avvii lunghi/detached: processi figli proseguono;
+  esito build ricavato dai log completi, non dal solo ritorno di Start-Process. Prima
+  precompilazione app timeout240s, poi entrambi APK compilati speed con successo.
+  Per AGP Kotlin built-in aggiunto anche -Pkotlin.compiler.execution.strategy=in-process
+  oltre al -D richiesto: osservato compilatore nel processo Gradle, senza daemon separato.
+
+Checkpoint: `wt-b04-final-check` in corso dopo ultimi testTag/barriere; T05 aperto fino
+ai risultati UI/motion e alle verifiche sull'APK finale. Checklist Motorola creata in
+local/PHONE_TESTS_B04.md (tutte le voci reali da eseguire). README/ARCHITECTURE/BACKUP
+riallineati distinguendo sorgenti B04 da release0.1.1 già pubblicata. Video, skill,
+illustrazioni, render e file privati preesistenti conservati. Nessun commit/push/release.
+
+## 2026-10-18 — B04-T05 software verificato, T06 APK e handoff consegnati
+
+Finale dopo centralizzazione definitiva, gate loaded e testTag target Play:
+`wt-b04-final-check.log` **BUILD SUCCESSFUL11m19s**. Comando app:assembleDebug,
+assembleDebugAndroidTest,testDebugUnitTest,lintDebug con -PrealServerTest=true, JBR,
+-D e -Pkotlin.compiler.execution.strategy=in-process, --max-workers=2. **197/197 JVM,
+0failure/0skip**, durata1m11.23s; lint **0errori/46avvisi**, nessun aumento dalla baseline.
+API key/HTTPS/checksum/firma/gate ricerca D42 nei test JVM preesistenti conservati.
+Test DataStore legge/scrive e riapre realmente il file su JVM; non solo mapping enum.
+
+APK app e test installati in-place e precompilati speed. Verifiche Android finali in
+esecuzioni separate (i fallimenti intermedi della voce precedente restano nella storia):
+- `PlayerSkinUiTest` **1/1 phone211.127s**, **1/1 landscape149.595s**, **1/1 tablet193.337s**.
+  108capture=3skin×IT/EN×3temi×font100/200%×3viewport. Radiochecked sull'antenato testo,
+  tag sul vero targetPlay e controllo56dp, non icona24dp. Viewport AOSP:1080×2400@420,
+  2400×1080@420 e1600×1200@160. LocalConfiguration/LocalDensity del test esercitano
+  stringhe/font dei componenti Compose; non sono un collaudo fisico o della proiezioneAuto.
+- `PlayerSkinMotionTest` **1/1,45.128s**: raster cassetta con snapshot espliciti, per
+  tutti i modelli; ferme in pausa e con sola intenzione playWhenReady/isPlayingfalse,
+  pixel in movimento con isPlayingtrue, freeze con animazioni disabilitate runtime.
+  Test del rendering, non dell'audio o del movimento percepito sul telefono.
+- `PlayerSkinMaterialsTest` finale **1/1,0.660s**, confronto con valori pre-B04 fissati
+  indipendentemente dagli alias: quattro gradienti pixelidentici. Non promette una
+  golden screenshot integrale della UI precedente: geometria e ruoliTPS auditati nel diff.
+- Restano validi gli esiti precedenti: materiali+backup6/6, servizio cambio skin1/1,
+  regressioni coda/Keystore/migrazioneRoom13/effectsD41 8/8. Non sommare i rerun come casi
+  unici né descrivere una sola suite combinata sempre verde. Nessuno skip in questi run.
+
+La barriera frame commit ha risolto le catture stale (prima libreria, dopo cassetta),
+senza modificare la logica delle bobine. Capture108 scaricate in local/b04-ui; 5campioni
+portrait/200%/landscape/tablet ispezionati. L'harness UI monta direttamente il player e
+non i normali inset della shell, quindi aggiunto smoke sulla navigazione vera dell'app:
+avvioCOLDok, Impostazioni→Aspetto con miniature/radio, sceltaWM-2 eSports, apertura dalla
+mini-bar, player con barre/inset corretti. Font Android reale200% esercitato su player
+Sports e selettore (nomi a capo/scorrimento). Force-stop/riavvioCOLDok: Sports resta
+checked, coda in pausa, nessun autoplay. `uiautomator` alcune prime letture nullroot:
+ripetute, usando solo dump correnti per le azioni, senza wipe né modifiche al motore.
+Capture vere di shell in local/B04_*_NATIVE.png e board **local/B04_ANDROID_PREVIEW.html**.
+Musica visibile = raccolta di fixture video originale WalkTape Sessions già presente
+nell'AVD, non libreria utente né nuova prova Navidrome reale. Foto/asset originali conservati.
+
+Artefatto finale debug `app/build/outputs/apk/debug/app-debug.apk`, versione0.1.1/code3:
+SHA256 **9F055A88F7CED880F9D01D502CEA863E766EFC7D7624177920E79FC1E605A0E9**,
+ricalcolato identico alla fine. apksigner verify PASS, V2, certificato SHA256
+60e9a71f990819c44b2a07a6fc9254925a0d87414c36495f85feb9ffde7b178c (stesso di0.1.1).
+Checksum in local/B04_SHA256SUMS.txt; checklist local/PHONE_TESTS_B04.md con installazione
+manuale in-place, tutte le voci hardware ancora aperte. Nessun version bump o artefatto
+release rigenerato/pubblicato: pari versione non offerta dall'updater in-app.
+
+Cleanup: TPS-L2 riselezionato (captureblu verificata), profilo/video fixture preservati,
+font1.0, display1080×2400/density420 senza override; scalesanimator1/transition0/window0
+come all'inizio. Rimossi solo PNG/XML/b04-ui/b04-motion remoti creati qui, dopo il pull;
+force-stop app, sync, AVD spento e adbvuoto confermati. Env/chiavi/release/render locali
+preesistenti intatti. Diff sui percorsi schema/versioni/gradle/video/skill/icona vuoto.
+git diff --check PASS (soli avvisi normalizzazioneCRLF), nessun commit/push/tag/release.
+
+Decisione **D43** registrata: due skin A/C approvate, solo player, tema indipendente,
+TPS default, ID stabili/backupcompatibile/cambio estetico isolato. PLAN: T01–T04/T06[x],
+T05[ ] per giudizio visivo Motorola/TalkBack/feedback reale. Aggiornati SPEC/DESIGN/
+ARCHITECTURE/BACKUP/README, memoria e NEXT_PROMPT. Prossimo passo: utente installa APK
+e compila la checklistB04; nessuna chiusura implicita dei residui hardware W05–W09,
+AndroidAutoW10, W11 o W12. App/release complessiva non dichiarata completata da B04.
+
+## 2026-10-18 — REL-B04-T01/T02, riscontro positivo e pubblicazione autorizzata
+
+Utente «Funziona bene, quindi direi di fare commit, push, aggiornare il numero di
+versione, rendere disponibile l'apk, fare tutto quello che c'è da fare». Registrato
+come riscontro generale positivo B04 dopo consegna APK, senza inventare esiti separati
+TalkBack/aptica/backup o hardware precedente. Autorizzati commit, push, incremento
+versione, tag e GitHub Release; scelta0.2.0/code4 per le due nuove skin, comunicata
+prima dell'esecuzione. Room13 e D41/D42 conservati, nessuna nuova funzione aggiunta.
+
+Letti AGENTS/memoria/handoff/SPEC, B04 PLAN/log e guide RELEASING/RELEASE_NOTES/UPDATES/
+INSTALL; DESIGN B04 consultato. Preflight git status/diff-stat/log10/remoti, fetch
+origin riuscito e main allineato su95f0400; stato B04 locale noto, note documentali
+preesistenti preservate. gh autenticato, latest0.1.1, asset/code3 e digest precedente
+verificati, tag0.2.0 assente. Signing config locale presente/ignorata, segreti non letti
+in output; vecchi tag e asset pubblicati non saranno modificati.
+
+Versione aggiornata in app/build.gradle.kts; preparazione assembleRelease/lintRelease
+con JBR e Kotlin in-process (-D e -P), max-workers2, log detached. Seguiranno verifica
+package/versione/ABI/firma/digest, note pubbliche e commit dei soli file previsti.
+Task rilascio aperti finché artefatto e pubblicazione non sono verificati.
+
+Preflight staging REL-B04:43file,823809byte testuali, nessun percorso local/env/APK/
+keystore/cache incluso, scanner dei blob staged senza pattern di segreti rilevati;
+diff applicativo/test/risorse e docs revisionato, git diff --cached --check PASS.
+Firma/env e NEXT_PROMPT restano ignorati. Versione è il solo cambio applicativo dopo
+le prove B04 già verdi; JVM della build di rilascio è UP-TO-DATE197/197.
+AGP incorpora il revision Git nel version-control-info: congelare ora il commit
+sorgente, poi rigenerare quel metadato e il pacchetto release sul commit definitivo,
+prima di calcolare checksum/tag/pubblicazione. Build release/lint iniziale ancora in corso.

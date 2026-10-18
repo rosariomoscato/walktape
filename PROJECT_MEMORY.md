@@ -1,6 +1,97 @@
 # WalkTape — memoria di progetto
 
-Ultimo aggiornamento: 2026-10-18 (v0.1.1/code3 pubblicata latest, APK e checksum pubblici verificati; collaudi hardware/Auto residui aperti).
+Ultimo aggiornamento: 2026-10-18 (REL-B04-T02: utente conferma «Funziona bene» e autorizza commit/push/versione/APK pubblico; preparazione v0.2.0/code4, Room13 invariato).
+
+## Corrente — pubblicazione B04 autorizzata, preparazione v0.2.0
+
+- Utente: «Funziona bene, quindi direi di fare commit, push, aggiornare il numero di
+  versione, rendere disponibile l'apk, fare tutto quello che c'è da fare». Autorizzati
+  esplicitamente commit/push/tag/release/APK; scelta v0.2.0/code4 per le nuove funzioni.
+  Riscontro generale positivo dopo consegna B04, non checklist puntuale hardware.
+- Task **REL-B04-T02**: aggiornato app/build.gradle.kts a0.2.0/code4; build release
+  firmata+lint in corso/preparazione, poi commit sorgenti e push ordinario, tag annotato,
+  draft con APK universal+checksum, verifica download e pubblicazione normale latest.
+- Preflight: HEAD95f0400/main allineato dopo fetch, modifiche B04 e tre note preesistenti
+  preservate; gh autenticato, latest ancora0.1.1, tag0.2.0 assente. Segreti/APK/local/
+  NEXT_PROMPT ignorati, firma stabile da local/signing.env senza esposizione di segreti.
+  Nessuna modifica a Room13/D41/D42 o a video/asset/skill. Residui hardware/Auto aperti.
+
+## B04 corrente — software consegnato; T05 collaudo Motorola aperto
+
+- A WM-2 e C WM-F5 Sports approvate entrambe; TPS-L2 default, tre modelli totali.
+  Definizioni immutabili centralizzate/riuso player, selettore IT/EN/DataStore, backupv1
+  compatibile e isolamento collector audio/updater implementati. SPEC/DESIGN/ARCH/BACKUP
+  e README aggiornati. Nessuna migrazione Room o versione/pubblicazione autorizzata.
+- Finale **197/197 JVM zero skip**, lint **0/46**, build app+androidTest+JVM+lint verde
+ 11m19s (`wt-b04-final-check.log` in temp/opencode). JBR, -D e -P compiler in-process,
+ max-workers2. Android in esecuzioni separate: materiali+backup6/6, servizio cambio
+ skin offline1/1 senza variazioni musicali/HTTP/audiofx, regressioni coda/Keystore/
+ Room13/D41 8/8, matrice UI1/1 ×3 viewport, motion1/1, raster materiali finale1/1.
+ Dettagli e failure intermedie in WORKLOG, non unica suite sempre verde né hardware.
+- 108capture di componenti Compose (3skin×2lingue×3temi×2font×3viewport) in local/b04-ui.
+ Native shell normale verificata in aggiunta: Impostazioni→sceltaWM-2/Sports→player,
+ font Android200% su player/selettore; Sports persistente dopo force-stop/riavvio senza
+ autoplay. Capture finali con inset veri: **local/B04_ANDROID_PREVIEW.html** (aperta),
+ fixture video locale originale preesistente, non libreria Navidrome utente.
+- APK debug **app/build/outputs/apk/debug/app-debug.apk**, SHA256
+ **9F055A88F7CED880F9D01D502CEA863E766EFC7D7624177920E79FC1E605A0E9**.
+ FirmaV2/certificato identico alla release0.1.1; build ancora0.1.1/code3. Installazione
+ manuale in-place senza disinstallare; nessuna offerta in-app per pari versione.
+- Prossima azione precisa **B04-T05**: utente installa APK sul Motorola e compila
+ **local/PHONE_TESTS_B04.md**. Restano giudizio visivo reale/TalkBack/clic/aptica;
+ nessuna chiusura dei residui W05–W09/W10Auto/W11/W12. T01–T04/T06 [x], T05 [ ].
+- Cleanup verificato: TPS-L2 ripristinato nell'AVD, profilo/video fixture conservati,
+ font1.0, wm1080×2400/density420, animation scales1/0/0 come prima. Rimossi solo
+ temporanei B04 remoti dopo pull, sync e AVD spento; adb vuoto. File locali/credenziali/
+ release/render/skill intatti; nessun commit/push/tag/release. Working tree iniziale
+ con tre note documentali preservata; modifiche B04 locali e nuovi file da pubblicare
+ soltanto su richiesta successiva. HEAD resta95f0400.
+
+## Checkpoint precedente B04-T01 — superato dall'implementazione sopra
+
+**Superato dall'approvazione successiva**: utente «Mi piaccioni A · WM-2 e C · WM-F5
+Sports, che ne dici di implementarle entrambe?». Approvati look A/C e ampliamento a
+TPS-L2 più due skin. Task corrente **B04-T02**, poi T03–T06 autonomamente; SPEC/DESIGN
+aggiornati. Versione0.1.1/code3 e Room13 invariati; nessuna pubblicazione autorizzata.
+
+- Ripresa richiesta dall'utente: letti integralmente AGENTS/PROJECT_MEMORY/NEXT_PROMPT,
+  SPEC/DESIGN/ARCHITECTURE, B04 PLAN e log recenti. HEAD95f0400, tre modifiche documentali
+  preesistenti preservate (PLAN/PROJECT_MEMORY/WORKLOG). Nessun codice Android cambiato.
+- Proposte: **A WM-2 / Argento tecnico**, **B WM-20 / Argento e blu**,
+  **C WM-F5 / Sports giallo (raccomandata)**. Fonti e fotografie ufficiali Sony Design
+  Gallery consultate; riferimenti nelle schede della tavola. Non sono repliche storiche:
+  struttura/comandi/finestra WalkTape conservati, adattamenti esplicitati.
+- Anteprime originali: `local/B04_SKIN_PROPOSALS.html` e `.png`, quattro modelli × due
+  temi, stato vuoto senza musica fittizia. QA browser locale Edge/Puppeteer: 8 SVG,
+  ID unici, zero errori JS, nessun overflow a1600/390px; PNG ispezionato. Non test Android.
+  MCP browser indisponibile (Chrome assente), usato Edge già installato senza nuove deps.
+- Prossima azione precisa: ricevere lettera A/B/C, conferma look e ampiezza consigliata
+  «TPS-L2 + una nuova skin». Solo dopo approvazione aggiornare SPEC/DESIGN e iniziare T02.
+  Nessun task B04 [x], build/APK/version bump/commit/push/release in questo checkpoint.
+
+## Ripresa B04 — prompt per nuova sessione, nessun codice skin avviato
+
+- Utente chiede «dammi il prompt per implementare B04 — Altre skin Walkman in altra
+  sessione». Preparato NEXT_PROMPT.md completo B04-T01→T06, precedente preservato
+  in local/NEXT_PROMPT_PRE_B04_ARCHIVE_20261018.md. Task di ripresa **B04-T01**:
+  proporre2–3 modelli/direzioni e attendere scelta+approvazione anteprima prima del look.
+  Nessun modello o numero di skin definitivo concordato; suggerito primo incremento
+  TPS-L2 più una nuova skin, TPS-L2 sempre predefinito, tema app separato dalla skin.
+- Baseline verificata per handoff: HEAD/origin main **95f0400**, working tree inizialmente
+  pulita; build0.1.1/code3, Room13. Stato reale più recente di NEXT_PROMPT precedente
+  (che citava ancora0.1.0/Room12): preservare D42 e non regredire ai riferimenti storici.
+  Ultimi riscontri192JVM/lint0/46 in WORKLOG; i test API key sono fixture, non prova
+  dell'estensione sul Navidrome attuale. Video/illustrazioni/skill e render conservati.
+- Prompt include definizioni materiali immutabili/riuso UI, DataStore per dispositivo
+  con fallbackTPS, backup DTO retrocompatibili, controlli senza effetto su audio/coda/
+  rete. Attenzione concreta: collector AppSettings in PlaybackService riapplica audiofx
+  a ogni emissione; verificare/filtrare i soli campi audio per il nuovo cambio estetico.
+- Questa attività è documentale: nessun codice/app/asset modificato, build/test o release,
+  nessun task B04 [x], nessun nuovo commit/push autorizzato. Nuovi passi estetici saranno
+  formalizzati in SPEC/DESIGN dopo approvazione; niente sviluppo altri backlog.
+  Restano aperti W10Auto, W11 e residui hardware W05–W09/W12.
+
+## Baseline pubblicata e attività precedenti da preservare
 
 **REPO-T01 completato**: commit69ecace «Video di presentazione, illustrazione README
 e skill HyperFrames» pubblicato su origin/main su richiesta. SHA locale/remoto
@@ -524,6 +615,12 @@ Il punto di ripresa precedente seguente è storico, superato dall'incremento W07
 | `NEXT_PROMPT.md` | Prompt copiabile per una nuova sessione; la memoria aggiornata prevale sul punto di ripresa riportato nel prompt. |
 
 ## Decisioni da conservare
+
+- D43 — B04 post-v0.1.1: utente approva A WM-2 Argento tecnico e C WM-F5 Sports
+  giallo della tavola originale e chiede entrambe. Tre modelli del solo player,
+  TPS-L2 predefinito/invariato, tema app indipendente; ID stabili/DataStore dispositivo,
+  fallbackTPS e backupv1 compatibile. Cambio solo estetico, nessun effetto musicale/rete.
+  SPEC/DESIGN/ARCHITECTURE e WORKLOG B04 conservano decisione e verifiche.
 
 - D41 — Collaudo Motorola: bassi sistema sospesi su speaker o uscita ignota, avviso
   esplicito e preferenza/intensità mantenute per ritorno alle cuffie; approvazione

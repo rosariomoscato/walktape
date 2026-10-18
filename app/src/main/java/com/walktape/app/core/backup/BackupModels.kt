@@ -32,6 +32,8 @@ data class BackupPreferences(
     val bassBoostStrength: Int,
     val tapeEffectEnabled: Boolean,
     val appLockEnabled: Boolean,
+    /** Nullable on the wire: Gson does not run Kotlin defaults for missing fields. */
+    val playerModelId: String? = null,
 )
 
 /** Profile identity without secrets: the imported profile needs a fresh login. */

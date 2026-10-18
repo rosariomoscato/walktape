@@ -221,3 +221,29 @@ La coda omessa nel layout tablet affiancato lascia redistribuire gli altri tasti
 ## Fuori perimetro in v1
 
 - Skin alternative (backlog B04), animazioni non funzionali, temi dinamici Material You.
+
+## B04 — altre skin approvate dopo v0.1.1 (2026-10-18)
+
+Approvate A WM-2 e C WM-F5 Sports della tavola originale
+`local/B04_SKIN_PROPOSALS.html` rev1. Primo incremento ampliato su richiesta a **due**
+skin aggiuntive, TPS-L2 resta predefinito/invariato. WM-20 escluso dall'incremento.
+Riferimenti: Sony Design Gallery [WM-2](https://www.sony.com/en/SonyInfo/design/gallery/WM-2/)
+e [WM-F5](https://www.sony.com/en/SonyInfo/design/gallery/WM-F5/), fotografie consultate.
+
+- WM-2 / **Argento tecnico — Technical silver**: corpo #D9DCE2→#9DA4AE, fascia
+  grafite #383A43→#202129, tasti argento, Play verde tenue #B8DEC9→#79AE94;
+  dettaglio diagonale originale sulla fascia, angoli scocca14dp/finestra10dp.
+- WM-F5 Sports / **Sports giallo — Sports yellow**: corpo #F5D34D→#DCAE24,
+  fascia gialla, tasti grafite #383B40→#202328 con icone crema; Play verde
+  #59C3A5→#2C977C con icona scura; bordi protettivi decorativi originali.
+  Scocca20dp/finestra16dp. Nessuna radio/impermeabilità simulata.
+- Finestra scura e cassetta crema leggibile, stessa cover, bobine e metadati reali.
+  Materiali della macchina uguali nei temi chiaro/scuro/sistema; cambia solo il contesto
+  Material3 esterno. Layout/tasti56–60dp e pesi precedenti invariati; nessun tasto
+  diagonale né frontale chiuso storico che nasconda contenuti o comandi.
+- Selettore con miniature statiche originali senza musica fittizia, nomi IT/EN,
+  singola selezione radio accessibile e testo a capo. Nessun nuovo font/dipendenza.
+
+Rilascio B04 v0.2.0/code4 autorizzato dopo riscontro utente «Funziona bene».
+Questo conferma il collaudo generale, senza attestare separatamente ogni prova
+TalkBack/feedback o chiudere i residui hardware precedenti. Nessun nuovo look introdotto.
