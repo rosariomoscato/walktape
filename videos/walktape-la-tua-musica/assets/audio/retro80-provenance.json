@@ -1,0 +1,21 @@
+{
+  "file": "walktape-retro80-120bpm.wav",
+  "bpm": 120,
+  "durationSeconds": 59.2,
+  "sampleRate": 44100,
+  "channels": 2,
+  "peakDbfs": -1.7,
+  "rmsDbfs": -15.000435554044401,
+  "source": "Original locally composed synth-pop score; no samples, model generation or third-party melodies",
+  "instruments": [
+    "four-on-the-floor electronic kick",
+    "gated electronic snare and clap",
+    "sixteenth hats",
+    "syncopated octave synth bass",
+    "detuned poly-synth stabs",
+    "sequencer arpeggio",
+    "original delayed lead hook"
+  ],
+  "form": "0–8 intro; 8–24 main A; 24–40 sequencer variation; 40–56 main reprise; 56–59.2 resolution",
+  "generator": "tools/compose-retro80.cjs"
+}

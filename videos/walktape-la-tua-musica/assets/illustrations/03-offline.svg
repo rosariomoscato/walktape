@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1400" viewBox="0 0 1080 1400" role="img" aria-label="Illustrazione originale di cuffie, cassetta e mappa pronte per un viaggio, nei colori WalkTape">
+<rect width="1080" height="1400" fill="#101A30"/>
+<ellipse cx="548" cy="1234" rx="430" ry="45" fill="#1B3268"/>
+<!-- Headphones: the listening object, not a screenshot or network symbol. -->
+<path d="M240 656V483C240 133 834 133 834 483V659" fill="none" stroke="#C9CED6" stroke-width="66" stroke-linecap="round"/>
+<path d="M263 479C263 173 811 173 811 479" fill="none" stroke="#2A4D9B" stroke-width="23" stroke-linecap="round"/>
+<path d="M240 550V682M834 550V682" stroke="#1B3268" stroke-width="30"/>
+<g fill="#1B3268" stroke="#C9CED6" stroke-width="5">
+ <rect x="157" y="524" width="165" height="267" rx="61" transform="rotate(-8 240 658)"/>
+ <rect x="752" y="524" width="165" height="267" rx="61" transform="rotate(8 834 658)"/>
+</g>
+<path d="M184 591V711M890 591V711" stroke="#2A4D9B" stroke-width="15" stroke-linecap="round"/>
+<!-- A folded map supports the idea of taking music with you. -->
+<g transform="rotate(8 708 864)">
+ <path d="M487 613L625 649L763 612L901 649V1094L763 1058L625 1094L487 1058Z" fill="#F4F1EA" stroke="#C9CED6" stroke-width="4"/>
+ <path d="M625 649V1094M763 612V1058" stroke="#C9CED6" stroke-width="5"/>
+ <path d="M509 738L880 924M515 1024L859 688M502 884L882 764" fill="none" stroke="#C9CED6" stroke-width="18"/>
+ <path d="M529 1010L591 926L701 943L743 812L854 745" fill="none" stroke="#2A4D9B" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+ <circle cx="529" cy="1010" r="16" fill="#2A4D9B"/><circle cx="854" cy="745" r="21" fill="#F06A21"/>
+</g>
+<!-- The cassette travels in a simple sleeve; no invented product controls. -->
+<g transform="rotate(-9 400 953)">
+ <rect x="121" y="740" width="588" height="384" rx="28" fill="#F4F1EA" stroke="#C9CED6" stroke-width="5"/>
+ <rect x="156" y="772" width="518" height="75" rx="7" fill="#2A4D9B"/>
+ <path d="M181 797H439M181 820H350" stroke="#F4F1EA" stroke-width="8"/>
+ <rect x="625" y="789" width="22" height="36" rx="2" fill="#F06A21"/>
+ <path d="M252 934H580" stroke="#1B3268" stroke-width="11"/>
+ <g fill="#1B3268"><circle cx="260" cy="934" r="71"/><circle cx="574" cy="934" r="71"/></g>
+ <g fill="none" stroke="#C9CED6" stroke-width="10"><path d="M260 899V969M225 934H295M235 909L285 959M235 959L285 909"/><path d="M574 899V969M539 934H609M549 909L599 959M549 959L599 909"/></g>
+ <g fill="#F4F1EA"><circle cx="260" cy="934" r="18"/><circle cx="574" cy="934" r="18"/></g>
+ <path d="M289 1124L319 1060H512L540 1124" fill="#C9CED6"/>
+ <path d="M321 1096H507" stroke="#1B3268" stroke-width="7"/>
+</g>
+<path d="M227 786C154 855 147 1103 220 1150C304 1206 378 1132 427 1177C469 1215 581 1199 606 1161" fill="none" stroke="#C9CED6" stroke-width="12" stroke-linecap="round"/>
+<rect x="594" y="1140" width="57" height="23" rx="6" fill="#C9CED6" transform="rotate(-22 594 1140)"/>
+</svg>

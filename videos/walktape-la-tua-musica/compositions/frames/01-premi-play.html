@@ -1,0 +1,20 @@
+<!doctype html><html lang="it"><head><meta charset="utf-8"></head><body><template>
+<style>#premi-play{position:absolute;inset:0;width:100%;height:100%}</style>
+<div data-hf-id="hf-y5dl" id="premi-play" data-composition-id="premi-play" data-width="1080" data-height="1920" data-duration="8">
+  <div data-hf-id="hf-s2yi" class="layout">
+    <div data-hf-id="hf-s63n" class="title-stage">
+      <h1 data-hf-id="hf-2myu" class="headline" data-enter="0.2" data-leave="3.2"><span data-hf-id="hf-cyq9" class="headline-line">Il piacere di</span><span data-hf-id="hf-vy7m" class="headline-line">una cassetta</span></h1>
+      <h1 data-hf-id="hf-ajuh" class="headline" data-enter="4" data-leave="7.5"><span data-hf-id="hf-6agh" class="headline-line">La tua musica</span><span data-hf-id="hf-zd1j" class="headline-line">su Android</span></h1>
+    </div>
+    <div data-hf-id="hf-g7lp" class="media-stage">
+      <div data-hf-id="hf-xutf" class="camera-world" id="premi-play-camera" data-layout-allow-overflow>
+        <video data-hf-id="hf-knu8" id="premi-play-video" class="clip shot" src="assets/media/player.mp4" muted playsinline data-start="0" data-duration="8" data-media-start="0" data-track-index="2"></video>
+      </div>
+    </div>
+  </div>
+</div>
+<script>(function(){const tl=gsap.timeline({paused:true});
+for(const el of document.querySelectorAll('#premi-play .headline')){tl.fromTo(el,{opacity:0,y:24},{opacity:1,y:0,duration:.2,ease:'none'},Number(el.dataset.enter));tl.set(el,{opacity:0},Number(el.dataset.leave));}
+tl.fromTo('#premi-play-camera',{scale:1.6},{scale:1,duration:1.5,ease:'power3.out'},1);
+window.__timelines['premi-play']=tl;})();</script>
+</template></body></html>

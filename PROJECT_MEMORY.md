@@ -2,7 +2,129 @@
 
 Ultimo aggiornamento: 2026-10-18 (v0.1.1/code3 pubblicata latest, APK e checksum pubblici verificati; collaudi hardware/Auto residui aperti).
 
+**Task corrente REPO-T01**: utente richiede commit e push. Preflight su main/origin,
+diff e ultimi10commit esaminati. Preparare pubblicazione delle modifiche skill/
+regia/video/README e note; cache Studio e segreti esclusi. Media essenziali del
+montaggio inclusi per riaprire il progetto dopo clone, renders/ resta locale.
+
+Manutenzione corrente **TOOLS-T01 completata**: installata su richiesta la skill
+`DarioFontanel/regia-hyperframes` in `.agents/skills/regia-hyperframes/` (SKILL.md e
+CONSEGNA.md), voce aggiunta in `skills-lock.json`. `skills list --agent opencode`
+la elenca tra le Project Skills. Successivamente installate e verificate anche
+11 skill HyperFrames core/general-video nello scope progetto. Ripresa funzionale:
+aggiornamento in-place v0.1.1 e collaudi
+residui descritti sotto. Skill incluse nella pubblicazione REPO-T01 autorizzata.
+
 ## Punto corrente — v0.1.1 pubblicata
+
+- **DOCS-T01 completato**: su richiesta, aggiunta sotto il titolo del README
+  l'illustrazione della cassetta della scena «La mia mixtape» del video,
+  `videos/walktape-la-tua-musica/assets/illustrations/02-mixtape.png`, centrata
+  a360px con testo alternativo. Riutilizzato l'asset esistente verificato.
+  Modifica locale pronta; prossima azione su eventuale feedback utente.
+
+- **VIDEO-T05 completato — MP4 locale consegnabile**: utente approva con «ok»
+  alla domanda render e chiede se deve scaricarlo. Export già sul suo computer:
+  `videos/walktape-la-tua-musica/renders/walktape-60s-retro80.mp4`.
+  60s/1080×1920/30fps/1800frame,H264High+yuv420p/AACstereo48000,4.155.158byte.
+  CLI0.8.171delivery2workers,4m55,2s,screenshot/hardwareGPU. FFprobe e verifica
+  automatica PASS;9frame decodificati ispezionati, audioAACmean−16,1/max−2,3dBFS
+  senza clipping rilevato. QA.md/proofs/rendered nel progetto video hanno dettagli.
+  Nessun upload/pubblicazione/commit. Prossimo passo: aprire/copiare il MP4 locale,
+  eventuale feedback utente. Non sovrascrivere l'artefatto verificato nelle revisioni.
+
+### Storico lavorazione video — superato dalla consegna VIDEO-T05
+
+- **VIDEO-T04 — nuova musica approvata**: utente approva le
+  immagini illustrate ma chiede base più anni80/molto più ritmata. Composta e
+  montata base synth-pop originale locale120BPM (cassa in quattro, snare/clap,
+  basso in ottave, sequencer, lead). Vecchia96BPM conservata. Solo musica cambiata,
+  visual/clic/durata60s conservati. Audio assets/audio/walktape-retro80-120bpm.wav,
+  prova mixPCM60s in proofs/retro80-mix-preview.wav, pagina boards/music.html.
+  Picco mix−2,6dBFS/media−16,0; ffprobe60s/stereo44100. Check0errori/1warning
+  giàvalutato,14/14contrasti,motion300campioni. Prossimo passo: feedback sulla
+  musica o conferma renderMP4; nessun render finale ancora autorizzato/eseguito.
+
+- **VIDEO-T03 — revisione illustrata approvata**: utente sceglie A.
+  Tre illustrazioni vettoriali originali locali (raccolta/mixtape/cuffie+mappa),
+  SVG+PNG1080×1400 in assets/illustrations del video. Non immagini di modello AI.
+  Sostituiti screenshot8–20/20–35/35–45; preservati player0–8/45–54 e firma54–60.
+  Hashfileframe1/5/6 identici prima/dopo. Audio,60s e titoli conservati.
+  Check0.8.1710errori/1warninglocalegiàvalutato,14/14contrasti,motion300campioni.
+  Sei snapshot in proofs/illustrated ispezionati; board affiancata boards/illustrations.html.
+  Prossimo passo: feedback su immagini/montaggio aggiornato o conferma render.
+  Studio http://127.0.0.1:3002/#project/walktape-la-tua-musica, nessun MP4 finale.
+
+- **VIDEO-T03 — proposta precedente (superata)**: utente approva il
+  carattere delle sequenze cassetta e chiede di sostituire gli screenshot parziali
+  con immagini, suggerendo generazione. Timeline verificata; proposta registrata
+  in STORYBOARD senza cambiare ancora composizioni. Preservare0–8,45–54 e firma54–60;
+  sostituire8–20,20–35,35–45. Prossima azione: scelta look illustrazioni coerenti
+  locali oppure still life fotorealistici generati, poi tre immagini da rivedere.
+  Render della versione corrente sospeso in attesa della revisione.
+
+- **VIDEO-T02 — baseline precedente anteprima (superata)**: bozzetti
+  approvati. Sei scene animate con capture Android vere, 60 s/1080×1920/30 fps;
+  base 96 BPM e clic originali locali scelti dall'utente dopo HeyGen signed-out.
+  Studio persistente http://127.0.0.1:3002/#project/walktape-la-tua-musica, HTTP200
+  verificato e aperto. L'utente deve ora confermare render o modifiche; NON renderizzare
+  senza conferma. QA.md/status/PROVENANCE nel progetto video contengono verifiche e fonti.
+  Check CLI0.8.171: 0 errori, 2 warning revisionati, 14/14 contrasti, motion 300campioni
+  passato dopo fix wrapper finale. Snapshot/keyframes/map ispezionati (helper0.8.170,
+  core0.8.171 non pubblicato; CLI resta171). Source audio picco −8,7dBFS; mix codificato
+  da verificare dopo render. Raccolta originale 3brani su Navidrome temporaneo4534;
+  server fermato prima di playback Solo offline, capture reali. Personale4533 intatto.
+  AVD spento, wm reset, scale1, temporanei noti rimossi; fixtureprofilo resta nell'AVD
+  per riproducibilità. Preview lasciata aperta. Usage ancora unknown. Nessun MP4 finale.
+
+- **VIDEO-T02 — checkpoint bozzetti precedente (superato)**: piano approvato dall'utente
+  («approvo»). Creati sei HTML statici in compositions/frames e montati in index.html,
+  snapshot in boards/stills e board `videos/walktape-la-tua-musica/boards/storyboard.html`.
+  Layout con palette/font/testi reali, pannelli media e icona esplicitamente segnaposto.
+  Prima snapshot con fallback mono, corretta dichiarazione JetBrains Mono e rifatte
+  tutte sei immagini; compiler 5 font caricati, due famiglie incorporate. Immagini
+  ispezionate; snapshot hardware AMD/ANGLE riusciti. STORYBOARD frame built solo
+  per sketch, layout_approved false. Prossima azione: approvazione board o correzioni
+  per numero; poi capture/musica e costruzione sui layout approvati. Nessun render.
+
+- **VIDEO-T02 — checkpoint piano precedente (superato)**: richiesta
+  «esegui il brief» ricevuta. Scritti `videos/walktape-la-tua-musica/STORYBOARD.md`
+  (sei frame outline, src dichiarati, blueprint citati, 60 s/1800 frame) e
+  `PRODUCTION_STATUS.md` (asset/tooling). Mode collaborative, primo checkpoint
+  piano testuale prima dei bozzetti come da review-loop; non riaprire la regia.
+  Prossima azione: approvazione del piano e bozzetti consigliati; dopo approvazione
+  posarli e produrre boards/storyboard.html. Nessuna scena/board costruita ora.
+  Usage unknown/unsupported_harness; pin CLI 0.8.171 già corrente e 11 skill current.
+  ADB nessun dispositivo, AVD walktape_aosp/walktape_test disponibili non avviati.
+  Capture, musica e corsivo autentico da preparare. History iniziata ee72164c;
+  piano validato, nessun render o test Android eseguito.
+
+- **VIDEO-T01 — regia precedente (consegnata)**: video WalkTape di60s richiesto dall'utente.
+  Blocchi 1–7 chiusi; 1–6 delegati, 7.1 C esplicita (nessuna voce), resto delegato;
+  social verticale 1080×1920,
+  italiano, messaggio «Il piacere di una cassetta, la tua musica su Android».
+  Stato completo in `regia/walktape-la-tua-musica/DECISIONI.md`; tre direzioni in
+  `direzioni.html`, aperte nel browser predefinito. Vincitrice A Oggetto notturno e
+  motivo registrati nell'HTML; app reale senza cornice telefono, nessun elemento
+  permanente né effetti decorativi. Movimento: 96 BPM, 30 fps, entrate testo 6 frame,
+  quiete durante azioni, tagli su elemento comune, rivelazione iniziale 2,5 s.
+  Audio: elettronica strumentale 96 BPM, un clic su Play, nessun parlato né
+  sottotitolo di parlato/ducking. Blocco 8: sei scene confermate esplicitamente
+  («confermo»), in DECISIONI.md (8+12+15+15+4+6=60 s). Prossima azione: scelta
+  blocco 9 successivamente delegato: storyboard yes, flow automation (mode derivato
+  collaborative). Decisione 10.1 A delegata e applicata: motto solo nella scena 5,
+  omesso nella scheda finale, tutti i tempi conservati. **Foglio completo confermato**:
+  regia consegnata in `videos/walktape-la-tua-musica/BRIEF.md` e `frame.md`.
+  Init HyperFrames 0.8.171 blank portrait riuscito prima dei file; index.html resta
+  scaffold. YAML/campi, sei scene/60 s/1800 frame, palette/font e fonti verificati.
+  Installate 11 skill core/general-video solo progetto; check ufficiale tutte current,
+  0 coreMissing/outdated. Update/init con HYPERFRAMES_SKIP_SKILLS=1 per evitare globali.
+  Prossimo passo: riavviare OpenCode, `/hyperframes esegui il brief in videos/walktape-la-tua-musica`;
+  piano/bozzetti da approvare prima costruzione. Capture/audio da preparare, nessun
+  render/check runtime del film eseguito. Dettagli in DECISIONI e BRIEF.
+  Contrasti calcolati 5,60–15,73:1; ispezione browser automatica non eseguita
+  (Chrome richiesto da MCP assente). Screenshot/raccolta di prova ancora da acquisire;
+  nessun render video. Ripresa applicativa sottostante conservata.
 
 - Commit 6227173 (skill), b6e85e1 (correzioni review), e614ea8 (preparazione release)
   pubblicati su main. Tag annotato v0.1.1 sul sorgente e614ea8, con schema Room 13.

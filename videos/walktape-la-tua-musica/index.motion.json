@@ -1,0 +1,12 @@
+{
+  "duration": 60,
+  "assertions": [
+    { "kind": "appearsBy", "selector": "#raccolta-illustration", "bySec": 8.2 },
+    { "kind": "appearsBy", "selector": "#mixtape-illustration", "bySec": 20.2 },
+    { "kind": "appearsBy", "selector": "#offline-illustration", "bySec": 35.2 },
+    { "kind": "appearsBy", "selector": "#offline-playback", "bySec": 45.2 },
+    { "kind": "appearsBy", "selector": "#prova-walktape-lockup", "bySec": 54.3 },
+    { "kind": "staysInFrame", "selector": "#ritmo-playback" },
+    { "kind": "staysInFrame", "selector": "#prova-walktape-lockup" }
+  ]
+}

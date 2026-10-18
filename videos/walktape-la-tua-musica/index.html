@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="it" data-resolution="portrait">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1080, height=1920">
+  <title>WalkTape — Bozzetti statici da approvare</title>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <style>
+    *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#101A30}
+    #root{position:relative;width:100%;height:100%;overflow:hidden}
+    #root>.clip{position:absolute;inset:0;width:100%;height:100%;overflow:hidden}
+    .layout{width:100%;height:100%;padding:180px 90px 240px;display:flex;flex-direction:column;gap:56px;background:#101A30;color:#F4F1EA;font-family:Roboto,sans-serif}
+    .headline{font-size:104px;font-weight:900;line-height:1.04;letter-spacing:-.035em;margin:0;max-width:900px;flex-shrink:0}
+    .headline-line{display:block}
+    .media-placeholder{flex:1;min-height:0;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;padding:52px;background:#1B3268;border:3px solid #C9CED6;border-radius:24px}
+    .media-placeholder.player{background:#2A4D9B}
+    .placeholder-label{font:400 36px/1.5 'JetBrains Mono',monospace;max-width:100%;margin:0}
+    .placeholder-heading{font:700 64px/1.15 Roboto,sans-serif;max-width:100%;margin:0}
+    .placeholder-copy{font:400 40px/1.5 Roboto,sans-serif;max-width:100%;margin:0}
+    .placeholder-accent{height:10px;width:120px;background:#F06A21}
+    .closing-layout{gap:0;justify-content:center;align-items:flex-start}
+    .icon-placeholder{width:220px;height:220px;display:flex;align-items:center;justify-content:center;background:#2A4D9B;border:2px solid #C9CED6;border-radius:44px;margin-bottom:48px;padding:20px;font:400 28px/1.3 'JetBrains Mono',monospace}
+    .wordmark{font:italic 700 132px/1.1 Roboto,sans-serif;letter-spacing:-.04em;margin:0 0 100px}
+    .cta{font:900 82px/1.1 Roboto,sans-serif;margin:0 0 52px;max-width:900px;letter-spacing:-.025em}
+    .url{font:400 36px/1.5 'JetBrains Mono',monospace;margin:0 0 92px;max-width:900px}
+    .url span{display:block}
+    .requirement{font:400 40px/1.5 Roboto,sans-serif;margin:0;max-width:840px}
+    .placeholder-label,.url,.icon-placeholder{font-family:'JetBrains Mono',monospace}
+    .title-stage{position:relative;flex:0 0 216.32px;width:100%}
+    .title-stage .headline{position:absolute;inset:0;opacity:0}
+    .media-stage{position:relative;flex:1;min-height:0;overflow:hidden;border-radius:24px;border:3px solid #C9CED6;background:#101A30}
+    .shot{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+    .camera-world{position:absolute;inset:0;width:100%;height:100%;transform-origin:50% 30%}
+    .brand-icon{display:block;width:220px;height:220px;margin-bottom:48px}
+  </style>
+</head>
+<body>
+  <!-- Approved layouts, real Android captures. Music is an original editorial bed. -->
+  <div data-hf-id="hf-svp4" id="root" data-composition-id="walktape-main" data-width="1080" data-height="1920" data-duration="60">
+    <div data-hf-id="hf-16vk" id="premi-play" class="clip" data-composition-id="premi-play" data-composition-src="compositions/frames/01-premi-play.html" data-width="1080" data-height="1920" data-start="0" data-duration="8" data-track-index="1"></div>
+    <div data-hf-id="hf-bwb0" id="la-tua-raccolta" class="clip" data-composition-id="la-tua-raccolta" data-composition-src="compositions/frames/02-la-tua-raccolta.html" data-width="1080" data-height="1920" data-start="8" data-duration="12" data-track-index="1"></div>
+    <div data-hf-id="hf-kayk" id="la-mia-mixtape" class="clip" data-composition-id="la-mia-mixtape" data-composition-src="compositions/frames/03-la-mia-mixtape.html" data-width="1080" data-height="1920" data-start="20" data-duration="15" data-track-index="1"></div>
+    <div data-hf-id="hf-ngeg" id="anche-offline" class="clip" data-composition-id="anche-offline" data-composition-src="compositions/frames/04-anche-offline.html" data-width="1080" data-height="1920" data-start="35" data-duration="15" data-track-index="1"></div>
+    <div data-hf-id="hf-ljuf" id="il-tuo-ritmo" class="clip" data-composition-id="il-tuo-ritmo" data-composition-src="compositions/frames/05-il-tuo-ritmo.html" data-width="1080" data-height="1920" data-start="50" data-duration="4" data-track-index="1"></div>
+    <div data-hf-id="hf-k33o" id="prova-walktape" class="clip" data-composition-id="prova-walktape" data-composition-src="compositions/frames/06-prova-walktape.html" data-width="1080" data-height="1920" data-start="54" data-duration="6" data-track-index="1"></div>
+    <audio data-hf-id="hf-pkop" id="walktape-bgm" src="assets/audio/walktape-retro80-120bpm.wav" data-start="0.8" data-duration="59.2" data-track-index="10" data-volume="0.9" data-automation="{&quot;version&quot;:1,&quot;lanes&quot;:[{&quot;target&quot;:&quot;volume&quot;,&quot;points&quot;:[{&quot;t&quot;:0,&quot;v&quot;:0.9},{&quot;t&quot;:56.7,&quot;v&quot;:0.9},{&quot;t&quot;:59.2,&quot;v&quot;:0}]}]}"></audio>
+    <audio data-hf-id="hf-ndvu" id="walktape-play-click" src="assets/audio/play-click.wav" data-start="0.8" data-duration="0.08" data-track-index="11" data-volume="0.6"></audio>
+  </div>
+  <script>window.__timelines['walktape-main']=gsap.timeline({paused:true});</script>
+</body>
+</html>

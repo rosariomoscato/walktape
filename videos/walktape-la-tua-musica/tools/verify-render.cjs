@@ -1,0 +1,12 @@
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),{execFileSync}=require('node:child_process');
+const root=path.resolve(__dirname,'..'),video=path.join(root,'renders/walktape-60s-retro80.mp4'),dir=path.join(root,'proofs/rendered');
+const ffmpeg=require('ffmpeg-static'),ffprobe=require('ffprobe-static').path;
+assert.ok(fs.statSync(video).size>0);assert.ok(fs.statSync(dir).isDirectory());
+const meta=JSON.parse(execFileSync(ffprobe,['-v','error','-show_format','-show_streams','-of','json',video],{encoding:'utf8'}));
+const v=meta.streams.find(s=>s.codec_type==='video'),a=meta.streams.find(s=>s.codec_type==='audio');
+assert.equal(v.width,1080);assert.equal(v.height,1920);assert.equal(v.r_frame_rate,'30/1');assert.equal(Number(v.nb_frames),1800);assert.equal(v.codec_name,'h264');assert.equal(v.pix_fmt,'yuv420p');assert.ok(Math.abs(Number(meta.format.duration)-60)<.001);assert.equal(a.codec_name,'aac');assert.equal(a.channels,2);
+fs.writeFileSync(path.join(dir,'metadata.json'),JSON.stringify(meta,null,2));
+const times=[.4,5.5,10,24,39,47,52,57,59.95];
+for(const [i,t] of times.entries())execFileSync(ffmpeg,['-hide_banner','-loglevel','error','-y','-ss',String(t),'-i',video,'-frames:v','1',path.join(dir,`frame-${String(i).padStart(2,'0')}.png`)],{stdio:'inherit'});
+execFileSync(ffmpeg,['-hide_banner','-loglevel','error','-y','-i',path.join(dir,'frame-%02d.png'),'-vf','scale=360:640,tile=3x3','-frames:v','1',path.join(dir,'contact-sheet.jpg')],{stdio:'inherit'});
+console.log(`PASS exported MP4: 60s, 1080x1920, 30fps, 1800 frames, H264/yuv420p + AAC stereo, ${meta.format.size} bytes. Nine decoded frames extracted.`);

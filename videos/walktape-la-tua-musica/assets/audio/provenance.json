@@ -1,0 +1,31 @@
+{
+  "bpm": 96,
+  "sampleRate": 44100,
+  "channels": 2,
+  "source": "Original procedural composition authored for WalkTape; no samples or third-party music",
+  "tracks": [
+    {
+      "file": "01.wav",
+      "seconds": 48,
+      "peak": 0.36614923065609745,
+      "rms": 0.052625229086922465
+    },
+    {
+      "file": "02.wav",
+      "seconds": 48,
+      "peak": 0.3440392528716634,
+      "rms": 0.05277444409205814
+    },
+    {
+      "file": "03.wav",
+      "seconds": 48,
+      "peak": 0.3582408937048886,
+      "rms": 0.05264444434828077
+    }
+  ],
+  "bgm": {
+    "seconds": 59.5,
+    "peak": 0.36614923065609745,
+    "rms": 0.05267565433652554
+  }
+}

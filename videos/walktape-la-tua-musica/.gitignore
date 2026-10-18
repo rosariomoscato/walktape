@@ -1,0 +1,19 @@
+node_modules/
+.hyperframes/
+.media/
+.thumbnails/
+.waveform-cache/
+proofs/rendered/metadata.json
+dist/
+renders/
+output/
+*.mp4
+*.wav
+*.mp3
+
+# Media originali effettivamente usati dalla composizione e dalla pagina ascolto
+!assets/media/player.mp4
+!assets/media/offline.mp4
+!assets/audio/walktape-retro80-120bpm.wav
+!assets/audio/play-click.wav
+!proofs/retro80-mix-preview.wav

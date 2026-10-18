@@ -1,5 +1,9 @@
 # WalkTape
 
+<p align="center">
+  <img src="videos/walktape-la-tua-musica/assets/illustrations/02-mixtape.png" alt="Illustrazione originale della cassetta musicale WalkTape, usata nel video di presentazione" width="360">
+</p>
+
 Player Android nativo per [Navidrome](https://www.navidrome.org), con un'identità visiva ispirata al Sony Walkman TPS-L2: scocca blu, tasti meccanici, cassetta con bobine che girano solo quando suona.
 
 Open source (licenza MIT), nessuna pubblicità, nessuna telemetria, nessun account aggiuntivo: la tua musica resta sul tuo server.

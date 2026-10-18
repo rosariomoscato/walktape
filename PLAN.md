@@ -12,10 +12,58 @@
 
 Manutenzione strumenti 2026-10-15: rimossa su richiesta la skill di progetto `deploy-an-app` e la relativa voce nel lockfile. Nessun cambio ai task funzionali o al punto di ripresa W07-T01.
 Manutenzione strumenti 2026-10-18: rimossa su richiesta la skill di progetto `create-brand-kit` e la relativa voce nel lockfile. Nessun cambio ai task funzionali o al punto di ripresa (collaudi residui).
+Manutenzione strumenti 2026-10-18 (TOOLS-T01): installata su richiesta `DarioFontanel/regia-hyperframes` nello scope progetto per OpenCode; presenza dei due file e lista skill di progetto verificate.
 Pubblicazione 2026-10-18: v0.1.1/code3 latest su GitHub, sorgente e614ea8; APK e checksum pubblici verificati. Nessuna checkbox hardware/Auto chiusa dalla pubblicazione; resta il collaudo utente dell'aggiornamento in-place.
 - Durante le wave aggiornare memoria e log, senza aspettare la fine del progetto.
 
 ## Wave 00 — Specifica e continuità
+
+- [ ] REPO-T01 — Commit e push autorizzati di skill di progetto, regia/video,
+  illustrazione README e documentazione; verificare file inclusi e allineamento remoto.
+
+- [x] DOCS-T01 — Inserire nel README l'illustrazione originale della cassetta
+  usata nel video (02-mixtape.png), centrata e con larghezza360px. Asset e percorso
+  relativo verificati; nessuna build applicativa necessaria alla modifica documentale.
+
+Attività video 2026-10-18 (VIDEO-T01, regia su richiesta): blocchi 1–4 chiusi con
+deleghe dell'utente, tre direzioni in `regia/walktape-la-tua-musica/direzioni.html`;
+blocco 5 successivamente chiuso con delega: scelta A Oggetto notturno registrata,
+blocco 6 chiuso con delega (96 BPM, 30 fps, movimento registrato), blocco 7 chiuso
+(nessuna voce per scelta utente, resto delegato). Sei scene blocco 8 confermate
+esplicitamente dall'utente; blocco 9 delegato (storyboard yes, flow automation).
+Controllo d'insieme 10.1 A delegato e applicato: motto solo nella scena 5.
+Foglio completo confermato; VIDEO-T01 regia consegnata e verificata in
+`videos/walktape-la-tua-musica/BRIEF.md` e `frame.md`, progetto HyperFrames
+inizializzato (CLI 0.8.171, portrait). Core e general-video installati localmente,
+11 skill current, nessun core mancante. Prossimo checkpoint produzione: storyboard.
+Decisioni in DECISIONI.md nella stessa cartella.
+
+VIDEO-T02 — produzione avviata su richiesta: piano STORYBOARD.md scritto e
+verificato (6 frame outline, 60 s, 1800 frame, blueprint esistenti), inventario
+PRODUCTION_STATUS.md. Piano successivamente approvato: sei scene statiche e
+snapshot creati, board `videos/walktape-la-tua-musica/boards/storyboard.html`
+successivamente approvata. Costruzione animata e asset completati: capture Android
+reali con raccolta originale di prova, base musicale originale locale scelta utente.
+Check finale passato (0 errori, 2 warning revisionati), anteprima Studio aperta
+http://127.0.0.1:3002/#project/walktape-la-tua-musica. Attesa conferma render;
+MP4 finale e verifica output ancora da eseguire. Dettaglio in QA.md del progetto video.
+
+VIDEO-T03 — revisione richiesta dall'utente: conservare le sequenze cassetta,
+sostituire screenshot parziali con immagini illustrative/generate. Proposta
+di tre soggetti approvata con scelta A: illustrazioni originali locali create,
+montate in8–20/20–35/35–45s e verificate; player/firma protetti identici per hash.
+Check0errori/1warningrevisionato,14/14contrasti,motion300campioni. Board immagini
+boards/illustrations.html e Studio aggiornato pronti da rivedere; render in attesa.
+
+VIDEO-T04 — utente approva le immagini e richiede musica più anni80 e ritmata.
+Composta/montata base originale locale120BPM; mixPCM60s senza clipping, check
+passato0errori/1warningrevisionato. Paginaascolto boards/music.html, in attesa
+di feedback musicale o conferma renderMP4. Montaggio visivo conservato.
+
+- [x] VIDEO-T05 — Esportare e verificare il MP4 locale dopo conferma utente:
+  renders/walktape-60s-retro80.mp4 nel progetto video;60s/1080×1920/30fps,
+  H264/AACstereo,4.155.158byte. FFprobe,9frame decodificati e audio verificati;
+  nessun upload/pubblicazione. Le precedenti attese render sono superate.
 
 Dipendenze: approvazione della specifica, già ricevuta.
 

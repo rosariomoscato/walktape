@@ -1772,3 +1772,431 @@ certificato stabile identico a v0.1.0. Nessuna sostituzione di tag/asset precede
 Aggiornamenti finali di memoria/piano/log pubblicati con commit documentale successivo.
 Nessun aggiornamento installato sul telefono e nessun collaudo interattivo attestato:
 prossimo passo utente, aggiornare in-place via checker o APK senza disinstallare.
+
+## 2026-10-18 — Installazione skill di progetto regia-hyperframes
+
+Task: TOOLS-T01 (manutenzione strumenti richiesta dall'utente).
+
+- Sorgente consultata: https://github.com/DarioFontanel/regia-hyperframes,
+  README e frontmatter della skill; installazione eseguita con
+  `npx.cmd -y skills add https://github.com/DarioFontanel/regia-hyperframes --skill regia-hyperframes --agent opencode -y`.
+- Installati `.agents/skills/regia-hyperframes/SKILL.md` e `CONSEGNA.md`;
+  aggiornata solo la nuova voce in `skills-lock.json`, preservate le precedenti.
+- Verifiche: installer riuscito, directory con entrambi i file;
+  `npx.cmd -y skills list --agent opencode` mostra regia-hyperframes tra le
+  Project Skills per OpenCode, insieme a review-an-app e start-an-app.
+  Working tree inizialmente pulita; dopo installazione solo skill e lockfile.
+- Aggiornati PLAN e PROJECT_MEMORY. Nessun test Android pertinente a questa
+  manutenzione; workflow video non eseguito. Il README richiede anche le skill
+  hyperframes/hyperframes-creative per la consegna video, assenti dall'elenco.
+
+Stato: installazione completata a livello progetto, non committata.
+Prossimo passo: riavviare OpenCode per caricare la skill; ripresa funzionale
+v0.1.1/collaudi residui conservata.
+
+## 2026-10-18 — Regia video WalkTape, blocchi 1–4 e direzioni visive
+
+Task: VIDEO-T01 (richiesta video di 60 secondi sull'app).
+
+- Consultati DESIGN, README, SPEC, memoria/log e icona vettoriale. L'utente ha
+  delegato ogni blocco 1–4 con «fai tu»: fissati messaggio, pubblico, 9:16 italiano,
+  materiali e arco narrativo. Decisioni salvate in
+  `regia/walktape-la-tua-musica/DECISIONI.md`; nessuna delega globale presunta.
+- Creato `direzioni.html`: A Oggetto notturno, B Etichetta di carta, C Blu in primo
+  piano. Palette originale; Roboto e JetBrains Mono confermati nel riferimento
+  ufficiale https://raw.githubusercontent.com/heygen-com/hyperframes/main/skills/hyperframes-creative/references/typography.md.
+  Bozzetti esplicitamente distinti da screenshot reali, scelta ancora in attesa.
+- Contrasti WCAG calcolati con Node per tutte le 7 coppie previste: 15,35 / 7,07 /
+  10,93 / 15,73 / 11,22 / 5,60 / 7,07:1, tutti >=4,5. Tabella calcolata anche nell'HTML.
+- Apertura con Start-Process riuscita. Playwright non avviabile: distribuzione Chrome
+  richiesta assente; nessuna installazione browser eseguita. Ispezione visiva automatica
+  e caricamento font nel browser non verificati. Nessuna prova Android o render video.
+
+Stato: regia parziale, blocco 5 da scegliere; aggiornati piano e memoria.
+Prossimo passo: scelta look e aggiornamento vincitrice/motivo nell'HTML, poi blocchi
+6–9 e foglio completo da confermare. Acquisizioni reali e raccolta di prova restano
+da preparare. Nessun commit/push.
+
+## 2026-10-18 — Regia video, scelta look delegata
+
+Task: VIDEO-T01. L'utente delega il blocco 5 con «fai tu»: adottate A Oggetto
+notturno, acquisizioni reali senza cornice telefono, nessun elemento permanente e
+nessun glitch/VHS/grana/aberrazione/particelle/rimbalzi. Vincitrice e motivo annotati
+in direzioni.html; DECISIONI, PLAN e PROJECT_MEMORY aggiornati. Palette e font
+coincidenti con la proposta A già verificata per contrasto. Nessun nuovo render o
+collaudo browser/Android; produzione ancora da avviare. Prossimo passo: blocco 6.
+
+## 2026-10-18 — Regia video, movimento delegato
+
+Task: VIDEO-T01. Blocco 6 delegato con «fai tu»: adottate scelte consigliate
+B/A/A/B/A (96 BPM, 30 fps, testi 6 frame/24 px con arresto netto, quiete durante
+le azioni, tagli su elemento comune, rivelazione iniziale 2,5 s). Griglia ritmica
+subordinata a lettura e durate narrative già approvate. DECISIONI, PLAN e memoria
+aggiornati; verifica documentale dei valori rispetto alle opzioni proposte, nessun
+render o audio prodotto. Prossimo passo: blocco 7, voce e suono.
+
+## 2026-10-18 — Regia video, nessuna voce e proposta scene
+
+Task: VIDEO-T01. Risposta «7.1 C, le altre fai tu»: nessuna voce per scelta
+esplicita; delegate parole essenziali, nomi dell'app, elettronica calda 96 BPM e
+un solo clic <=100 ms su Play. Sottotitoli di parlato e ducking non necessari
+perché non c'è narrazione: adattamento coerente registrato. Titoli conservati per
+fruizione muta. Sei scene proposte salvate in DECISIONI con tempi, fondo, idea,
+azioni, titoli, suono e raccordi, ancora da confermare dall'utente.
+Verifica documentale: somma 8+12+15+15+4+6=60 s, durate arco blocco 4 conservate,
+titoli principali entro 8 parole e soste >=2,5 s. Scheda finale densa da valutare
+nel controllo d'insieme, nessun asset/capture/render prodotto. PLAN e memoria
+aggiornati. Prossimo passo: conferma scene blocco 8, poi lavorazione blocco 9.
+
+## 2026-10-18 — Regia video, sequenza scene confermata
+
+Task: VIDEO-T01. L'utente risponde «confermo» al blocco 8: approvati ordine,
+contenuti e durate delle sei scene, totale 60 s. DECISIONI, memoria e piano
+aggiornati; conferma limitata alle scene, foglio complessivo ancora da confermare.
+Consultato brief-contract.md dal repository ufficiale heygen-com/hyperframes:
+storyboard yes/no, flow automation/companion e conferma render finale verificati
+per formulare blocco 9 con valori effettivamente ammessi. Nessuna installazione
+HyperFrames o produzione video eseguita. Prossimo passo: scelte blocco 9.
+
+## 2026-10-18 — Regia video, lavorazione e controllo d'insieme
+
+Task: VIDEO-T01. «Fai tu» sul blocco 9: storyboard yes, flow automation;
+mode collaborative derivato dal contratto ufficiale per revisione bozzetti.
+Controllo integrato: 9:16 nel feed, assenza di voce e cinque elementi nella scheda
+finale di 6 s aumentano densità di lettura. Proposta 10.1 A: rimuovere soltanto il
+motto ripetuto dalla scena 6, lasciandolo nella scena 5 e mantenendo tempi/link/
+requisito. Modifica non applicata perché scene già confermate. Alternative B
+8 s finali con redistribuzione, C scheda invariata. DECISIONI/PLAN/memoria aggiornati;
+verifica documentale della duplicazione e somma tempi alternativa 8+12+15+13+4+8=60 s.
+Nessun render o test di lettura reale. Prossimo passo: decisione 10.1, foglio completo
+da confermare, poi consegna secondo skill.
+
+## 2026-10-18 — Regia video, chiusura semplificata e foglio finale
+
+Task: VIDEO-T01. «Fai tu» al controllo d'insieme: adottata 10.1 A, motto mantenuto
+solo nella scena 5 e rimosso dalla scheda 6. Durate 8/12/15/15/4/6 conservate,
+totale 60 s; marchio/invito/URL/requisito mantenuti. DECISIONI aggiornato con
+supersessione esplicita della ripetizione prevista in 4.5; piano e memoria aggiornati.
+Foglio complessivo presentato distinguendo scelte dette, delegate e scene già
+confermate. Stato: attesa conferma finale, nessun progetto HyperFrames inizializzato,
+nessun render, capture o audio prodotto. Prossimo passo: conferma del foglio, poi
+consegna secondo skill e verifica dei formati ufficiali/setup locale al progetto.
+
+## 2026-10-18 — Regia confermata, consegna HyperFrames
+
+Task: VIDEO-T01. Utente «confermo» sul foglio completo: regia chiusa, senza avvio
+della produzione. Letti brief-format.md, design-spec.md, esempio FRAME.md ufficiali
+e copie installate. Verificato dal sorgente CLI skills.ts che update installa
+globalmente e che --dir limita solo il prune: scope progetto preservato usando
+skills add per OpenCode senza --global e HYPERFRAMES_SKIP_SKILLS=1 per update/init.
+
+- Installate 7 skill (general-video, hyperframes, core, creative, animation, audio,
+  media-use), poi 4 core mancanti segnalati dal check (cli, keyframes, registry,
+  studio). skills-lock aggiornato, voci precedenti preservate. Nessuna preferenza
+  personale/globalizzata. Check finale `npx.cmd -y hyperframes@0.8.171 skills check
+  --dir ".agents/skills" --json`: scope project, 11 current, 0 outdated,
+  0 coreMissing, 0 removed, exit0; altri 10 workflow disponibili on demand.
+- Init prima dei due file: `hyperframes@0.8.171 init videos/walktape-la-tua-musica
+  --non-interactive --example=blank --skill=general-video --resolution=portrait`,
+  riuscito. CLI fissata negli script package.json. File scaffold mantenuti;
+  AGENTS locale integrato con scope e punto di ripresa, .gitignore media/output.
+- Creati BRIEF.md e frame.md: regia completa, scene con tempi/testi/raccordi/
+  apprendimento, token normativi, suono senza voce, revisione storyboard e gate
+  render, fonti e prerequisiti reali. Aggiunto videos/README; aggiornati DECISIONI,
+  PLAN e memoria.
+- Verifica una tantum Node con parser YAML dalla cache npm (script nel temp
+  approvato verify-walktape-regia.cjs): PASS campi canonici/frontmatter senza chiavi
+  duplicate, sei scene contigue 0–60 s, 1800 frame, CTA finale senza motto duplicato,
+  palette e font direzione A, percorsi asset/fonti esistenti, workflow e versione,
+  copertura ID decisionali. Python non disponibile nel PATH; usato Node senza
+  installare Python. Contrasti della proposta già verificati nell'incremento precedente.
+
+Non eseguiti: produzione/capture Android, reperimento musica, check runtime/lint
+del film, anteprima e render. index.html è ancora blank, non consegna video.
+Stato: VIDEO-T01 regia e handoff completati; produzione separata da avviare.
+Prossimo passo: riavviare OpenCode per nuove skill, poi
+`/hyperframes esegui il brief in videos/walktape-la-tua-musica` con piano/bozzetti
+da approvare. Nessun commit/push/pubblicazione.
+
+## 2026-10-18 — VIDEO-T02, avvio produzione e piano da approvare
+
+Richiesta: «esegui il brief in videos/walktape-la-tua-musica». Letti brief/frame,
+memoria, piano, log e workflow general-video; review-loop distingue primo piano
+testuale da successivo sketch pass, entrambi collaborativi. Non ripetuta regia.
+
+- Usage JSON status unknown, reason unsupported_harness: quota/reset non noti,
+  nessuna disponibilità presunta. Upgrade latest --project . --check conferma
+  pin 0.8.171 già corrente. Skills check dalla radice: 11 current, 0 coreMissing/
+  outdated/removed, scope progetto. Update con skip env rispetta gestione esterna.
+- History begin opencode «VIDEO-T02 piano di produzione WalkTape»: ee72164c;
+  history since mine non segnala modifiche esterne. Stato git iniziale conserva
+  modifiche documentali e file skill/regia/video non tracciati del precedente incremento.
+- Letti storyboard-format/review-loop/storyboard-recipe, house-style,
+  video-composition, beat-direction/story-spine, composition-patterns e indici
+  rules/blueprints. Consultati blueprint zoom-out-workspace-reveal,
+  device-surface-showcase e titlecard-reveal. Catalogo live cercato per match cut:
+  primitive con accelerazioni/moto o mockup telefono non adatte al brief fermo,
+  previsti tagli semplici con crop allineati, nessun blocco aggiunto.
+- Scritti STORYBOARD.md (6 frame outline, src di destinazione, inquadrature,
+  coreografia, ruoli, titoli e raccordi; timing invariato) e PRODUCTION_STATUS.md.
+  Non prodotta board prima del checkpoint piano. index.html blank conservato.
+- ADB/Emulator fuori PATH ma presenti in Android SDK: devices -l vuoto,
+  AVD walktape_aosp e walktape_test elencati; nessun avvio o modifica dispositivo.
+  Ricerca mirata local immagini/media trova solo proposte icona, non capture reali.
+  ffmpeg non trovato nel PATH, presenza altrove non verificata. Nessun provider
+  autenticato usato; musica/capture/corsivo restano da preparare.
+- Validazione Node/YAML PASS: sei frame outline, intervalli contigui 0–60 s,
+  1800 frame, poster locali validi, destinazioni src e blueprint esistenti,
+  mode collaborative e stato pending_approval. Non è prova di layout/render.
+
+Stato: VIDEO-T02 parziale al checkpoint piano; aggiornati PLAN/memoria/stato
+produzione. Prossimo passo: approvazione piano, poi bozzetti statici e relativa
+board da rivedere; successivamente asset/build/anteprima/render su conferma.
+Nessun test Android, capture, snapshot o render eseguito; nessun commit/push.
+
+Chiusura incremento: history end riuscito, snapshot 6b50633e con i due nuovi
+documenti di produzione; usage dopo il piano ancora unknown/unsupported_harness.
+git diff --check senza errori (soli avvisi normalizzazione LF/CRLF).
+
+## 2026-10-18 — VIDEO-T02, piano approvato e bozzetti statici
+
+Utente «approvo» al checkpoint piano. Passaggio sketch previsto da review-loop:
+sei pose statiche di layout, senza motion o media ancora da acquisire. Caricati
+core/cli e letti contratti sub-compositions, determinism, snapshot. History begin
+5d510fba, nessuna modifica esterna registrata; usage unknown/unsupported_harness.
+
+- Sostituito blank index.html con master 60 s e sei mount coerenti con gli src
+  STORYBOARD; creati compositions/frames/01–06. Root/timeline ID corrispondenti,
+  template con style/script interni, dimensioni dal runtime. Palette e titoli reali;
+  pannelli con annotazioni esplicite per capture mancanti, nessuna UI finta.
+- Snapshot `--at 5.5,10,24,45,52,57 --no-end --describe false -o boards/stills`
+  riuscito. Prima serie full-resolution ispezionata: fallback mono invece di
+  JetBrains. Corretta dichiarazione font-family esplicita e ripetuta l'intera serie.
+  Compiler seconda serie: Roboto + JetBrains Mono incorporati, 5 font caricati;
+  snapshot browser GPU hardware AMD/ANGLE Direct3D11. Nessun Chrome MCP richiesto.
+- Immagini finali e contact-sheet ispezionati, finale a piena risoluzione; buona
+  separazione gerarchia e testo, requisito e URL nei margini. Creata board con sei
+  elementi class frame, title/time e link alle PNG full-res; note chiariscono che
+  annotazioni dei blocchi e icona placeholder saranno sostituite, non montate nel film.
+- STORYBOARD plan approved, sketch pending_approval, frame built solo per pose
+  statiche e layout_approved false; aggiornati BRIEF/AGENTS/status e piano/memoria.
+
+Non eseguiti: lint/check/render come da eccezione esplicita del solo sketch pass;
+nessuna capture Android, audio o animazione. Successivo checkpoint: approvazione
+boards/storyboard.html o correzioni delle sole scene nominate, poi costruzione.
+
+Chiusura bozzetti: board aperta nel browser predefinito con Start-Process.
+Validazione Node una tantum nel temp approvato: PASS sei mount, ID/timeline
+corrispondenti, totale 60 s, sei PNG collegati 1080×1920 e stati di revisione.
+Primo tentativo inline non eseguito per quoting PowerShell, ripetuto con script
+temp riuscito. git diff --check senza errori, soli avvisi LF/CRLF.
+History end riuscito a5efc069 (+ parti precedenti del turno); usage dopo bozzetti
+ancora unknown/unsupported_harness. Attesa approvazione layout, nessun render.
+
+## 2026-10-18 — VIDEO-T02, bozzetti approvati e composizione reale pronta
+
+Utente «approvo i bozzetti». History begin dfd78493, fonti/progetto preservati;
+usage unknown/unsupported_harness. Auth status HeyGen signed-out riportato verbatim;
+question per musica, scelta esplicita «Composizione locale (Recommended)».
+
+- Creato tools/Generate-VideoAssets.cjs: base/clic originali deterministici 96 BPM,
+  tre brani di prova e cover PNG originali. Nessun campione di terzi/provider pagato.
+  MP3 con metadati e cover codificati via ffmpeg del container Navidrome già presente.
+- Allestita istanza Docker separata walktape-video-demo (4534, volume dedicato),
+  account effimero con segreti soltanto local/video-fixtures/server.env ignorato.
+  Nessuna modifica al server personale4533. Creato profilo dimostrativo nell'AVD
+  esistente senza eliminare UI check preesistente; login/indicizzazione 3brani reali.
+- Riprese via ADB su walktape_aosp (override1080×1920/density320): album/libreria,
+  player Play, coda/nome, creazione La mia mixtape, download completati 3×1,1MB,
+  toggle Solo offline confermato true. Server4534 arrestato PRIMA della riproduzione
+  playlist scaricata, stato In riproduzione/posizione avanzante acquisiti e registrati.
+  Catture autentiche, attese sintetizzate con tagli; non nuovi test Motorola/Auto.
+  Fallimenti intermedi uiautomator null/stale e tap form HTTP risolti con nuova
+  lettura gerarchia; nessuna schermata con credenziali montata nel video.
+- tools/prepare-media.cjs nel video produce crop/letterbox, due video muti 30fps
+  1080×1400 e conversione meccanica SVG dell'icona Android. Fonte/provenienza in
+  assets/PROVENANCE.md, raw in captures, derivati in media. Dipendenze video esatte
+  ffmpeg-static/ffprobe-static e lockfile, nessuna installazione globale.
+- Sei scene completate sui layout approvati, titoli alle finestre confermate,
+  unico zoom1–2,5s, prima pressione Play/~0,8s con clic80ms, base fino60s e fade finale.
+  Cinque assertion motion in index.motion.json. Lint iniziale0errori/2warning;
+  primo check senza sidecar passato. Check con sidecar trova wrapperfinale fullheight
+  +4px fuori canvas durante entrata: corretto gruppo contenuti intrinseco, assertion
+  mantenuta. Check e snapshot concorrenti avevano lockhistory: finale in sequenza.
+- Check finale CLI0.8.171 c817729f-df3b-43f8-997e-a0c4811179b1: oktrue,
+  browserSkippedfalse, runtime/layout0, motion300campioni/0errori, contrast14/14.
+  Warning revisionati: cinque tagli stessa scena, media offline startlocale10s;
+  timeline verifica assoluto45–50s e continuità50–54s, nessun timing ambiguo reale.
+- Snapshot9pose, contact sheet e primi30s ispezionati; finale57/59,95 ricontrollato.
+  Keyframes camera e prova selettore ispezionati. Animation-map bootstrap prima
+  fallito/nooutput; producer171 dipende da core171 non pubblicato (ETARGET).
+  Helperproducer/core170 installati scoped con ignore-scripts, lock esatto, npm0vuln;
+  mappa generata/revisionata33/60tween, warning di selettori generici/duplicati e
+  soste deliberate confrontati con pixel/check. CLI/check rimangono171.
+- Audio sorgente volumedetect:59,5s/44,1kHz stereo, mean−25,6dB/max−8,7dBFS;
+  assenza clipping sorgente verificata, ascolto/mix codificato ancora da verificare
+  dopo render. Design-adherence verificata: palette/font/layout, nessun effetto vietato.
+- Preview --background ha dato errore harness ChildProcess.kill; --status conferma
+  daemon19816 attivo, HTTP200 e apertura browser riusciti. URL Studio:
+  http://127.0.0.1:3002/#project/walktape-la-tua-musica. Preview lasciata per revisione.
+- Cleanup AVD: app fermata, wm size/density reset (fisici1080×2400/420), scale
+  animazioni1, file wt-video-* noti rimossi, emu kill. Demo Docker fermo, servizi
+  preesistenti restano soli attivi. Fixture profilo/download conservati solo in AVD.
+
+Aggiornati STORYBOARD(animated/layoutapproved), BRIEF, AGENTS, QA, status,
+PLAN/memoria. Stato: costruzione verificata, VIDEO-T02 attesa conferma render.
+Nessun MP4 finale, commit/push o pubblicazione. Prossimo passo: render o correzioni
+secondo risposta utente sull'anteprima; successiva verifica ffprobe/mix/frame decodificati.
+
+Chiusura: git diff --check senza errori; ignore di server.env, node_modules e WAV
+generati confermato. adb devices vuoto. Preview --status finale conferma daemon
+19816 attivo. Usage ancora unknown/unsupported_harness. History end finale riporta
+«Nothing changed in this turn» (le revisioni dei check erano già registrate);
+nessuna nuova snapshot di turno dichiarata. Render in attesa di approvazione.
+
+## 2026-10-18 — VIDEO-T03, feedback visivo e proposta immagini
+
+Utente apprezza apertura/finale e tutte le sequenze con cassetta in riproduzione;
+chiede sostituzione degli screenshot parziali e propone immagini generate.
+Letta skill studio §0; verificata timeline con CLI. Proposta scritta in STORYBOARD:
+preservare0–8,45–54 e firma54–60, sostituire8–20/20–35/35–45 con immagini per
+raccolta/mixtape/musica da portare. Due look da definire (illustrazione locale
+coerente al brand o still life fotorealistico da provider), mantenendo durata/audio.
+Nessuna composizione modificata o immagine prodotta prima della scelta; aggiornata
+memoria e piano, render precedente sospeso. Prossimo passo: scelta look, tre immagini
+da revisionare, poi sostituzione mirata e verifiche. History begin e9aab61b.
+
+## 2026-10-18 — VIDEO-T03, direzione A illustrata realizzata
+
+Utente «A, seguo il tuo consiglio»: scelta illustrazioni originali locali.
+History begin7ea548c1, controllo nessun cambiamento esterno. Usage unknown come
+prima. Letti i tre frame interessati, frame.md e assertion; timeline verificata.
+
+- Disegnati tre SVG originali (raccolta dischi/copertine, cassetta personale,
+  cassetta+cuffie+mappa) nella palette originale, senza font/testi incorporati,
+  fotografie, copertine di terzi o modelli AI. assets/illustrations comprende SVG,
+  PNG1080×1400 e provenienza. Rasterizzatore tools/rasterize-illustrations.cjs.
+- Primo tentativo Puppeteer senza Chrome155 fallito; Chrome153 completo timeout;
+  headless-shell153 già presente riuscito, nessuna installazione browser/modello.
+  Tre immagini ispezionate a risoluzione piena prima del montaggio.
+- Sostituiti media in frame2/3 e prime10s frame4: singola illustrazione per scena
+  con titoli esistenti e soste. Video player45–50 invariato. Assertion sostituite
+  per i nuovi selettori, resto del check semantico conservato. Apertura/playerfinale/
+  firma (frame1/5/6) identici per git hash-object prima/dopo (hash in QA.md).
+- Creata boards/illustrations.html con le tre immagini affiancate e collegamento
+  al montaggio aggiornato. Aggiornati STORYBOARD (trattamenti correnti2/3/4),
+  BRIEF, frame.md e PROVENANCE per il nuovo perimetro visivo approvato.
+- Check0.8.171 oktrue, browserSkippedfalse, runtime/layout/motion0errori,
+  contrast14/14,300campioni motion, lint0/1. Warning unico startlocale10 del
+  videooffline già verificato come45assoluto. Report non salvato per lockhistory
+  preview19816, JSON completo letto; nessun artefatto report inventato.
+- Snapshot iniziale fallita senza ffmpegPATH; ripetuta con binari locali del
+  progetto nel solo processo: seiPNG5,5/10/24/39/52/57s in proofs/illustrated,
+  contact sheet e dettagli ispezionati. Tipografia, colori e immagini leggibili.
+
+Stato: revisione costruita/verificata, pronta a feedback finale, nessun renderMP4,
+commit/push o pubblicazione. Piano/memoria/QA/status aggiornati. Prossimo passo:
+revisione immagini e montaggio o conferma render sulla nuova versione.
+
+Chiusura VIDEO-T03: history end7ea548c1 riuscito (+una parte precedente), preview
+19816 confermata attiva e HTTP200, aperti gallery e Studio nel browser. git diff
+--check senza errori (soli avvisi LF/CRLF). Nessun render avviato.
+
+## 2026-10-18 — VIDEO-T04, nuova musica synth-pop anni80
+
+Utente «va bene» sulle illustrazioni, richiede musica «più anni80» e «molto più
+ritmata». History begin7189ab3a, nessun cambiamento esterno. Timelineaudio iniziale
+96BPM, source0,8–60s, volume0,85 verificata. Prosegue produzione locale già scelta.
+
+- Creato tools/compose-retro80.cjs nel video: base strumentale originale120BPM,
+  cassa su ogni quarto, snare/clap a coda corta, hats16mi, basso in ottave,
+  accordi detunati, sequencer, tema originale e variazioni; nessun campione/modello
+  o brano altrui. Nuovo WAV59,2s/44100/stereo e retro80-provenance.json;
+  sorgente picco−1,7/RMS−15,0dBFS. Vecchiasset96BPM non sovrascritti.
+- In index.html cambiati solo src/gain della musica a0,9 e corrispondente lane;
+  offset0,8/durata59,2/fade56,7–59,2 locali conservati, clic e visual immutati.
+- Prova mix con FFmpeg di musica+clic (gain/lane/offset identici): WAV60s,
+  mean−16,0/max−2,6dBFS senza clipping. FFprobe60,000000s,PCM16/stereo44100.
+  Non è renderMP4 e non attesta ascolto estetico umano o futura codifica AAC.
+- Check0.8.171 oktrue/browsereseguito, runtime/layout0, motion300campioni/0,
+  contrast14/14, lint0/1warninglocaleofflinegiàvalutato. JSONverificato ma report
+  non salvato per lockpreview19816. Nessuna nuova snapshot necessaria per cambio
+  soloaudio. Pagina ascolto boards/music.html con prova mix completo e linkStudio.
+- Aggiornati BRIEF/frame/STORYBOARD (120BPM come richiesta musicale corrente,
+  nessun retimingvisivo), PROVENANCE/READMEaudio/QA/status, PLAN e memoria.
+
+Stato: musica sostituita e verificata tecnicamente; prossimo passo ascolto utente
+e conferma render o correzioni. Nessun servizioautenticato, renderMP4 o pubblicazione.
+
+Chiusura VIDEO-T04: history end7189ab3a riuscito, paginaascolto e Studio aperti,
+preview19816 attiva/HTTP200. git diff --check senza errori (soli avvisiLF/CRLF).
+
+## 2026-10-18 — VIDEO-T05, render approvato e MP4 locale verificato
+
+Utente risponde «ok, come funziona, devo scaricare io il video?» alla richiesta
+di conferma render. Chiarito exportlocale e avviato. History begin8c0f8bcb,
+nessun cambiamento esterno; usage unknown/unsupported_harness; upgradecheck
+confermaCLI0.8.171giàcorrente. Nuovo output, nessun file preesistente sovrascritto.
+
+- Comando: `npx.cmd -y hyperframes@0.8.171 render --quality delivery --fps 30
+  --workers 2 --output renders/walktape-60s-retro80.mp4`, binariffmpeg/ffprobe
+  locali nel PATH del solo processo. Riuscito4m55,2s,1800frame acquisiti/encodati.
+  Screenshot capture/hardwareGPU; compile3,6/extract9,2/audio11,5/probe1/setup1,7/
+  capture195,9/encode68,3/assemble1,8s. Nessun servizioesterno di rendering usato.
+- Output4.155.158byte. FFprobe:60,000000s,1080×1920,30/1fps,1800frame,
+  H264High/yuv420p/BT709, AAC-LC48000Hz/stereo. Creato tools/verify-render.cjs:
+  assertion effettive PASS,metadata JSON e9frame decodificati in proofs/rendered.
+- Contact sheet e dettagli0,4/5,5/10/24/39/47/52/57/59,95ispezionati; player reale,
+  illustrazioni, testi e firma finale corrispondono all'anteprima campionata.
+- AudioAAC del MP4 decodificato con volumedetect: mean−16,1/max−2,3dBFS,
+  nessun clipping rilevato. Ascolto umano completo/output su telefono non eseguiti,
+  non dichiarati superati. È verifica dell'esportazione, non collaudo Android app.
+- Aggiornati stato/QA/BRIEF/STORYBOARD/AGENTS, PLAN e memoria. Il file è locale
+  e ignorato da Git, nessun upload/pubblicazione o commit/push.
+
+Stato: VIDEO-T05 completato, MP4 pronto da aprire/copiare dal computer. Prossimo
+passo: consegnare il percorso; eventuali ulteriori revisioni solo su richiesta,
+preservando l'artefatto verificato. Preview lasciata aperta per modifiche.
+
+Chiusura VIDEO-T05: Explorer avviato sulla selezione del MP4; git diff --check
+senza errori (soli avvisi LF/CRLF), ignore dell'artefatto confermato. Feedback
+tecnico generico9/10 inviato senza nomi/percorsi di progetto; CLI risponde thanks
+con avviso sul REPRO COMMAND mancante, nessun secondo report duplicato.
+History end8c0f8bcb riuscito. Nessun upload del video o pubblicazione.
+
+## 2026-10-18 — DOCS-T01, illustrazione della cassetta nel README
+
+Utente chiede di usare nel README la stessa immagine della cassetta presente
+nel video. Riutilizzata l'illustrazione originale della scena «La mia mixtape»:
+videos/walktape-la-tua-musica/assets/illustrations/02-mixtape.png, già ispezionata
+e disponibile. Inserita sotto il titolo README con allineamento centrale,
+larghezza360px e testo alternativo italiano; nessuna copia o rigenerazione asset.
+Verificati file immagine/percorso relativo e struttura del README; aggiornati
+PLAN e PROJECT_MEMORY. Nessun test/build Android pertinente a questa modifica
+documentale. Stato: completato localmente; nessun commit/push richiesto.
+
+## 2026-10-18 — REPO-T01, preflight commit e push autorizzati
+
+Utente «molto bene fai commit e push». Esaminati git status, diff/stat, ultimi10
+commit, branch/remoto e lista completa file non tracciati. main/origin main su
+9c7e92e, fetch origin riuscito senza aggiornamenti. Modifiche sono gli incrementi
+skill/video/README/documentazione richiesti in questa sessione, nessun codice app.
+
+Preflight scopre cache Studio .thumbnails/.waveform-cache non ignorate: aggiunte
+al .gitignore video senza cancellarle. Vecchio ignore globale mp4/wav avrebbe
+escluso media richiesti dall'HTML: aggiunte eccezioni solo per due video sorgente,
+base120BPM, clic e prova audio della pagina ascolto. Renders/cache/deps/segreti e
+local/ restano ignorati. Guida videos/README aggiornata per riaprire con npm ci e
+binari FFmpeg scoped. Render e verifiche già eseguiti; controlli per commit in corso.
+Stato REPO-T01 aperto fino a commit/push e riscontro remoto verificati.
+
+Controlli dello staging REPO-T01:504file,423testuali e circa35,1MB complessivi;
+scanner locale dei blob staged senza token/chiavi rilevati, nessun percorso
+local/env/cache/node_modules/renders incluso, nessun blob >=50MiB. Tutti gli
+asset src della composizione e l'immagine README presenti nello staging.
+git diff --cached --check senza errori; nessun file app/ incluso. Verifiche video
+e render precedenti restano applicabili, nessuna modifica applicativa da ricompilare.
+
+Primo tentativo commit non creato: Git Author identity unknown. Ultimi3commit
+concordano sull'identità pubblica del manutentore; usate variabili autore/committer
+del solo processo per mantenerla. Nessuna git config globale/locale modificata.
