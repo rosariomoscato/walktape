@@ -12,6 +12,7 @@
 
 Manutenzione strumenti 2026-10-15: rimossa su richiesta la skill di progetto `deploy-an-app` e la relativa voce nel lockfile. Nessun cambio ai task funzionali o al punto di ripresa W07-T01.
 Manutenzione strumenti 2026-10-18: rimossa su richiesta la skill di progetto `create-brand-kit` e la relativa voce nel lockfile. Nessun cambio ai task funzionali o al punto di ripresa (collaudi residui).
+Pubblicazione 2026-10-18: v0.1.1/code3 latest su GitHub, sorgente e614ea8; APK e checksum pubblici verificati. Nessuna checkbox hardware/Auto chiusa dalla pubblicazione; resta il collaudo utente dell'aggiornamento in-place.
 - Durante le wave aggiornare memoria e log, senza aspettare la fine del progetto.
 
 ## Wave 00 — Specifica e continuità

@@ -1,17 +1,22 @@
 # WalkTape — memoria di progetto
 
-Ultimo aggiornamento: 2026-10-18 (pubblicazione v0.1.1/code3 autorizzata; build release e firma verificate; upload e download pubblico da completare).
+Ultimo aggiornamento: 2026-10-18 (v0.1.1/code3 pubblicata latest, APK e checksum pubblici verificati; collaudi hardware/Auto residui aperti).
 
-## Punto corrente — pubblicazione v0.1.1 autorizzata
+## Punto corrente — v0.1.1 pubblicata
 
-- Commit 6227173 (skill) e b6e85e1 (correzioni review) creati; preparazione release
-  con versionName 0.1.1/code3, schema Room 13 e documenti aggiornati.
+- Commit 6227173 (skill), b6e85e1 (correzioni review), e614ea8 (preparazione release)
+  pubblicati su main. Tag annotato v0.1.1 sul sorgente e614ea8, con schema Room 13.
 - Build release/lint riuscita in 12m41s. APK firmato V2, stesso certificato della
   v0.1.0; SHA256 `4a6149aa38ca36b06aa673f442fb900666afd0cc73d1b645404df12cd4f250ed`.
   File ignorati in `local/releases/v0.1.1/`: APK universal e SHA256SUMS.txt.
-- Prossima azione: commit preparazione, push, tag v0.1.1, draft con asset, verifica
-  download, pubblicazione latest e controllo pubblico. Non confondere preparazione
-  con pubblicazione già eseguita. Collaudi hardware/Auto residui restano aperti.
+- Release normale latest pubblicata 2026-10-18T10:15:58Z:
+  https://github.com/rosariomoscato/walktape/releases/tag/v0.1.1
+  APK 19.917.839 byte + SHA256SUMS.txt (95 byte), entrambi uploaded. Download draft
+  e pubblico anonimo con hash identico; API latest anonima conferma v0.1.1;
+  checksum pubblico verificato. Firma del binario locale identica alla v0.1.0.
+- Prossima azione: sul telefono aggiornare da Impostazioni → Aggiornamenti app
+  oppure installare il nuovo APK in-place, senza disinstallare. Flusso interattivo
+  ancora da collaudare dall'utente; collaudi hardware/Auto residui restano aperti.
 
 ## Baseline precedente — v0.1.0 pubblicata; collaudi residui
 

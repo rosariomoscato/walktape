@@ -1756,3 +1756,19 @@ alla v0.1.0 (60e9a71f…b178c); SHA256
 APK e checksum preparati sotto local/releases/v0.1.1 (ignorati). Note e link aggiornati;
 precisato che un checksum non pubblicato non sostituisce il gate firma obbligatorio.
 Pubblicazione e verifica download da registrare al termine. Nessun nuovo collaudo hardware.
+
+### Pubblicazione v0.1.1 completata
+
+Commit e614ea8 (preparazione release e schema13) e push main riusciti. Tag annotato
+v0.1.1 sul sorgente e614ea869ce9da3c5afb2f007a7bb233e3ac3d51; SHA remoto verificato.
+Release creata draft con due soli asset, APK riscaricato via gh e hash verificato,
+quindi pubblicata normale latest il 2026-10-18T10:15:58Z:
+https://github.com/rosariomoscato/walktape/releases/tag/v0.1.1
+Download pubblico anonimo via curl riuscito: APK 19.917.839 byte e SHA256 identico
+4a6149aa38ca36b06aa673f442fb900666afd0cc73d1b645404df12cd4f250ed.
+Digest asset GitHub coincidente; SHA256SUMS.txt pubblico (95 byte) contiene esattamente
+hash e nome APK; API latest anonima restituisce v0.1.1. Firma locale V2 verificata,
+certificato stabile identico a v0.1.0. Nessuna sostituzione di tag/asset precedenti.
+Aggiornamenti finali di memoria/piano/log pubblicati con commit documentale successivo.
+Nessun aggiornamento installato sul telefono e nessun collaudo interattivo attestato:
+prossimo passo utente, aggiornare in-place via checker o APK senza disinstallare.
