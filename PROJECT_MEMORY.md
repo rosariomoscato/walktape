@@ -1,22 +1,37 @@
 # WalkTape — memoria di progetto
 
-Ultimo aggiornamento: 2026-10-18 (REL-B04-T02: utente conferma «Funziona bene» e autorizza commit/push/versione/APK pubblico; preparazione v0.2.0/code4, Room13 invariato).
+Ultimo aggiornamento: 2026-10-18 (v0.2.0/code4 pubblicata latest, sorgenti/tag e download pubblico verificati; Room13 invariato, collaudi puntuali hardware/Auto ancora aperti).
 
-## Corrente — pubblicazione B04 autorizzata, preparazione v0.2.0
+## Corrente — v0.2.0 pubblicata, incremento B04 distribuito
 
 - Utente: «Funziona bene, quindi direi di fare commit, push, aggiornare il numero di
   versione, rendere disponibile l'apk, fare tutto quello che c'è da fare». Autorizzati
   esplicitamente commit/push/tag/release/APK; scelta v0.2.0/code4 per le nuove funzioni.
   Riscontro generale positivo dopo consegna B04, non checklist puntuale hardware.
-- Task **REL-B04-T02**: aggiornato app/build.gradle.kts a0.2.0/code4; build release
-  firmata+lint in corso/preparazione, poi commit sorgenti e push ordinario, tag annotato,
-  draft con APK universal+checksum, verifica download e pubblicazione normale latest.
-- Preflight: HEAD95f0400/main allineato dopo fetch, modifiche B04 e tre note preesistenti
-  preservate; gh autenticato, latest ancora0.1.1, tag0.2.0 assente. Segreti/APK/local/
-  NEXT_PROMPT ignorati, firma stabile da local/signing.env senza esposizione di segreti.
-  Nessuna modifica a Room13/D41/D42 o a video/asset/skill. Residui hardware/Auto aperti.
+- **REL-B04-T01→T04 completati**: sorgenti/versione/note nel commit
+  **a02e728c5b56c6c5551bb397b407b95db7549e41**,43file, push ordinario main riuscito;
+  tag annotato **v0.2.0** sul medesimo commit. Note della pubblicazione nel commit
+  documentale successivo. Preesistenti note B04 preservate, nessun segreto/APK in Git.
+- Release normale **Latest pubblicata2026-10-18T21:01:58Z**:
+  **https://github.com/rosariomoscato/walktape/releases/tag/v0.2.0**.
+  Due asset: walktape-universal-0.2.0.apk (19.936.723byte) e SHA256SUMS.txt (95byte).
+  Download APK+checksum draft e pubblico anonimo verificati; APIlatest anonimaHTTP200,
+  tag0.2.0. SHA256 **14319fe60dd45b63e88612171d8d6f220c8dbbbc64a5e9fe71bc7b0df9e78123**.
+- Build assembleRelease/lintRelease verde28m49s, lint0/46. CodiceB04 invariato dopo
+  197/197 JVM e prove AOSP sottostanti (taskJVM UP-TO-DATE). Congelato il commit e
+  rigenerati metadato VCS+APK in29s: revision interno corrispondente al tag. Manifest
+  com.walktape.app/0.2.0/code4, nondebuggable, quattroABI e firmaV2 verificati anche
+  sul download anonimo; certificato stabile60e9a71f...b178c identico a0.1.1.
+- File locali ignorati: **local/releases/v0.2.0/** (APK, checksum, note e draft-check).
+  Nessuna modifica a vecchi tag/asset pubblici, Room13/D41/D42, video/render/skill o
+  credenziali. Nessuna nuova prova su Motorola/installer interattivo in questa fase.
+- **Prossima azione**: sul telefono aggiornare da Impostazioni → Aggiornamenti app,
+  oppure APKpubblico in-place senza disinstallare; raccogliere eventuali difetti e gli
+  esiti puntuali residui di local/PHONE_TESTS_B04.md. Il riscontro «Funziona bene» non
+  chiude automaticamente TalkBack/clic/aptica, W05–W09, W10Auto, W11/W12. Nuovi
+  sviluppi/commit/push/release soltanto su nuova richiesta dopo questa pubblicazione.
 
-## B04 corrente — software consegnato; T05 collaudo Motorola aperto
+## Baseline B04 prima della release — software consegnato; T05 puntuale aperto
 
 - A WM-2 e C WM-F5 Sports approvate entrambe; TPS-L2 default, tre modelli totali.
   Definizioni immutabili centralizzate/riuso player, selettore IT/EN/DataStore, backupv1

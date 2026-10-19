@@ -244,6 +244,7 @@ e [WM-F5](https://www.sony.com/en/SonyInfo/design/gallery/WM-F5/), fotografie co
 - Selettore con miniature statiche originali senza musica fittizia, nomi IT/EN,
   singola selezione radio accessibile e testo a capo. Nessun nuovo font/dipendenza.
 
-Rilascio B04 v0.2.0/code4 autorizzato dopo riscontro utente «Funziona bene».
+Rilascio B04 v0.2.0/code4 autorizzato dopo riscontro utente «Funziona bene» e pubblicato
+come release normale latest, con risorse visive approvate conservate.
 Questo conferma il collaudo generale, senza attestare separatamente ogni prova
 TalkBack/feedback o chiudere i residui hardware precedenti. Nessun nuovo look introdotto.

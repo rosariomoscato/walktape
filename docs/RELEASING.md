@@ -1,6 +1,32 @@
 # WalkTape — firma e pubblicazione APK
 
-## Artefatto v0.1.1
+## Artefatto v0.2.0
+
+| Campo | Valore |
+| --- | --- |
+| Tag / commit sorgente | `v0.2.0` / `a02e728c5b56c6c5551bb397b407b95db7549e41` |
+| Package | `com.walktape.app` |
+| Versione / code | `0.2.0` / `4` |
+| Asset | `walktape-universal-0.2.0.apk` |
+| Tipo / dimensione | release non debuggable, minify disabilitato / 19.936.723 byte |
+| Android minimo / target | API26 / API36 |
+| ABI | arm64-v8a, armeabi-v7a, x86, x86_64 |
+| SHA256 APK | `14319fe60dd45b63e88612171d8d6f220c8dbbbc64a5e9fe71bc7b0df9e78123` |
+| Certificato SHA256 | `60e9a71f990819c44b2a07a6fc9254925a0d87414c36495f85feb9ffde7b178c` |
+
+Build assembleRelease/lintRelease riuscita28m49s, lint0errori/46avvisi; JVM del codice
+B04 invariato197/197 (task UP-TO-DATE). Dopo congelamento del commit, metadato VCS
+e pacchetto rigenerati in29s: il revision incorporato nell'APK coincide con il commit
+del tag. Manifest, quattro ABI, firmaV2 e certificato verificati sul file finale,
+sul download draft e sul download pubblico anonimo. Room13 invariato.
+
+[Release v0.2.0](https://github.com/rosariomoscato/walktape/releases/tag/v0.2.0)
+pubblicata come normale latest il2026-10-18T21:01:58Z, due asset APK+SHA256SUMS.txt.
+API latest anonimaHTTP200/tag0.2.0; APK pubblicoHTTP200 e digest identico alla tabella,
+checksum pubblico coerente. L'installer interattivo sul telefono resta una prova
+distinta; nessun aggiornamento forzato o disinstallazione necessari.
+
+## Artefatto v0.1.1 (storico)
 
 | Campo | Valore |
 | --- | --- |
@@ -36,7 +62,7 @@ candidato locale con hash `139A391A…` non è l'artefatto di questa pubblicazio
 Il codice applicativo è quello del commit sorgente; gli aggiornamenti documentali della
 pubblicazione sono successivi su `main`.
 
-## Verifiche della distribuzione
+## Verifiche della distribuzione v0.1.0 (storico)
 
 Release normale latest pubblicata il2026-10-17T19:31:05Z; API latest senza autenticazione
 HTTP200 e tagv0.1.0, due soli asset APK+checksum. APK riscaricato pubblicamente:
@@ -70,7 +96,7 @@ Da PowerShell nella radice del progetto, con la configurazione locale pronta:
 
 ```powershell
 $env:JAVA_HOME = "C:\Program Files\Android\Android Studio\jbr"
-.\gradlew.bat :app:assembleRelease :app:lintRelease "-Dkotlin.compiler.execution.strategy=in-process" --max-workers=2 --console=plain
+.\gradlew.bat :app:assembleRelease :app:lintRelease "-Dkotlin.compiler.execution.strategy=in-process" -Pkotlin.compiler.execution.strategy=in-process --max-workers=2 --console=plain
 
 $apk = "app\build\outputs\apk\release\app-release.apk"
 Get-FileHash $apk -Algorithm SHA256
@@ -80,6 +106,13 @@ Get-FileHash $apk -Algorithm SHA256
 Controllare package/versione, firma e variante release prima di distribuire; senza
 configurazione firma non considerare pubblicabile un APK unsigned. Registrare il
 commit sorgente e l'hash dell'artefatto effettivo, senza confonderli con build precedenti.
+Congelare il commit sorgente prima della build: AGP incorpora il revision Git nell'APK.
+Se il commit è stato creato dopo la prima build, rigenerare il metadato e il pacchetto
+senza cambiare i sorgenti, poi ricalcolare l'hash e controllare il revision incorporato:
+
+```powershell
+.\gradlew.bat --no-configuration-cache :app:extractReleaseVersionControlInfo --rerun :app:assembleRelease "-Dkotlin.compiler.execution.strategy=in-process" -Pkotlin.compiler.execution.strategy=in-process --max-workers=2 --console=plain
+```
 
 ## Pubblicazione del manutentore
 
@@ -102,9 +135,9 @@ il pacchetto creare una nuova versione.
 
 ## Versioni successive
 
-Incrementare **sia versionName sia versionCode** oltre0.1.0/code2. Le build di sviluppo
-già chiamate0.1.0 non ricevono un'offerta in-app per la prima release con lo stesso nome:
-installazione manuale in-place, come descritto in [UPDATES.md](UPDATES.md).
+Incrementare **sia versionName sia versionCode** oltre0.2.0/code4. La build di sviluppo
+B04 denominata0.1.1/code3 riceve l'offerta0.2.0, con stessa firma e dati conservati,
+come descritto in [UPDATES.md](UPDATES.md).
 Un nuovo nome versione con code non crescente verrebbe comunque rifiutato dal verifier.
 
 La pubblicazione non chiude i collaudi Auto/hardware residui: [note di rilascio](RELEASE_NOTES.md).

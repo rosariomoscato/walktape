@@ -2429,3 +2429,45 @@ le prove B04 già verdi; JVM della build di rilascio è UP-TO-DATE197/197.
 AGP incorpora il revision Git nel version-control-info: congelare ora il commit
 sorgente, poi rigenerare quel metadato e il pacchetto release sul commit definitivo,
 prima di calcolare checksum/tag/pubblicazione. Build release/lint iniziale ancora in corso.
+
+## 2026-10-18 — REL-B04-T02→T04 completati, v0.2.0 pubblicata Latest
+
+Commit sorgente **a02e728c5b56c6c5551bb397b407b95db7549e41**,43file,
+«Skin WM-2 e Sports e preparazione release v0.2.0»,1520inserimenti/122rimozioni.
+Identità per-processo uguale ai commit precedenti, nessuna git config modificata.
+Build assembleRelease/lintRelease riuscita **28m49s**, lint **0errori/46avvisi**;
+JVM UP-TO-DATE sul codice B04 già verificato **197/197,0skip**. Non rieseguite le
+suite Android già verdi: solo versionName/code modificati dopo il collaudo B04.
+Log completi wt-release-020-build.log/.err nel temp/opencode, nessun errore.
+
+AGP aveva incorporato il precedente HEAD durante la prima build. Dopo congelamento
+sorgenti rigenerati extractReleaseVersionControlInfo (--rerun, no-configuration-cache)
+e assembleRelease in **29s**, log wt-release-020-package.log. Codice/dex invariati;
+revision interno verificato **a02e728**, uguale al commit del tag. APK finale:
+com.walktape.app,0.2.0/code4, non debuggable, APImin26/target36, quattroABI,
+19.936.723byte, firmaV2 valida con lo stesso certificato delle release precedenti.
+SHA256 **14319fe60dd45b63e88612171d8d6f220c8dbbbc64a5e9fe71bc7b0df9e78123**.
+CertSHA25660e9a71f990819c44b2a07a6fc9254925a0d87414c36495f85feb9ffde7b178c.
+
+Push ordinario main95f0400→a02e728 riuscito. Tag annotato **v0.2.0** creato/pushato
+sullo stesso commit (oggetto tag260aaee1d01e1eb5c264befa6c03d90acc0ff9eb);
+SHA main/tag peeled remoti verificati. Draft creata con gh e due asset universalAPK+
+SHA256SUMS95byte; download draft riscaricato, package/versione/cert/VCS/hash verificati.
+Pubblicata come normale **Latest il2026-10-18T21:01:58Z**:
+https://github.com/rosariomoscato/walktape/releases/tag/v0.2.0
+
+Verifica pubblica **senza autenticazione** con curl HTTPS-only: APIlatestHTTP200,
+tagv0.2.0/draftfalse/prereleasefalse, un solo APK+checksum uploaded. APK pubblicoHTTP200,
+19.936.723byte e SHA256 identico; nuova verifica firmaV2/certificato, package/code4,
+nondebuggable/ABI/revisionPASS sul download anonimo. SHA256SUMS pubblicoHTTP200/95byte,
+digest e nomeAPK coerenti. Vecchie release/tag/asset non modificati. Il percorso
+installer interattivo sul telefono non è stato esercitato in questa fase: disponibilità
+pubblica e contratto updater verificati, non prova di installazione sul Motorola.
+
+Artifact e note locali ignorati in local/releases/v0.2.0; NEXT_PROMPT/checklist aggiornati,
+nessun segreto/APK in Git. Guide RELEASING/RELEASE_NOTES/ARCHITECTURE, PLAN/memoria e
+DESIGN riallineati al pubblicato in questo commit documentale, senza modifiche app
+rispetto al tag. Riscontro «Funziona bene» registrato come generale positivo;
+B04-T05 puntuale e residui hardware/Auto precedenti restano aperti. Nuova azione utente:
+aggiornamento in-place da Impostazioni→Aggiornamenti app oppure APKpubblico manuale,
+senza disinstallare. Ulteriori modifiche/pubblicazioni soltanto su nuova richiesta.

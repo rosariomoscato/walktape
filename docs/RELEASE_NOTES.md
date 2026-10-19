@@ -13,6 +13,13 @@ Tre modelli del lettore — Android 8.0+ (API26), Navidrome.
   Controlla aggiornamenti, oppure installazione manuale sopra l'app esistente.
   Firma stabile, nessuna disinstallazione; dati e download conservati.
 
+SHA256 APK:
+`14319fe60dd45b63e88612171d8d6f220c8dbbbc64a5e9fe71bc7b0df9e78123`.
+
+Release normale latest pubblicata2026-10-18T21:01:58Z. APK e checksum riscaricati
+pubblicamente senza autenticazione: HTTP200, digest coincidente; firmaV2, package,
+code4 e metadato sorgente del tag verificati. Build release/lint riuscita (0/46).
+
 ### Cosa cambia
 
 - **WM-2 · Argento tecnico**: scocca argento, fascia grafite con dettaglio diagonale

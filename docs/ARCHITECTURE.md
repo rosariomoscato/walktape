@@ -1,14 +1,15 @@
 # WalkTape — architettura e verifiche
 
-## Distribuzione v0.1.1 — riferimento corrente
+## Distribuzione v0.2.0 — riferimento corrente
 
-APK release `walktape-universal-0.1.1.apk`, versionCode3, package `com.walktape.app`;
-sorgente applicativo e614ea8/tag v0.1.1, con correzioni D42 e Room13. Baseline
-192/192 JVM, lint0errori/46avvisi, firma V2 verificata, variante non debuggable.
-SHA256 `4a6149aa38ca36b06aa673f442fb900666afd0cc73d1b645404df12cd4f250ed`.
+APK release `walktape-universal-0.2.0.apk`, versionCode4, package `com.walktape.app`;
+sorgente `a02e728c5b56c6c5551bb397b407b95db7549e41`/tag v0.2.0, B04 con D41/D42 e
+Room13 conservati. Baseline197/197 JVM, lint release0errori/46avvisi, firmaV2 e variante
+non debuggable verificate anche sul download pubblico. Metadato VCS interno uguale al tag.
+SHA256 `14319fe60dd45b63e88612171d8d6f220c8dbbbc64a5e9fe71bc7b0df9e78123`.
 
 Metadati, certificato pubblico, comando build e pubblicazione: [RELEASING.md](RELEASING.md).
-Download: [GitHub v0.1.1](https://github.com/rosariomoscato/walktape/releases/tag/v0.1.1).
+Download: [GitHub v0.2.0](https://github.com/rosariomoscato/walktape/releases/tag/v0.2.0).
 Le note404/assenza release e i digest precedenti nelle sezioni storiche sotto si riferiscono
 alle rispettive verifiche, non all'artefatto corrente. La pubblicazione non chiude i
 collaudi Auto/hardware residui ([note](RELEASE_NOTES.md)).
@@ -495,7 +496,8 @@ dispositivo: da eseguire (emulatore/telefono) e registrare nel WORKLOG.
 Approvate due skin aggiuntive WM-2 e WM-F5 Sports (A/C della tavola B04-T01), con
 TPS-L2 predefinito. `PlayerModel` conserva ID espliciti `tps-l2`, `wm-2`, `wm-f5`:
 DataStore `player_model`, assente/ignoto→TPS-L2. Nessuna migrazione Room (resta13),
-nessuna nuova dipendenza o modifica alla versione0.1.1/code3.
+nessuna nuova dipendenza. Implementazione iniziale nella build di sviluppo0.1.1/code3,
+poi pubblicata in v0.2.0/code4 su richiesta dopo riscontro generale positivo dell'utente.
 
 `PlayerSkin`/`SkinGradient` sono value object immutabili; `PlayerSkins` centralizza
 materiali per scocca, fascia, finestra/cassetta, tasti, bordi, testi, bobine e dettagli.
